@@ -1,0 +1,27 @@
+[    
+    {
+        "nombre": "Cristal", 
+        "precioCompra": "800", 
+        "precioVenta": "1500",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "CR", 
+        "precioCompra": "500 ", 
+        "precioVenta": "700",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Policarbonato", 
+        "precioCompra": "2000", 
+        "precioVenta": "3000",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Polarizado", 
+        "precioCompra": "1200", 
+        "precioVenta": "1500",
+        "estatus": "Activo"
+    }
+
+]

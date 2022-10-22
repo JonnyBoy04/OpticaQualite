@@ -1,0 +1,27 @@
+[    
+    {
+        "nombre": "Muñequito", 
+        "precioCompra": "1000", 
+        "precioVenta": "1500",
+        "existencias": "30",
+        "marca": "Pikachu",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Lazo", 
+        "precioCompra": "100", 
+        "precioVenta": "150",
+        "existencias": "20",
+        "marca": "Lumares",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Placa", 
+        "precioCompra": "1000", 
+        "precioVenta": "1500",
+        "existencias": "10",
+        "marca": "Pincho",
+        "estatus": "Activo"
+    }
+
+]

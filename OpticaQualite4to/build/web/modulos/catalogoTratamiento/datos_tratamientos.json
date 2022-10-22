@@ -1,0 +1,22 @@
+[    
+    {
+        "nombre": "Liquido especial", 
+        "precioCompra": "1000", 
+        "precioVenta": "1500",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Limpiador retactil", 
+        "precioCompra": "500 ", 
+        "precioVenta": "700",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "luces led", 
+        "precioCompra": "1200", 
+        "precioVenta": "1500",
+        "estatus": "Activo"
+    }
+
+]
+

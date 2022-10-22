@@ -1,0 +1,81 @@
+<!-- Modulo de Lentes de Contacto -->
+<main>
+    <div class="text-white barraSup text-center justify-content-center">
+        <h2>Gestión de Lentes De Contacto</h2>  
+    </div>
+    <div id="form" style="display: none;">
+        <form action="" class="formulario" id="formulario">
+            <!-- Nombre -->
+            <div class="formulario__grupo" id="grupo__nombreLDC">
+                <label for="txtnombreLDC" class="formulario__label">Nombre</label>
+                <div class="formulario__grupo" id="grupo__nombreLDC">
+                    <input type="text" class="formulario__input align-center" name="nombreLDC" id="txtnombreLDC" placeholder="Nombre">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- Marca -->
+            <div class="formulario__grupo" id="grupo__marcaL">
+                <label for="txtmarcaL" class="formulario__label">Marca</label>
+                <div class="formulario__grupo" id="grupo__marcaL">
+                    <input type="text" class="formulario__input" name="marcaL" id="txtmarcaL" placeholder="marca">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <div class="formulario__grupo" id="grupo__colorL">
+                <label for="txtcolorL" class="formulario__label">color</label>
+                <div class="formulario__grupo" id="grupo__colorL">
+                    <input type="text" class="formulario__input" name="colorL" id="txtcolorL" placeholder="color">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- Apellido Materno -->
+            <div class="formulario__grupo" id="grupo__queraL">
+                <label for="txtqueraL" class="formulario__label">Queratometría</label>
+                <div class="formulario__grupo" id="grupo__queraL">
+                    <input type="text" class="formulario__input" name="queraL" id="txtqueraL" placeholder="quera">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+        </form>
+        <div class="d-flex justify-content-around botones">
+            <button title="Agregar Lente" class="btn btn-success btn-lg" onclick="moduloLDC.agregarLC();" id="btnAddLente"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Limpiar Lente" class="btn btn-info btn-lg" onclick="moduloLDC.clean();" id="btnClean"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+            <button title="Modificar Lente" class="btn btn-warning btn-lg disabled" onclick="moduloLDC.modificarLente();" id="btnUpdateLente"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button title="Borrar Lente" class="btn btn-danger btn-lg disabled" onclick="moduloLDC.deleteLente();" id="btnDeleteLente"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between m-3">
+        <div>
+            <label for="txtBusquedaLente" class="form-label mx-3">Buscar Lente</label>
+            <input type="text" id="txtBusquedaLente">
+            <button class="btn btn-primary mx-2" onclick="moduloLDC.buscarLente();">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+        <div>
+            <button id="desplegar">Agregar</button>
+            <button id="listar" style="display: none;" class="learn-more">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Ver lista</span>
+            </button>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Color</th>
+                <th>Queratometría</th>
+                <th>Estatus</th>
+            </tr>
+        </thead>
+        <tbody id="tblLentesC">
+        </tbody>
+    </table>
+</main>

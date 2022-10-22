@@ -1,0 +1,47 @@
+[    
+    {
+        "nombre": "Solución desinfectante", 
+        "marca": "Opti-free",
+        "descripcion":"Botella de Repuesto de Solución Salina de 16 oz.",
+        "precioCompra":"150",
+        "precioVenta": "350", 
+        "existencias": "350", 
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Limpiador especial", 
+        "marca": "Opti-free",
+        "descripcion":"Solucion de limpieza para lentes, limpia huellas dactilares, residuos y polvo",
+        "precioCompra":"1500",
+        "precioVenta": "2300", 
+        "existencias": "400", 
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Opti Clear SOLUCION", 
+        "marca": "Opti-free", 
+        "descripcion":"Limpiador especial de lentes oftalmicos con paño de microfibra no abrasivo para Limpieza.",
+        "precioCompra":"1700",
+        "precioVenta": "2350", 
+        "existencias": "300", 
+        "estatus": "Activo"
+    },
+    {
+        "nombre": " kit AntiFog Defender", 
+        "marca": "Zeiss", 
+        "descripcion":"Puede usarse en lentes polarizados, lentes blue-ray, lentes fotocromaticos y lentes antirreflejantes.",
+        "precioCompra":"1500",
+        "precioVenta": "3350", 
+        "existencias": "500", 
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Fogfree Opticlear", 
+        "marca": "Opti-free", 
+        "descripcion":"Solución para lentes de contacto Renu plus 500 ml. Limpia, desinfecta, remueve proteínas, enjuaga, humecta, conserva.",
+        "precioCompra":"1000",
+        "precioVenta": "2350", 
+        "existencias": "150", 
+        "estatus": "Activo"
+    }
+]

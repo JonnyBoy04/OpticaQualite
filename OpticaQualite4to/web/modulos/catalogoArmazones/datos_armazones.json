@@ -1,0 +1,38 @@
+[    
+    {
+        "nombre": "Saint Laurent Eyewear", 
+        "marca": "Optic",
+        "modelo": "SLE12",
+        "color": "Negro",
+        "descripcion": "Diseño de montura: Animal print. Material de varilla: Mezcla de materiales.",
+        "codigo": "OQ01",
+        "precio_venta": "500", 
+        "precio_compra": "220", 
+        "existencia": "20", 
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Eyewear", 
+        "marca": "Optic",
+        "modelo": "SL106",
+        "color": "Blanco",
+        "descripcion": "Es ligera, resistente, menos propensas al agrietamiento, resistentes al impacto.",
+        "codigo": "OQ02",
+        "precio_venta": "600", 
+        "precio_compra": "100", 
+        "existencia": "50", 
+        "estatus": "Activo"   
+    },
+    {
+        "nombre": "Wayfarer", 
+        "marca": "Optic",
+        "modelo": "SLE29",
+        "color": "Azul",
+        "descripcion": "Resistente a impactos, brinda mayor claridad, cuenta con antirreflejante y protección UV.",
+        "codigo": "OQ03",
+        "precio_venta": "250", 
+        "precio_compra": "70", 
+        "existencia": "40", 
+        "estatus": "Activo"
+    }
+]

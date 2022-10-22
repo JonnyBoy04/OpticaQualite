@@ -1,0 +1,23 @@
+[    
+    {
+        "nombreL": "Gaspermeables", 
+        "marcaL": "Clarity", 
+        "colorL": "Traslucidos", 
+        "queraL": "1.1.0", 
+        "estatus": "Activo"
+    },
+    {
+        "nombreL": "PMMA", 
+        "marcaL": "Acuvue", 
+        "colorL": "Azul", 
+        "queraL": "2.1.5", 
+        "estatus": "Activo"
+    },
+    {
+        "nombreL": "Fantasy", 
+        "marcaL": "Lunare", 
+        "colorL": "Rojo", 
+        "queraL": "5.2.3", 
+        "estatus": "Activo"
+    }
+]

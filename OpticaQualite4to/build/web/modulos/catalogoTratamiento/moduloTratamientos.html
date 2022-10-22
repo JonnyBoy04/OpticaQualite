@@ -1,0 +1,75 @@
+<!-- Modulo de Tratamientos -->
+<main>
+    <div class="text-white barraSup text-center ">
+        <h2>Gestión de Tratamiento</h2> 
+    </div>
+    <div id="form" style="display: none;">
+        <form class="formulario col-lg-5" id="formulario">
+            <!-- Nombre del Tratamiento -->
+            <div class="formulario__grupo" id="grupo__nombreT">
+                <label for="txtNombreTratamiento" class="formulario__label">Nombre del Tratamiento</label>
+                <div class="formulario__grupo" id="grupo__nombreT">
+                    <input id="txtNombreTratamiento" type="text" class="formulario__input" name="nombreT" placeholder="nombre" class="mt-2">
+                    <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo obligatorio</p>
+            </div>
+            <!-- Precio del Tratamiento -->
+            <div class="formulario__grupo" id="grupo__precioCT">
+                <label for="txtPrecioCompraTratamiento" class="formulario__label">Precio Compra</label>
+                <div class="formulario__grupo" id="grupo__precioCT">
+                    <input id="txtPrecioCompraTratamiento" type="number" class="formulario__input" name="precioCT" placeholder="precio de Compra" class="mt-2">
+                    <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">El precio de compra solo puede<br>contener numeros</p>
+            </div>
+            <!-- Venta del Tratamiento -->
+            <div class="formulario__grupo" id="grupo__precioVT">
+                <label for="txtPrecioVentaTratamiento" class="formulario__label">Precio venta</label>
+                <div class="formulario__grupo" id="grupo__precioVT">
+                    <input id="txtPrecioVentaTratamiento" type="number" class="formulario__input" name="precioVT" placeholder="precio de Venta" class="mt-2">
+                    <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">El precio de venta solo puede<br>contener numeros</p>
+            </div>
+        </form>
+        <div class="d-flex justify-content-around botones">
+            <button title="Agregar Tratamiento" class="btn btn-success btn-lg" onclick="moduloTratamientos.agregarTratamiento();" id="btnAddTra"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Limpiar Tratamiento" class="btn btn-info btn-lg" onclick="moduloTratamientos.clean();" id="btnCleanTra"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+            <button title="Modificar Tratamiento" class="btn btn-warning btn-lg disabled" onclick="moduloTratamientos.modificarTratamiento();" id="btnUpdateTra"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button title="Borrar Tratamiento" class="btn btn-danger btn-lg disabled" onclick="moduloTratamientos.deleteTratamiento();" id="btnDeleteTra"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        </div>
+    </div>
+    <!-- Tabla de datos -->
+    <hr>
+    <div class="d-flex justify-content-between m-3">
+        <div>
+             <label for="txtBusquedaTratamiento" class="form-label mx-3">Buscar Tratamiento</label>
+            <input type="text" id="txtBusquedaTratamiento">
+            <button class="btn btn-primary mx-2" onclick="moduloTratamientos.buscarTratamiento();">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
+            <button class="btn btn-primary mx-2" onclick="moduloTratamientos.loadTabla();">Consultar <i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+        <div>
+            <button id="desplegar">Agregar</button>
+            <button id="listar" style="display: none;" class="learn-more">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Ver lista</span>
+            </button>
+        </div>
+    </div>
+        <table class="tabla table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio C.</th>
+                    <th>Precio V.</th>
+                    <th>Estatus</th>
+                </tr>
+            </thead>
+            <tbody id="tblTratamiento">
+            </tbody>
+        </table>
+</main>
+

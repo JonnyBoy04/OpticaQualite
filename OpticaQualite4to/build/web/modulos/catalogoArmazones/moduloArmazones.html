@@ -1,0 +1,132 @@
+<!-- Modulo de Armazones -->
+<main>
+    <div class="text-white barraSup text-center justify-content-center">
+        <h2>Gestión de Armazones</h2>  
+    </div>
+    <div id="form" style="display: none;">
+        <form action="" class="formulario" id="formulario">
+            <!-- Calve unica -->
+            <div>
+                <label for="txtCodigoB" class="formulario__label">Código de Barras</label>
+                <div id="codigoB">
+                    <svg id="codigoBarra"></svg>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- Nombre -->
+            <div class="formulario__grupo" id="grupo__nombreAr">
+                <label for="txtNombreArm" class="formulario__label">Nombre del Armazón</label>
+                <div class="formulario__grupo" id="grupo__nombreAr">
+                    <input id="txtNombreArm" type="text" name="nombreAr" class="formulario__input">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- marca -->
+            <div class="formulario__grupo" id="grupo__marca">
+                <label for="txtMarca" class="formulario__label">Marca</label> 
+                <div class="formulario__grupo" id="grupo__marca">
+                    <input type="text" class="formulario__input" name="marca" id="txtMarca" placeholder="Marca">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- modelo -->
+            <div class="formulario__grupo" id="grupo__modelo">
+                <label for="txtModelo" class="formulario__label">Modelo</label>
+                <div class="formulario__grupo" id="grupo__modelo">
+                    <input type="text" class="formulario__input" name="modelo" id="txtModelo" placeholder="Modelo"> 
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- color -->
+            <div class="formulario__grupo" id="grupo__color">
+                <label for="txtColor" class="formulario__label">Color</label>
+                <div class="formulario__grupo" id="grupo__color">
+                    <input type="text" class="formulario__input" name="color" id="txtColor" placeholder="Color">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- Descripción  -->
+            <div class="formulario__grupo" id="grupo__descripcion">
+                <label for="txtDesc" class="formulario__label">Descripción</label>
+                <div class="formulario__grupo" id="grupo__descripcion">
+                    <input type="text" class="formulario__input" name="descripcion" id="txtDesc" placeholder="Descripción">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- precioVenta -->
+            <div class="formulario__grupo" id="grupo__precioven">
+                <label for="txtPrecioVenta" id="">Precio de Venta</label>
+                <div class="formulario__grupo" id="grupo__precioven">
+                    <input type="number" class="formulario__input" name="precioven" id="txtPrecioVenta" placeholder="Precio de Ventas">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">El precio de venta solo puede contener numeros</p>
+            </div>
+            <!-- precioCompra -->
+            <div class="formulario__grupo" id="grupo__preciocom">
+                <label for="txtPrecioCompra" id="">Precio de Compra</label>
+                <div class="formulario__grupo" id="grupo__preciocom">
+                    <input type="number" class="formulario__input" name="preciocom" id="txtPrecioCompra" placeholder="Precio de Compra">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">El precio de compra solo puede contener numeros</p>
+            </div>
+            <!-- Existencias -->
+            <div class="formulario__grupo" id="grupo__existencias">
+                <label for="txtExis" id="">Existencias</label>
+                <div class="formulario__grupo" id="grupo__existencias">
+                    <input type="number" class="formulario__input" name="existencias" id="txtExis" placeholder="Precio de Ventas">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Las existencias solo puede contener numeros</p>
+            </div>
+        </form>
+        <div class="d-flex justify-content-around botones">
+            <button title="Agregar Armazon" class="btn btn-success btn-lg" onclick="moduloArmazones.registrarArmazones();" id="btnAddArm"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Limpiar Formulario" class="btn btn-info btn-lg" onclick="moduloArmazones.limpiarFormulario();" id="btnCleanArm"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+            <button title="Modificar Armazon" class="btn btn-warning btn-lg disabled" onclick="moduloArmazones.ActualizarArmazon();" id="btnUpdateArm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button title="Borrar Armazon" class="btn btn-danger btn-lg disabled" onclick="moduloArmazones.borrarArmazon();" id="btnDeleteArm"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between m-3">
+        <div>
+             <label for="txtBusquedaArmazón" class="form-label mx-3">Buscar Armazón</label>
+            <input type="text" id="txtBusquedaArmazon">
+            <button class="btn btn-primary mx-2" onclick="moduloArmazones.buscarArmazon();">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+        <div>
+            <button id="desplegar">Agregar</button>
+            <button id="listar" style="display: none;" class="learn-more">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Ver lista</span>
+            </button>
+        </div>
+    </div>
+    <table class="tabla table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Codigo de barras</th>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Color</th>
+                <th>Descricpción</th>
+                <th>precioVenta</th>
+                <th>precioCompra</th>
+                <th>Existencias</th>
+                <th>Estatus</th>
+            </tr>               
+        </thead>
+        <tbody id="tblArmazones">
+        </tbody>
+    </table>
+</main>
+
+

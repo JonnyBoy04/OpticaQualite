@@ -1,0 +1,72 @@
+[    
+    {
+        "nombre": "Simón Jonathan", 
+        "apellido_paterno": "Zendejas", 
+        "apellido_materno": "Gutierrez",
+        "usuario": "Simon_Jon",
+        "contrasenia": "JonnyBoy26",
+        "genero": "Masculino", 
+        "rfc": "ZEGS880326XXX", 
+        "telefono": "4773328803", 
+        "telefono_movil": "4779074784",
+        "correo_electronico": "14simonjonathan@gmail.com", 
+        "numero_unico_empleado": "ZEG001",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Carlos Alejandro", 
+        "apellido_paterno": "Sanchez", 
+        "apellido_materno": "Jimenez",
+        "usuario":"Carlos_Ale",
+        "contrasenia":"CarlosJimenez22",
+        "genero": "Masculino", 
+        "rfc": "SAJC880326XXX", 
+        "telefono": "4791531707", 
+        "telefono_movil": "4791531707",
+        "correo_electronico": "carlossanchezjimenez79@gmail.com", 
+        "numero_unico_empleado": "SAJ002",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Karla Edith", 
+        "apellido_paterno": "Ortiz", 
+        "apellido_materno": "",
+        "usuario":"Karla_Edi",
+        "contrasenia":"KarlaEdithO11",
+        "genero": "Femenino", 
+        "rfc": "ORXK880326XXX", 
+        "telefono": "4881223221", 
+        "telefono_movil": "4881223221",
+        "correo_electronico": "karlaedirhO@gmail.com", 
+        "numero_unico_empleado": "ORX003",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Gustavo Adolfo", 
+        "apellido_paterno": "Ramirez", 
+        "apellido_materno": "Muñiz",
+        "usuario":"Gustavo_Adol",
+        "contrasenia":"GustavoRamirez03",
+        "genero": "Masculino", 
+        "rfc": "RAMA880326XXX", 
+        "telefono": "4776875724", 
+        "telefono_movil": "4776875724",
+        "correo_electronico": "gustavoarammuniz@gmail.com", 
+        "numero_unico_empleado": "RAM004",
+        "estatus": "Activo"
+    },
+    {
+        "nombre": "Eduardo Ulises", 
+        "apellido_paterno": "Hernández", 
+        "apellido_materno": "Medina",
+        "usuario":"Eduardo_Uli",
+        "contrasenia":"EduardoUlises29",
+        "genero": "Masculino", 
+        "rfc": "HEME290326XXX", 
+        "telefono": "4773980764", 
+        "telefono_movil": "4779087389",
+        "correo_electronico": "eduardoU@gmail.com", 
+        "numero_unico_empleado": "HEM005",
+        "estatus": "Activo"
+    }
+]
