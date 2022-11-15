@@ -1,0 +1,125 @@
+<!-- Modulo de Clientes -->
+<main>
+    <div class="text-white barraSup text-center justify-content-center">
+        <h2>Gesti&oacute;n de Clientes</h2>  
+    </div>
+    <div id="form" style="display: none;">
+        <form action="" class="formulario" id="formulario">
+        <!-- Numero Unico -->
+            <div>
+                <label for="txtNumUnico" class="formulario__label">N&uacute;mero unico</label>
+                <input id="txtNumUnico" type="text" class="formulario__input mt-2"  readonly placeholder="Número unico">
+            </div>
+            <!-- Nombre -->
+            <div class="formulario__grupo" id="grupo__nombre">
+                <label for="txtNombre" class="formulario__label">Nombre(s)</label>
+                <div class="formulario__grupo" id="grupo__nombre">
+                    <input type="text" class="formulario__input" name="nombre" id="txtNombre" placeholder="Nombre (s)">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- Apellido Paterno -->
+            <div class="formulario__grupo" id="grupo__apellidoP">
+                <label for="txtApePaterno" class="formulario__label">Apellido Paterno</label>
+                <div class="formulario__grupo" id="grupo__apellidoP">
+                    <input type="text" class="formulario__input" name="apellidoP" id="txtApePaterno" placeholder="Apellido Paterno">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <!-- Apellido Materno -->
+            <div class="formulario__grupo" id="grupo__apellidoM">
+                <label for="txtApeMaterno" class="formulario__label">Apellido Materno</label>
+                <div class="formulario__grupo" id="grupo__apellidoM">
+                    <input type="text" class="formulario__input" name="apellidoM" id="txtApeMaterno" placeholder="Apellido Materno">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+            </div>
+            <!-- Genero -->
+            <div class="genero">
+                <label class="">G&eacute;nero</label>
+                <select class="form-select form-select-sm" id="txtGenero" name="txtGenero">
+                    <option value="Masculino" >Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+            <!-- RFC -->
+            <div class="formulario__grupo" id="grupo__rfc">
+                <label for="txtRfc" class="formulario__label">RFC</label>
+                <div>
+                    <input type="text" class="formulario__input" name="rfc" id="txtRfc" placeholder="RFC">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">El RFC debe contener 13 digitos y solo puede contener numeros, letras.</p>
+            </div>
+            <!-- Telefono Fijo -->
+            <div class="formulario__grupo" id="grupo__telefono">
+                <label for="txtTelefono" class="formulario__label">Tel&eacute;fono</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="formulario__input" name="telefono" id="txtTelefono" placeholder="Telefono fijo">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">El tel&eacute;fono solo puede contener numeros y el maximo son 10 dígitos.</p>
+            </div>
+            <!-- Telefono Movil -->
+            <div class="formulario__grupo" id="grupo__telefonoM">
+                <label for="txtMovil" class="formulario__label">Teléfono Movil</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="formulario__input" name="telefonoM" id="txtMovil" placeholder="Telefono Movil">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">El tel&eacute;fono solo puede contener numeros y el maximo son 10 d&iacute;gitos.</p>
+            </div>
+            <!-- Correo Electronico -->
+            <div class="formulario__grupo" id="grupo__correo">
+                <label for="txtCorreo" class="formulario__label">Correo Electrónico</label>
+                <div class="formulario__grupo-input">
+                    <input type="email" class="formulario__input" name="correo" id="txtCorreo" placeholder="correo@ejemplo.com">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.</p>
+            </div>
+        </form>
+        <div class="d-flex justify-content-around botones">
+            <button title="Agregar Cliente" class="btn btn-success btn-lg" onclick="moduloCliente.agregarCliente();" id="btnAdd"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button title="Limpiar formulario" class="btn btn-info btn-lg" onclick="moduloCliente.clean();" id="btnClean"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+            <button title="Modificar Cliente" class="btn btn-warning btn-lg disabled" onclick="moduloCliente.modificarCliente();" id="btnUpdate"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button title="Borrar Cliente" class="btn btn-danger btn-lg disabled" onclick="moduloCliente.deleteCliente();" id="btnDelete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            <!-- Nuevo boton para reactivar inactivos -->
+            <button title="Reactivar Cliente" class="btn btn-dark btn-lg disabled" onclick="moduloCliente.reactivateCliente();" id="btnReactive"><i class="fa fa-check" aria-hidden="true"></i></button>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between m-3">
+        <div>
+            <label for="txtBusquedaCliente" class="form-label mx-3">Buscar Cliente</label>
+            <input type="text" id="txtBusquedaCliente">
+            <button class="btn btn-primary mx-2" onclick="moduloCliente.buscarCliente();">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
+            <button class="btn btn-primary mx-2" onclick="moduloCliente.loadTabla();">Consultar <i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+        <div>
+            <button id="desplegar">Agregar</button>
+            <button id="listar" style="display: none;" class="learn-more">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Ver lista</span>
+            </button>
+        </div>
+    </div>
+    <table class="tabla table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre(s)</th>
+                <th>Apellidos</th>
+                <th>G&eacute;nero</th>
+                <th>Tel&eacute;fono Movil</th>
+                <th>Estatus</th>
+            </tr>
+        </thead>
+        <tbody id="tblClientes">
+        </tbody>
+    </table>
+</main>
