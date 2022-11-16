@@ -29,14 +29,14 @@ function iniciarSesion() {
                      </li>\n\
                      <li><a onclick=""><i class="icono der fa fa-chevron-down" aria-hidden="true"></i>Productos</a>\n\
                          <ul>\n\
-                             <li><a onclick="cargarModuloArmazon();">Armazones</a>\n\
-                             </li>\n\
-                             <li><a onclick="cargarModuloAccesorios();">Accesorios</a>\n\
-                             </li>\n\
-                             <li><a onclick="cargarModuloSoluciones();">Soluciones</a>\n\
-                             </li>\n\
-                             <li><a onclick="cargarmoduloLDC();">Lentes de contacto</a>\n\
-                             </li>\n\
+                         <li><a onclick="cargarModuloAccesorios();">Accesorios</a>\n\
+                         </li>\n\
+                         <li><a onclick="cargarModuloArmazon();">Armazones</a>\n\
+                         </li>\n\
+                         <li><a onclick="cargarModuloSoluciones();">Soluciones</a>\n\
+                         </li>\n\
+                         <li><a onclick="cargarmoduloLDC();">Lentes de contacto</a>\n\
+                         </li>\n\
                         </ul>\n\
                      </li>\n\
                      <li><a onclick="cargarModuloExamenVista();">Examenes de la vista</a>\n\

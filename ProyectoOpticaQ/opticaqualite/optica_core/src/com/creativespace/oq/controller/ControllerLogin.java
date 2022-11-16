@@ -11,8 +11,6 @@ import com.creativespace.oq.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -20,6 +18,13 @@ import java.util.List;
  */
 public class ControllerLogin {
     
+    /**
+     * Con este metodo se traen todos los datos del empleado donde coincida su usuario y contraseña
+     * @param usuario
+     * @param contrasenia
+     * @return
+     * @throws Exception 
+     */
      public Empleado login(String usuario, String contrasenia) throws Exception {
         //La consulta SQL a ejecutar:
         String sql = "SELECT * FROM v_empleados VE WHERE VE.nombreUsuario = ? AND VE.contrasenia = ?";
@@ -55,6 +60,12 @@ public class ControllerLogin {
         return emp;
     }
      
+     /**
+      * Con el metodo fill se llenan los atributos del empleado, persona y usuario
+      * @param rs
+      * @return
+      * @throws Exception 
+      */
      private Empleado fill(ResultSet rs) throws Exception {
         Empleado e = new Empleado();
         Persona p = new Persona();
@@ -90,6 +101,4 @@ public class ControllerLogin {
 
         return e;
     }
-
-    
 }

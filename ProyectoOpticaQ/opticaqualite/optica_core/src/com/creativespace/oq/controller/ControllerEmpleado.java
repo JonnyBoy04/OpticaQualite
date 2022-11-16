@@ -13,8 +13,19 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
 
+/**
+ * Clase controlador para empleado
+ * @author jonnyboy
+ */
 public class ControllerEmpleado {
 
+    /**
+     * IsAdmin nos permite comprobar si un empleado registrado es administrador o empleado ordinario
+     * se recibe como parametro un empleado el cual se comprueba si es nulo o su usuario y su nombre
+     * de usuario estan nulos no es Admin 
+     * @param e
+     * @return 
+     */
     public static boolean isAdmin(Empleado e) {
         if (e == null || e.getUsuario() == null || e.getUsuario().getNombre() == null) {
             return false;
@@ -23,6 +34,14 @@ public class ControllerEmpleado {
         }
     }
 
+    /**
+     * Se crea la instruccion de MySQL para llamar el procedimiento almacenado para agregar un empleado
+     * se asignan se llenan los 9 parametros, 18 de ellos son datos del armazon los otros 5 son los ID's y 
+     * clave unica generados en la base de datos
+     * @param e
+     * @return
+     * @throws Exception 
+     */
     public int insert(Empleado e) throws Exception {
         //Definimos la consulta SQL que invoca al Stored Procedure:
         String sql = "{call insertarEmpleado(?, ?, ?, ?, ?, ?, ?, ?,"+ // Datos Personales
@@ -96,6 +115,12 @@ public class ControllerEmpleado {
         return idEmpleadoGenerado;
     }
 
+    /**
+     * Se ejecuta el procedimiento almacenado que actualiza el empleado seleccionado,
+     * el procedimiento recibe 21 parametros los cuales son los datos del empleado a actualizar
+     * @param e
+     * @throws Exception 
+     */
     public void update(Empleado e) throws Exception {
         //Definimos la consulta SQL que invoca al Stored Procedure:
         String sql = "{call actualizarEmpleado(  ?, ?, ?, ?, ?, ?, ?, "+ //Datos Personales
@@ -143,6 +168,12 @@ public class ControllerEmpleado {
         connMySQL.close();
     }
 
+    /**
+     * Se ejecuta una instrucción donde se elimina un empleado de manera logica (se cambia es estatus a 0)
+     * en este metodo solo se recibe un parametro que es el id del empleado a eliminar
+     * @param id
+     * @throws Exception 
+     */
     public void delete(int id) throws Exception {
         String sql = "UPDATE empleado SET estatus = 0 WHERE idEmpleado = "+id;
         
@@ -154,6 +185,12 @@ public class ControllerEmpleado {
         connMySQL.close();
     }
 
+    /**
+     * Con este metodo se traen todos los datos de la vista v_empleados
+     * @param filtro
+     * @return
+     * @throws Exception 
+     */
     public List<Empleado> getAll(String filtro) throws Exception {
         //La consulta SQL a ejecutar:
         String sql = "SELECT * FROM v_empleados";
@@ -183,6 +220,13 @@ public class ControllerEmpleado {
         return empleados;
     }
 
+    /**
+     * Este metodo nos permite asignar los valores obtenidos de la vista de empleados en la base de datos y 
+     * son asignados a los atributos de empleado, persona y usuario
+     * @param rs
+     * @return
+     * @throws Exception 
+     */
     private Empleado fill(ResultSet rs) throws Exception {
         Empleado e = new Empleado();
         Persona p = new Persona();

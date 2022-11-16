@@ -134,7 +134,14 @@ public class ControllerAccesorio {
         connMySQL.close();
         return accesorios;
     }
-
+    
+    /**
+     * Este metodo nos permite asignar los valores obtenidos de la vista de accesorio en la base de datos y 
+     * son asignados a los atributos de accesorio y producto
+     * @param rs
+     * @return
+     * @throws Exception 
+     */
     private Accesorio fill(ResultSet rs) throws Exception {
         Accesorio a = new Accesorio();
         Producto p = new Producto();
