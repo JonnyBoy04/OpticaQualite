@@ -194,7 +194,7 @@ export function buscarAccesorio() {
                 '<td>$' + accesorio.precioCompra + '</td>' +
                 '<td>$' + accesorio.precioVenta + '</td>' +
                 '<td>' + accesorio.existencias + ' Pzas</td>' +
-                '<td>' + accesorio.estatus + '</td></tr>';
+                '<td>' + accesorio.producto.estatus + '</td></tr>';
         cuerpo += registro;
     });
     document.getElementById("tblAccesorio").innerHTML = cuerpo;
@@ -203,8 +203,8 @@ export function buscarAccesorio() {
 }
 
 export function seleccionarAccesorio(index) {
+    
     habilitarFormulario();
-
     document.getElementById("txtNombreAccesorio").value = accesorios[index].producto.nombre;
     document.getElementById("txtPrecioCompraA").value = accesorios[index].producto.precioCompra;
     document.getElementById("txtPrecioVentaA").value = accesorios[index].producto.precioVenta;
@@ -220,17 +220,15 @@ export function seleccionarAccesorio(index) {
             height: 30,
             displayValue: true
         });
-
     document.getElementById("btnDeleteAcc").classList.remove("disabled");
     indexAccesorioSeleccionado = index;
     
-    if (accesorios[index].estatus === 0) {
+    if (accesorios[index].producto.estatus === 0) {
         Swal.fire({
             icon: 'error',
             title: 'Accesorio eliminado',
             text: 'No podra modificar nada a menos que lo vuelva a activar'
         });
-        
         deshabilitarFormulario();
         document.getElementById("btnAddAcc").classList.add("disabled");
         document.getElementById("btnDeleteAcc").classList.add("disabled");

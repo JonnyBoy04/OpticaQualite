@@ -2,6 +2,7 @@
 let indexAccesorioSeleccionado;
 let accesorios = [];
 export function inicializar() {
+	/*Query para ocultar y mostrar el formulario y la tabla*/
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
@@ -17,9 +18,12 @@ export function inicializar() {
         $('#tabla').css('display','');
         $('#buscar').css('display','block');
     });
+	/*Se manda a llamar el metodo refrescar tabla*/
     refrescarTabla();
 }
 
+/*Metodo para guardar accesorio. Si el input de los id's esta nulos les da el valor de cero y de ese modo se inserta el empleado 
+y si en caso contrario no esta nulo, no lo inserta sino que lo modifica*/
 export function guardarAccesorio() {
     let datos = null;
     let params = null;
@@ -194,7 +198,7 @@ export function buscarAccesorio() {
                 '<td>$' + accesorio.precioCompra + '</td>' +
                 '<td>$' + accesorio.precioVenta + '</td>' +
                 '<td>' + accesorio.existencias + ' Pzas</td>' +
-                '<td>' + accesorio.estatus + '</td></tr>';
+                '<td>' + accesorio.producto.estatus + '</td></tr>';
         cuerpo += registro;
     });
     document.getElementById("tblAccesorio").innerHTML = cuerpo;
@@ -203,8 +207,8 @@ export function buscarAccesorio() {
 }
 
 export function seleccionarAccesorio(index) {
+    
     habilitarFormulario();
-
     document.getElementById("txtNombreAccesorio").value = accesorios[index].producto.nombre;
     document.getElementById("txtPrecioCompraA").value = accesorios[index].producto.precioCompra;
     document.getElementById("txtPrecioVentaA").value = accesorios[index].producto.precioVenta;
@@ -220,17 +224,15 @@ export function seleccionarAccesorio(index) {
             height: 30,
             displayValue: true
         });
-
     document.getElementById("btnDeleteAcc").classList.remove("disabled");
     indexAccesorioSeleccionado = index;
     
-    if (accesorios[index].estatus === 0) {
+    if (accesorios[index].producto.estatus === 0) {
         Swal.fire({
             icon: 'error',
             title: 'Accesorio eliminado',
             text: 'No podra modificar nada a menos que lo vuelva a activar'
         });
-        
         deshabilitarFormulario();
         document.getElementById("btnAddAcc").classList.add("disabled");
         document.getElementById("btnDeleteAcc").classList.add("disabled");
