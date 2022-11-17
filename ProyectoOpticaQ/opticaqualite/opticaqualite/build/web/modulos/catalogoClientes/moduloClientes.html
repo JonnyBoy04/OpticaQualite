@@ -5,10 +5,21 @@
     </div>
     <div id="form" style="display: none;">
         <form action="" class="formulario" id="formulario">
-        <!-- Numero Unico -->
             <div>
-                <label for="txtNumUnico" class="formulario__label">N&uacute;mero unico</label>
-                <input id="txtNumUnico" type="text" class="formulario__input mt-2"  readonly placeholder="Número unico">
+                <label for="txtNumUnico" class="formulario__label">Número unico</label><br>
+                <input id="txtNumUnico" type="text" class="formulario__input"  readonly class="mt-2">
+            </div>
+            <div class="Desactivado">
+                <!-- Id Persona -->
+                <div>
+                    <label class="formulario__label">Id Persona</label><br>
+                    <input id="txtCodigoPersona" type="text" class="formulario__input" readonly class="m-2">
+                </div>
+                <!-- Id Cliente -->
+                <div>
+                    <label class="formulario__label">Id Cliente</label><br>
+                    <input id="txtCodigoCliente" type="text" class="formulario__input" readonly class="m-2">
+                </div>
             </div>
             <!-- Nombre -->
             <div class="formulario__grupo" id="grupo__nombre">
@@ -40,12 +51,40 @@
             <div class="genero">
                 <label class="">G&eacute;nero</label>
                 <select class="form-select form-select-sm" id="txtGenero" name="txtGenero">
-                    <option value="Masculino" >Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                    <option value="Otro">Otro</option>
+                    <option value="M" >M</option>
+                    <option value="F">F</option>
+                    <option value="O">O</option>
                 </select>
             </div>
-            <!-- RFC -->
+            <div>
+                <label for="txtFechaNacimientoCli" class="formulario__label">fecha naciminto</label><br>
+                <input type="text" class="formulario__input" id="txtFechaNacimientoCli">
+            </div>
+            <div>
+                <label for="txtCalleCli" class="formulario__label">Calle</label> <br>
+                <input type="text" class="formulario__input" id="txtCalleCli">
+            </div>
+            <div>
+                <label for="txtNumeroCli" class="formulario__label">Numero</label><br>
+                <input type="text" class="formulario__input" id="txtNumeroCli">
+            </div>
+            <div>
+                <label for="txtColoniaCli" class="formulario__label">Colonia</label><br>
+                <input type="text" class="formulario__input" id="txtColoniaCli">
+            </div>
+            <div>
+                <label for="txtCpCli" class="formulario__label">cp</label><br>
+                <input type="text" class="formulario__input" id="txtCpCli">
+            </div>
+            <div>
+                <label for="txtCiudadCli" class="formulario__label">Ciudad</label><br>
+                <input type="text" class="formulario__input" id="txtCiudadCli">
+            </div>
+            <div>
+                <label for="txtEstadoCli" class="formulario__label">Estado</label><br>
+                <input type="text" class="formulario__input" id="txtEstadoCli">
+            </div>
+            <!-- RFC 
             <div class="formulario__grupo" id="grupo__rfc">
                 <label for="txtRfc" class="formulario__label">RFC</label>
                 <div>
@@ -53,7 +92,7 @@
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">El RFC debe contener 13 digitos y solo puede contener numeros, letras.</p>
-            </div>
+            </div>-->
             <!-- Telefono Fijo -->
             <div class="formulario__grupo" id="grupo__telefono">
                 <label for="txtTelefono" class="formulario__label">Tel&eacute;fono</label>
@@ -83,17 +122,16 @@
             </div>
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Cliente" class="btn btn-success btn-lg" onclick="moduloCliente.agregarCliente();" id="btnAdd"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button title="Agregar Cliente" class="btn btn-success btn-lg" onclick="moduloCliente.save();" id="btnAdd"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
             <button title="Limpiar formulario" class="btn btn-info btn-lg" onclick="moduloCliente.clean();" id="btnClean"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-            <button title="Modificar Cliente" class="btn btn-warning btn-lg disabled" onclick="moduloCliente.modificarCliente();" id="btnUpdate"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
             <button title="Borrar Cliente" class="btn btn-danger btn-lg disabled" onclick="moduloCliente.deleteCliente();" id="btnDelete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-            <!-- Nuevo boton para reactivar inactivos -->
-            <button title="Reactivar Cliente" class="btn btn-dark btn-lg disabled" onclick="moduloCliente.reactivateCliente();" id="btnReactive"><i class="fa fa-check" aria-hidden="true"></i></button>
+            <!-- Nuevo boton para reactivar inactivos
+            <button title="Reactivar Cliente" class="btn btn-dark btn-lg disabled" onclick="moduloCliente.reactivateCliente();" id="btnReactive"><i class="fa fa-check" aria-hidden="true"></i></button> -->
         </div>
     </div>
     <hr>
     <div class="d-flex justify-content-between m-3">
-        <div>
+        <div id="buscar">
             <label for="txtBusquedaCliente" class="form-label mx-3">Buscar Cliente</label>
             <input type="text" id="txtBusquedaCliente">
             <button class="btn btn-primary mx-2" onclick="moduloCliente.buscarCliente();">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
@@ -109,7 +147,7 @@
             </button>
         </div>
     </div>
-    <table class="tabla table table-striped table-bordered table-hover">
+    <table id="tabla" class="tabla table table-striped table-bordered table-hover">
         <thead class="table-dark">
             <tr>
                 <th>Nombre(s)</th>

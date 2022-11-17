@@ -42,6 +42,7 @@ function cargarModuloClientes() {
                         import("../modulos/catalogoClientes/scriptClientes.js").then(
                                 function (controller) {
                                     moduloCliente = controller;
+                                    moduloCliente.inicializar();
                                 }
                         );
                     }

@@ -2,7 +2,6 @@
 let indexAccesorioSeleccionado;
 let accesorios = [];
 export function inicializar() {
-	/*Query para ocultar y mostrar el formulario y la tabla*/
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
@@ -18,12 +17,9 @@ export function inicializar() {
         $('#tabla').css('display','');
         $('#buscar').css('display','block');
     });
-	/*Se manda a llamar el metodo refrescar tabla*/
     refrescarTabla();
 }
 
-/*Metodo para guardar accesorio. Si el input de los id's esta nulos les da el valor de cero y de ese modo se inserta el empleado 
-y si en caso contrario no esta nulo, no lo inserta sino que lo modifica*/
 export function guardarAccesorio() {
     let datos = null;
     let params = null;

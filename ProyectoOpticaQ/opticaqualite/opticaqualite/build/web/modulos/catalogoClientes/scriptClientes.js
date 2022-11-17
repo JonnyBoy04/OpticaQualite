@@ -2,18 +2,24 @@
 
 let indexClienteSeleccionado;
 let clientes = [];
+export function inicializar() {
+   $('#desplegar').on('click', function () {
+        $('#form').css('display', 'block');
+        $('#listar').css('display', 'block');
+        $('#desplegar').css('display', 'none');
+        $('#tabla').css('display','none');
+        $('#buscar').css('display','none');
+    });
 
-$('#desplegar').on('click', function (desplegar) {
-    $('#form').css('display', 'block');
-    $('#listar').css('display', 'block');
-    $('#desplegar').css('display', 'none');
-});
-
-$('#listar').on('click', function () {
-    $('#form').css('display', 'none');
-    $('#listar').css('display', 'none');
-    $('#desplegar').css('display', 'block');
-});
+    $('#listar').on('click', function () {
+        $('#form').css('display', 'none');
+        $('#listar').css('display', 'none');
+        $('#desplegar').css('display', 'block');
+        $('#tabla').css('display','');
+        $('#buscar').css('display','block');
+    });
+    refreshTable();
+}
 export function formarClaveUnica(apP, apM) {
     let apeM2;
     let timestamp = Date.now();
@@ -31,103 +37,161 @@ export function formarClaveUnica(apP, apM) {
 
     return claveUnica;
 }
+export function save() {
+    let datos = null;
+    let params = null;
+    let cliente = new Object();
 
-export function addCliente() {
-    let numero_unico_cliente,
-            nombre,
-            apellido_paterno,
-            apellido_materno,
-            genero,
-            rfc,
-            telefono,
-            telefono_movil,
-            correo_electronico;
+    cliente.persona = new Object();
 
-    numero_unico_cliente = document.getElementById("txtNumUnico").value;
-    nombre = document.getElementById("txtNombre").value;
-    apellido_paterno = document.getElementById("txtApePaterno").value;
-    apellido_materno = document.getElementById("txtApeMaterno").value;
-    telefono = document.getElementById("txtTelefono").value;
-    telefono_movil = document.getElementById("txtMovil").value;
-    correo_electronico = document.getElementById("txtCorreo").value;
-    rfc = document.getElementById("txtRfc").value;
-    genero = document.getElementById("txtGenero").value;
-    ;
+    if (document.getElementById("txtCodigoCliente").value.trim().length < 1) {
+        cliente.idCliente = 0;
+        cliente.persona.idPersona = 0;
+    } else {
+        cliente.idCliente = parseInt(document.getElementById("txtCodigoCliente").value);
+        cliente.persona.idPersona = parseInt(document.getElementById("txtCodigoPersona").value);
+    }
+
+    cliente.persona.nombre = document.getElementById("txtNombre").value;
+    cliente.persona.apellidoPaterno = document.getElementById("txtApePaterno").value;
+    cliente.persona.apellidoMaterno = document.getElementById("txtApeMaterno").value;
+    cliente.persona.genero = document.getElementById("txtGenero").value;
+    cliente.persona.fechaNacimiento = document.getElementById("txtFechaNacimientoCli").value;
+    cliente.persona.calle = document.getElementById("txtCalleCli").value;
+    cliente.persona.numero = document.getElementById("txtNumeroCli").value;
+    cliente.persona.colonia = document.getElementById("txtColoniaCli").value;
+    cliente.persona.cp = document.getElementById("txtCpCli").value;
+    cliente.persona.ciudad = document.getElementById("txtCiudadCli").value;
+    cliente.persona.estado = document.getElementById("txtEstadoCli").value;
+    cliente.persona.telCasa = document.getElementById("txtTelefono").value;
+    cliente.persona.telMovil = document.getElementById("txtMovil").value;
+    cliente.persona.email = document.getElementById("txtCorreo").value;
+    cliente.numeroUnico = document.getElementById("txtNumUnico").value;
+    //Comvierte un dato tipo Script a Cadena Json
+    datos = {
+        datosCliente: JSON.stringify(cliente)
+    };
 
 
-    let cliente = {};
-    cliente.numero_unico_cliente = formarClaveUnica(apellido_paterno, apellido_materno);
-    cliente.nombre = nombre;
-    cliente.apellido_paterno = apellido_paterno;
-    cliente.apellido_materno = apellido_materno;
-    cliente.telefono = telefono;
-    cliente.telefono_movil = telefono_movil;
-    cliente.correo_electronico = correo_electronico;
-    cliente.rfc = rfc;
-    cliente.genero = genero;
-    cliente.estatus = "Activo";
-    clientes.push(cliente);
-    clean();
-    loadTabla();
+    params = new URLSearchParams(datos);
+
+    //header es la cabecera de la petición y en body se mandan los parametros
+    fetch("api/cliente/save",
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                body: params
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+//                console.log(data);
+//                if (data.exception !== null) {
+//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+//                    return;
+//                }
+//                if (data.error !== null) {
+//                    Swal.fire('', data.error, 'warning');
+//                    return;
+//                }
+//                if (data.errorperm !== null) {
+//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+//                    return;
+//                }
+
+                document.getElementById("txtCodigoCliente").value = data.idCliente;
+                document.getElementById("txtCodigoPersona").value = data.persona.idPersona;
+                document.getElementById("txtNumUnico").value = data.numeroUnico;
+                Swal.fire('', 'Datos del cliente actualizados correctamente.', 'success');
+                refreshTable();
+                clean();
+            });
 }
 
-export function agregarCliente() {
-    if (campos.nombre && campos.apellidoP && campos.correo && campos.telefonoM) {
-        addCliente();
-        Swal.fire('Registro Guardado!', '', 'success');
-        document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-            icono.classList.remove('formulario__grupo-correcto');
-        });
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Datos incorrectos o vacios'
-        });
-    }
+//export function agregarCliente() {
+//    if (campos.nombre && campos.apellidoP && campos.correo && campos.telefonoM) {
+//        addCliente();
+//        Swal.fire('Registro Guardado!', '', 'success');
+//        document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+//            icono.classList.remove('formulario__grupo-correcto');
+//        });
+//    } else {
+//        Swal.fire({
+//            icon: 'error',
+//            title: 'Error',
+//            text: 'Datos incorrectos o vacios'
+//        });
+//    }
+//}
+export function refreshTable() {
+    let url = "api/cliente/getAll";
+    fetch(url)
+            .then(response => {
+                return response.json()
+            })
+            .then(function (data)
+            {
+                console.log(data);
+                //                if (data.exception !== null) {
+                //                    Swal.fire('',
+                //                            'Error interno del servidor. Intente nuevamente más tarde',
+                //                            'error'
+                //                            );
+                //                    return;
+                //                }
+                //                if (data.error !== null) {
+                //                    Swal.fire('', data.error, 'warning');
+                //                    return;
+                //                }
+                //                if (data.errorsec !== null) {
+                //                    Swal.fire('', data.errorsec, 'error');
+                //                    window.location.replace('index.html');
+                //                    return;
+                //                }
+                loadTabla(data);
+            });
 }
 
 //Agregado beforeIndexRow para colorear seleccion
 let beforeIndexRow = null;
-export function loadTabla() {
+export function loadTabla(data) {
     let cuerpo = "";
-    //Se le agrego a tr un id con su index
+    clientes = data;
     clientes.forEach(function (cliente) {
         let registro =
                 '<tr id=' + clientes.indexOf(cliente) + ' onclick="moduloCliente.selectCliente(' + clientes.indexOf(cliente) + ');">' +
-                '<td>' + cliente.nombre + '</td>' +
-                '<td>' + cliente.apellido_paterno + ' ' + cliente.apellido_materno + '</td>' +
-                '<td>' + cliente.genero + '</td>' +
-                '<td>' + cliente.telefono_movil + '</td>' +
-                '<td>' + cliente.estatus + '</td></tr>';
+                '<td>' + cliente.persona.nombre + '</td>' +
+                '<td>' + cliente.persona.apellidoPaterno + ' ' + cliente.persona.apellidoMaterno + '</td>' +
+                '<td>' + cliente.persona.genero + '</td>' +
+                '<td>' + cliente.persona.telMovil + '</td>' +
+                '<td>' + cliente.status + '</td></tr>';
         cuerpo += registro;
     });
     document.getElementById("tblClientes").innerHTML = cuerpo;
 }
 
 export function selectCliente(index) {
-//    Se comento esta parte del codigo por redundante (Osea no es necesaria)
-//    document.getElementById("txtNombre").disabled = false;
-//    document.getElementById("txtApePaterno").disabled = false;
-//    document.getElementById("txtApeMaterno").disabled = false;
-//    document.getElementById("txtGenero").disabled = false;
-//    document.getElementById("txtRfc").disabled = false;
-//    document.getElementById("txtTelefono").disabled = false;
-//    document.getElementById("txtMovil").disabled = false;
-//    document.getElementById("txtCorreo").disabled = false;
-    //Saque toda esta parte del else para optimizar la seleccion y la reactivacion
-    document.getElementById("txtNumUnico").value = clientes[index].numero_unico_cliente;
-    document.getElementById("txtNombre").value = clientes[index].nombre;
-    document.getElementById("txtApePaterno").value = clientes[index].apellido_paterno;
-    document.getElementById("txtApeMaterno").value = clientes[index].apellido_materno;
-    document.getElementById("txtTelefono").value = clientes[index].telefono;
-    document.getElementById("txtMovil").value = clientes[index].telefono_movil;
-    document.getElementById("txtCorreo").value = clientes[index].correo_electronico;
-    document.getElementById("txtRfc").value = clientes[index].rfc;
-    document.getElementById("txtGenero").value = clientes[index].genero;
-    document.getElementById("btnUpdate").classList.remove("disabled");
+    document.getElementById("txtNumUnico").value = clientes[index].numeroUnico;
+    document.getElementById("txtNombre").value = clientes[index].persona.nombre;
+    document.getElementById("txtApePaterno").value = clientes[index].persona.apellidoPaterno;
+    document.getElementById("txtApeMaterno").value = clientes[index].persona.apellidoMaterno;
+    document.getElementById("txtFechaNacimientoCli").value = clientes[index].persona.fechaNacimiento;
+    document.getElementById("txtGenero").value = clientes[index].persona.genero;
+    document.getElementById("txtCalleCli").value = clientes[index].persona.calle;
+    document.getElementById("txtNumeroCli").value = clientes[index].persona.numero;
+    document.getElementById("txtColoniaCli").value = clientes[index].persona.colonia;
+    document.getElementById("txtCpCli").value = clientes[index].persona.cp;
+    document.getElementById("txtCiudadCli").value = clientes[index].persona.ciudad;
+    document.getElementById("txtEstadoCli").value = clientes[index].persona.estado;
+    document.getElementById("txtTelefono").value = clientes[index].persona.telCasa;
+    document.getElementById("txtMovil").value = clientes[index].persona.telMovil;
+    document.getElementById("txtCorreo").value = clientes[index].persona.email;
+    document.getElementById("txtCodigoCliente").value = clientes[index].idCliente;
+    document.getElementById("txtCodigoPersona").value = clientes[index].persona.idPersona;
+
     document.getElementById("btnDelete").classList.remove("disabled");
-    document.getElementById("btnAdd").classList.add("disabled");
     document.getElementById("btnReactive").classList.add("disabled");
     indexClienteSeleccionado = index;
     document.getElementById("form").classList.add("activado");
@@ -144,7 +208,7 @@ export function selectCliente(index) {
         beforeIndexRow = index;
         colorRow(index);
     }
-    if (clientes[index].estatus === "Inactivo") {
+    if (clientes[index].estatus === 0) {
         Swal.fire({
             icon: 'error',
             title: 'Cliente eliminado',
@@ -176,53 +240,25 @@ export function clean() {
     document.getElementById("txtNombre").value = "";
     document.getElementById("txtApePaterno").value = "";
     document.getElementById("txtApeMaterno").value = "";
-    document.getElementById("txtTelefono").value = "";
+    document.getElementById("txtFechaNacimientoCli").value = "";
+    document.getElementById("txtGenero").value = "";
+    document.getElementById("txtCalleCli").value = "";
+    document.getElementById("txtNumeroCli").value = "";
+    document.getElementById("txtColoniaCli").value = "";
+    document.getElementById("txtCpCli").value = "";
+    document.getElementById("txtCiudadCli").value = "";
+    document.getElementById("txtEstadoCli").value = "";
+    document.getElementById("txtTelefono").value ="";
     document.getElementById("txtMovil").value = "";
     document.getElementById("txtCorreo").value = "";
-    document.getElementById("txtRfc").value = "";
+    document.getElementById("txtCodigoCliente").value = "";
+    document.getElementById("txtCodigoPersona").value = "";
 
-    document.getElementById("btnUpdate").classList.add("disabled");
     document.getElementById("btnDelete").classList.add("disabled");
     document.getElementById("btnAdd").classList.remove("disabled");
     indexClienteSeleccionado = 0;
 }
 
-export function updateCliente() {
-    let numero_unico_cliente,
-            nombre,
-            apellido_paterno,
-            apellido_materno,
-            genero,
-            rfc,
-            telefono,
-            telefono_movil,
-            correo_electronico;
-
-    numero_unico_cliente = document.getElementById("txtNumUnico").value;
-    nombre = document.getElementById("txtNombre").value;
-    apellido_paterno = document.getElementById("txtApePaterno").value;
-    apellido_materno = document.getElementById("txtApeMaterno").value;
-    telefono = document.getElementById("txtTelefono").value;
-    telefono_movil = document.getElementById("txtMovil").value;
-    correo_electronico = document.getElementById("txtCorreo").value;
-    rfc = document.getElementById("txtRfc").value;
-    genero = document.getElementById("txtGenero").value;
-
-    let cliente = {};
-    cliente.numero_unico_cliente = numero_unico_cliente;
-    cliente.nombre = nombre;
-    cliente.apellido_paterno = apellido_paterno;
-    cliente.apellido_materno = apellido_materno;
-    cliente.telefono = telefono;
-    cliente.telefono_movil = telefono_movil;
-    cliente.correo_electronico = correo_electronico;
-    cliente.rfc = rfc;
-    cliente.genero = genero;
-    cliente.estatus = "Activo";
-    clientes[indexClienteSeleccionado] = cliente;
-    clean();
-    loadTabla();
-}
 export function modificarCliente() {
     Swal.fire({
         title: '¿Quieres modificar al cliente?',
@@ -281,7 +317,60 @@ export function buscarCliente() {
     document.getElementById("tblClientes").innerHTML = cuerpo;
 }
 
+export function eliminar() {
+    let datos = null;
+    let params = null;
+    let cliente = new Object();
 
+    cliente.persona = new Object();
+    cliente.idCliente = parseInt(document.getElementById("txtCodigoCliente").value);
+    cliente.persona.idPersona = parseInt(document.getElementById("txtCodigoPersona").value);
+    cliente.persona.nombre = document.getElementById("txtNombre").value;
+    cliente.persona.apellidoPaterno = document.getElementById("txtApePaterno").value;
+    cliente.persona.apellidoMaterno = document.getElementById("txtApeMaterno").value;
+    cliente.persona.genero = document.getElementById("txtGenero").value;
+    cliente.persona.fechaNacimiento = document.getElementById("txtFechaNacimientoCli").value;
+    cliente.persona.calle = document.getElementById("txtCalleCli").value;
+    cliente.persona.numero = document.getElementById("txtNumeroCli").value;
+    cliente.persona.colonia = document.getElementById("txtColoniaCli").value;
+    cliente.persona.cp = document.getElementById("txtCpCli").value;
+    cliente.persona.ciudad = document.getElementById("txtCiudadCli").value;
+    cliente.persona.estado = document.getElementById("txtEstadoCli").value;
+    cliente.persona.telCasa = document.getElementById("txtTelefono").value;
+    cliente.persona.telMovil = document.getElementById("txtMovil").value;
+    cliente.persona.email = document.getElementById("txtCorreo").value;
+    cliente.numeroUnico = document.getElementById("txtNumUnico").value;
+    datos = {
+        datosCliente: JSON.stringify(cliente)
+    };
+    params = new URLSearchParams(datos);
+    fetch("api/cliente/delete",
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                body: params
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+//                console.log(data);
+//                if (data.exception !== null) {
+//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+//                    return;
+//                }
+//                if (data.error !== null) {
+//                    Swal.fire('', data.error, 'warning');
+//                    return;
+//                }
+//                if (data.errorperm !== null) {
+//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+//                    return;
+//                }
+                refreshTable();
+            });
+}
 export function deleteCliente() {
     Swal.fire({
         title: '¿Quieres eliminar el cliente seleccionado?',
@@ -293,23 +382,20 @@ export function deleteCliente() {
         CancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            clientes[indexClienteSeleccionado].estatus = "Inactivo";
-            clean();
-            loadTabla();
-            Swal.fire('Eliminado con exito!', '', 'success');
+            eliminar();
         }
     });
 }
-
-fetch("modulos/catalogoClientes/datos_clientes.json")
-        .then(response => {
-            return response.json();
-        })
-        .then(function (jsondata) {
-            clientes = jsondata;
-            loadTabla();
-        }
-        );
+//
+//fetch("modulos/catalogoClientes/datos_clientes.json")
+//        .then(response => {
+//            return response.json();
+//        })
+//        .then(function (jsondata) {
+//            clientes = jsondata;
+//            loadTabla();
+//        }
+//        );
 
 //-----------------------------------------------------VALIDACION DE CAMPOS---------------------------------------------------------- 
 const formulario = document.getElementById('formulario');
