@@ -139,6 +139,7 @@ function cargarModuloSoluciones() {
                         import("../modulos/catalogoSoluciones/scriptSoluciones.js").then(
                                 function (controller) {
                                     moduloSoluciones = controller;
+                                    moduloSoluciones.inicializar();
                                 }
                         );
                     }

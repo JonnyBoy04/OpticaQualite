@@ -5,6 +5,18 @@
     </div>
     <div id="form" style="display: none;">
         <form action="" class="formulario" id="formulario">
+            
+            <!-- ID solucion -->
+            <div class="formulario__grupo">
+                <label class="formulario__label">ID Solucion</label>
+                <input type="number" class="formulario__input" name="idSolucion" id="txtIdSolucion" readonly class="m-2">
+            </div>
+            <!-- ID producto -->
+            <div class="formulario__grupo">
+                <label class="formulario__label">ID Producto</label>
+                <input type="number" class="formulario__input" name="idProducto" id="txtIdProducto" readonly class="m-2">
+            </div>
+            
             <!-- Nombre de Solucion -->
             <div class="formulario__grupo" id="grupo__nombreSol">
                 <label for="txtNombreSol" class="formulario__label">Nombre</label>
@@ -19,15 +31,6 @@
                 <label for="txtMarcaSol" class="formulario__label">Marca</label>
                 <div>
                     <input type="text" class="formulario__input" name="marcaSol" id="txtMarcaSol" placeholder="Marca" class="mt-2">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formulario__input-error">Campo invalido, rellene correctamente</p>
-            </div>
-            <!-- Descripcion -->
-            <div class="formulario__grupo" id="grupo__DescripcionSol">
-                <label for="txtDescripcionSol" class="formulario__label">Descripción</label>
-                <div>
-                    <input type="text" class="formulario__input" name="DescripcionSol" id="txtDescripcionSol" placeholder="Descripción" class="mt-2">
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente</p>
@@ -61,15 +64,14 @@
             </div>
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Solucion" class="btn btn-success btn-lg" onclick="moduloSoluciones.agregarSoluciones();" id="btnAddSol"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Agregar Solucion" class="btn btn-success btn-lg" onclick="moduloSoluciones.saveSolucion();" id="btnAddSol"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
             <button title="Limpiar Solucion" class="btn btn-info btn-lg" onclick="moduloSoluciones.clean();" id="btnCleanSol"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-            <button title="Modificar Solucion" class="btn btn-warning btn-lg disabled" onclick="moduloSoluciones.modificarSolucion();" id="btnUpdateSol"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
             <button title="Borrar Solucion" class="btn btn-danger btn-lg disabled" onclick="moduloSoluciones.deleteSolucion();" id="btnDeleteSol"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>
     </div>
     <hr>
     <div class="d-flex justify-content-between m-3">
-        <div>
+        <div id="buscar">
             <label for="txtBusquedaSolucion" class="form-label mx-3">Buscar Solucion</label>
             <input type="text" id="txtBusquedaSolucion">
             <button class="btn btn-primary mx-2" onclick="moduloSoluciones.buscarSolucion();">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
@@ -84,7 +86,7 @@
             </button>
         </div>
     </div>
-    <table class="tabla table table-striped table-bordered table-hover">
+    <table id="tabla" class="tabla table table-striped table-bordered table-hover">
         <thead class="table-dark">
             <tr>
                 <th>Nombre</th>

@@ -3,58 +3,93 @@
 let indexSolucionSeleccionado;
 let soluciones = [];
 
-$('#desplegar').on('click', function(){
-    $('#form').css('display','block');
-    $('#listar').css('display','block');
-    $('#desplegar').css('display','none');
-});
+export function inicializar() {
+ $('#desplegar').on('click', function () {
+        $('#form').css('display', 'block');
+        $('#listar').css('display', 'block');
+        $('#desplegar').css('display', 'none');
+        $('#tabla').css('display','none');
+        $('#buscar').css('display','none');
+    });
 
-$('#listar').on('click', function(){
-    $('#form').css('display','none');
-    $('#listar').css('display','none');
-    $('#desplegar').css('display','block');
-});
-
-export function addSolucion() {
-    let nombre,
-            marca,
-            descripcion,
-            precioCompra,
-            precioVenta,
-            existencias;
-
-    nombre = document.getElementById("txtNombreSol").value;
-    marca = document.getElementById("txtMarcaSol").value;
-    descripcion = document.getElementById("txtDescripcionSol").value;
-    precioCompra = parseInt(document.getElementById("txtPrecioCompraSol").value);
-    precioVenta = parseInt(document.getElementById("txtPrecioVentaSol").value);
-    existencias = parseInt(document.getElementById("txtExistenciasSol").value);
-
-    let solucion = {};
-    solucion.nombre = nombre;
-    solucion.marca = marca;
-    solucion.descripcion = descripcion;
-    solucion.precioCompra = precioCompra;
-    solucion.precioVenta = precioVenta;
-    solucion.existencias = existencias;
-    solucion.estatus = "Activo";
-    soluciones.push(solucion);
-    clean();
-    loadTabla();
+    $('#listar').on('click', function () {
+        $('#form').css('display', 'none');
+        $('#listar').css('display', 'none');
+        $('#desplegar').css('display', 'block');
+        $('#tabla').css('display','');
+        $('#buscar').css('display','block');
+    });
+    refreshTable();
 }
 
-export function loadTabla() {
+export function saveSolucion() {
+    let datos = null;
+    let params = null;
+    let solucion = new Object();
+
+    solucion.producto = new Object();
+
+    if (document.getElementById("txtIdSolucion").value.trim().length < 1) {
+        solucion.idSolucion = 0;
+        solucion.producto.idProducto = 0;
+        console.log("no existe bro");
+    } else {
+        console.log("existe bro");
+        solucion.idSolucion = parseInt(document.getElementById("txtIdSolucion").value);
+        solucion.producto.idProducto = parseInt(document.getElementById("txtIdProducto").value);
+    }
+
+    solucion.producto.nombre = document.getElementById("txtNombreSol").value;
+    solucion.producto.marca = document.getElementById("txtMarcaSol").value;
+    solucion.producto.precioCompra = document.getElementById("txtPrecioCompraSol").value;
+    solucion.producto.precioVenta = document.getElementById("txtPrecioVentaSol").value;
+    solucion.producto.existencias = document.getElementById("txtExistenciasSol").value;
+
+    datos = {
+        datosSolucion: JSON.stringify(solucion)
+    };
+
+    console.log(datos);
+    params = new URLSearchParams(datos);
+
+    fetch("api/solucion/save", {
+        method: "POST",
+        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+        body: params
+    }).then(response => {
+        return response.json();
+    }).then(function (data) {
+        document.getElementById("txtIdProducto").value = data.producto.idProducto;
+        document.getElementById("txtIdSolucion").value = data.idSolucion;
+
+        Swal.fire('', 'Datos de solucion actualizados correctamente.', 'success');
+        refreshTable();
+        clean();
+    });
+}
+
+export function refreshTable() {
+    let url = "api/solucion/getAll";
+    fetch(url).then(response => {
+        return response.json();
+    }).then(function (data) {
+        loadTabla(data);
+    });
+}
+export function loadTabla(data) {
     let cuerpo = "";
+    soluciones = data;
+    console.log(soluciones);
     soluciones.forEach(function (solucion) {
         let registro =
                 '<tr onclick="moduloSoluciones.selectSolucion(' + soluciones.indexOf(solucion) + ');">' +
-                '<td>' + solucion.nombre + '</td>' +
-                '<td>' + solucion.marca + '</td>' +
-                '<td>' + solucion.descripcion + '</td>' +
-                '<td>$' + solucion.precioCompra + '</td>' +
-                '<td>$' + solucion.precioVenta + '</td>' +
-                '<td>' + solucion.existencias + ' Pzas</td>' +
-                '<td>' + solucion.estatus + '</td></tr>';
+                '<td>' + solucion.producto.nombre + '</td>' +
+                '<td>' + solucion.producto.marca + '</td>' +
+                '<td>"Empty"</td>' +
+                '<td>$' + solucion.producto.precioCompra + '</td>' +
+                '<td>$' + solucion.producto.precioVenta + '</td>' +
+                '<td>' + solucion.producto.existencias + ' Pzas</td>' +
+                '<td>' + solucion.producto.estatus + '</td></tr>';
         cuerpo += registro;
     });
     document.getElementById("tblSoluciones").innerHTML = cuerpo;
@@ -83,108 +118,70 @@ export function selectSolucion(index) {
     if (soluciones[index].estatus === "Inactivo") {
         Swal.fire('Solucion eliminada', '', 'warning');
     } else {
-        document.getElementById("txtNombreSol").value = soluciones[index].nombre;
-        document.getElementById("txtMarcaSol").value = soluciones[index].marca;
-        document.getElementById("txtDescripcionSol").value = soluciones[index].descripcion;
-        document.getElementById("txtPrecioCompraSol").value = soluciones[index].precioCompra;
-        document.getElementById("txtPrecioVentaSol").value = soluciones[index].precioVenta;
-        document.getElementById("txtExistenciasSol").value = soluciones[index].existencias;
-        document.getElementById("btnUpdateSol").classList.remove("disabled");
+        document.getElementById("txtIdSolucion").value = soluciones[index].idSolucion;
+        document.getElementById("txtIdProducto").value = soluciones[index].producto.idProducto;
+        document.getElementById("txtNombreSol").value = soluciones[index].producto.nombre;
+        document.getElementById("txtMarcaSol").value = soluciones[index].producto.marca;
+        document.getElementById("txtPrecioCompraSol").value = soluciones[index].producto.precioCompra;
+        document.getElementById("txtPrecioVentaSol").value = soluciones[index].producto.precioVenta;
+        document.getElementById("txtExistenciasSol").value = soluciones[index].producto.existencias;
         document.getElementById("btnDeleteSol").classList.remove("disabled");
-        document.getElementById("btnAddSol").classList.add("disabled");
         indexSolucionSeleccionado = index;
     }
 }
 
 export function clean() {
+    document.getElementById("txtIdProducto").value = "";
+    document.getElementById("txtIdSolucion").value = "";
     document.getElementById("txtNombreSol").value = "";
     document.getElementById("txtMarcaSol").value = "";
-    document.getElementById("txtDescripcionSol").value = "";
     document.getElementById("txtPrecioCompraSol").value = "";
     document.getElementById("txtPrecioVentaSol").value = "";
     document.getElementById("txtExistenciasSol").value = "";
 
-    document.getElementById("btnUpdateSol").classList.add("disabled");
     document.getElementById("btnDeleteSol").classList.add("disabled");
     document.getElementById("btnAddSol").classList.remove("disabled");
     indexSolucionSeleccionado = 0;
 }
 
-export function updateSolucion() {
-    let nombre,
-            marca,
-            descripcion,
-            precioCompra,
-            precioVenta,
-            existencias;
-
-    nombre = document.getElementById("txtNombreSol").value;
-    marca = document.getElementById("txtMarcaSol").value;
-    descripcion = document.getElementById("txtDescripcionSol").value;
-    precioCompra = parseInt(document.getElementById("txtPrecioCompraSol").value);
-    precioVenta = parseInt(document.getElementById("txtPrecioVentaSol").value);
-    existencias = parseInt(document.getElementById("txtExistenciasSol").value);
-
-    let solucion = {};
-    solucion.nombre = nombre;
-    solucion.marca = marca;
-    solucion.descripcion = descripcion;
-    solucion.precioCompra = precioCompra;
-    solucion.precioVenta = precioVenta;
-    solucion.existencias = existencias;
-    solucion.estatus = "Activo";
-    soluciones[indexSolucionSeleccionado] = solucion;
-    clean();
-    loadTabla();
-}
-
-export function modificarSolucion() {
-    Swal.fire({
-        title: '¿Quieres modificar la solución?',
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: 'Guardar',
-        confirmButtonColor: '#6200EE',
-        denyButtonText: `No guardar`
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            updateSolucion();
-            Swal.fire('Guardado!', '', 'success');
-        } else if (result.isDenied) {
-            Swal.fire('Los cambios no han sido guargados!', '', 'warning');
-        }
-    });
-}
-
 export function deleteSolucion() {
-    Swal.fire({
-        title: '¿Quieres eliminar la solución seleccionada?',
-        showCancelButton: true,
-        showConfirmButton: true,
-        confirmButtonText: 'Eliminar',
-        confirmButtonColor: '#6200EE',
-        cancelButtonColor: '#d33',
-        CancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            soluciones[indexSolucionSeleccionado].estatus = "Inactivo";
-            clean();
-            loadTabla();
-            Swal.fire('Eliminado con exito!', '', 'success');
-        }
+    let datos = null;
+    let params = null;
+    let solucion = new Object();
+
+    solucion.producto = new Object();
+
+    solucion.idSolucion = parseInt(document.getElementById("txtIdSolucion").value);
+    solucion.producto.idProducto = parseInt(document.getElementById("txtIdProducto").value);
+
+    solucion.producto.nombre = document.getElementById("txtNombreSol").value;
+    solucion.producto.marca = document.getElementById("txtMarcaSol").value;
+    solucion.producto.precioCompra = document.getElementById("txtPrecioCompraSol").value;
+    solucion.producto.precioVenta = document.getElementById("txtPrecioVentaSol").value;
+    solucion.producto.existencias = document.getElementById("txtExistenciasSol").value;
+
+    datos = {
+        datosSolucion: JSON.stringify(solucion)
+    };
+
+    console.log(datos);
+    params = new URLSearchParams(datos);
+
+    fetch("api/solucion/delete", {
+        method: "POST",
+        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+        body: params
+    }).then(response => {
+        return response.json();
+    }).then(function (data) {
+        document.getElementById("txtIdProducto").value = data.producto.idProducto;
+        document.getElementById("txtIdSolucion").value = data.idSolucion;
+
+        Swal.fire('', 'Datos de solucion actualizados correctamente.', 'success');
+        refreshTable();
+        clean();
     });
 }
-
-fetch("modulos/catalogoSoluciones/datos_soluciones.json")
-        .then(response => {
-            return response.json();
-        })
-        .then(function (jsondata) {
-            soluciones = jsondata;
-            loadTabla();
-        }
-        );
 
 //-----------------------------------------------------VALIDACION DE CAMPOS---------------------------------------------------------- 
 const formulario = document.getElementById('formulario');
