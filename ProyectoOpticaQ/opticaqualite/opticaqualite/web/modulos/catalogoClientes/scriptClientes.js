@@ -20,23 +20,7 @@ export function inicializar() {
     });
     refreshTable();
 }
-export function formarClaveUnica(apP, apM) {
-    let apeM2;
-    let timestamp = Date.now();
 
-    apP = apP.toUpperCase();
-    apM = apM.toUpperCase();
-
-    if (apM === "") {
-        apeM2 = "X";
-    } else {
-        apeM2 = apM;
-    }
-
-    let claveUnica = (apP.substring(0, 2) + apeM2.substring(0, 1) + timestamp);
-
-    return claveUnica;
-}
 export function save() {
     let datos = null;
     let params = null;
@@ -66,6 +50,7 @@ export function save() {
     cliente.persona.telCasa = document.getElementById("txtTelefono").value;
     cliente.persona.telMovil = document.getElementById("txtMovil").value;
     cliente.persona.email = document.getElementById("txtCorreo").value;
+    cliente.persona.rfc = document.getElementById("txtRfc").value;
     cliente.numeroUnico = document.getElementById("txtNumUnico").value;
     //Comvierte un dato tipo Script a Cadena Json
     datos = {
@@ -188,6 +173,7 @@ export function selectCliente(index) {
     document.getElementById("txtTelefono").value = clientes[index].persona.telCasa;
     document.getElementById("txtMovil").value = clientes[index].persona.telMovil;
     document.getElementById("txtCorreo").value = clientes[index].persona.email;
+    document.getElementById("txtRfc").value = clientes[index].persona.rfc;
     document.getElementById("txtCodigoCliente").value = clientes[index].idCliente;
     document.getElementById("txtCodigoPersona").value = clientes[index].persona.idPersona;
 
@@ -208,7 +194,7 @@ export function selectCliente(index) {
         beforeIndexRow = index;
         colorRow(index);
     }
-    if (clientes[index].estatus === 0) {
+    if (clientes[index].status === 0) {
         Swal.fire({
             icon: 'error',
             title: 'Cliente eliminado',
@@ -224,7 +210,6 @@ export function selectCliente(index) {
         document.getElementById("txtMovil").disabled = true;
         document.getElementById("txtCorreo").disabled = true;
 
-        document.getElementById("btnUpdate").classList.add("disabled");
         document.getElementById("btnDelete").classList.add("disabled");
         document.getElementById("btnAdd").classList.add("disabled");
         document.getElementById("btnReactive").classList.remove("disabled");
@@ -251,6 +236,7 @@ export function clean() {
     document.getElementById("txtTelefono").value ="";
     document.getElementById("txtMovil").value = "";
     document.getElementById("txtCorreo").value = "";
+    document.getElementById("txtRfc").value = "";
     document.getElementById("txtCodigoCliente").value = "";
     document.getElementById("txtCodigoPersona").value = "";
 
@@ -383,6 +369,8 @@ export function deleteCliente() {
     }).then((result) => {
         if (result.isConfirmed) {
             eliminar();
+            clean();
+            Swal.fire('Eliminado con exito!', '', 'success');
         }
     });
 }

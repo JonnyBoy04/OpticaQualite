@@ -51,9 +51,9 @@
             <div class="genero">
                 <label class="">G&eacute;nero</label>
                 <select class="form-select form-select-sm" id="txtGenero" name="txtGenero">
-                    <option value="M" >M</option>
-                    <option value="F">F</option>
-                    <option value="O">O</option>
+                    <option value="M" >Masculino</option>
+                    <option value="F">Femenino</option>
+                    <option value="O">Otro</option>
                 </select>
             </div>
             <div>
@@ -84,7 +84,7 @@
                 <label for="txtEstadoCli" class="formulario__label">Estado</label><br>
                 <input type="text" class="formulario__input" id="txtEstadoCli">
             </div>
-            <!-- RFC 
+            <!-- RFC --> 
             <div class="formulario__grupo" id="grupo__rfc">
                 <label for="txtRfc" class="formulario__label">RFC</label>
                 <div>
@@ -92,7 +92,7 @@
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">El RFC debe contener 13 digitos y solo puede contener numeros, letras.</p>
-            </div>-->
+            </div>
             <!-- Telefono Fijo -->
             <div class="formulario__grupo" id="grupo__telefono">
                 <label for="txtTelefono" class="formulario__label">Tel&eacute;fono</label>
@@ -125,8 +125,8 @@
             <button title="Agregar Cliente" class="btn btn-success btn-lg" onclick="moduloCliente.save();" id="btnAdd"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
             <button title="Limpiar formulario" class="btn btn-info btn-lg" onclick="moduloCliente.clean();" id="btnClean"><i class="fa fa-eraser" aria-hidden="true"></i></button>
             <button title="Borrar Cliente" class="btn btn-danger btn-lg disabled" onclick="moduloCliente.deleteCliente();" id="btnDelete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-            <!-- Nuevo boton para reactivar inactivos
-            <button title="Reactivar Cliente" class="btn btn-dark btn-lg disabled" onclick="moduloCliente.reactivateCliente();" id="btnReactive"><i class="fa fa-check" aria-hidden="true"></i></button> -->
+            <!-- Nuevo boton para reactivar inactivos -->
+            <button title="Reactivar Cliente" class="btn btn-dark btn-lg disabled" onclick="moduloCliente.reactivateCliente();" id="btnReactive"><i class="fa fa-check" aria-hidden="true"></i></button>
         </div>
     </div>
     <hr>

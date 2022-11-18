@@ -16,7 +16,7 @@ public class ControllerCliente {
 
     public int insert(Cliente c) throws Exception {
         //Definimos la consulta SQL que invoca al Stored Procedure:
-        String sql = "{call insertarCliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";//datos seleccionados de la persona
+        String sql = "{call insertarCliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";//datos seleccionados de la persona
         //se ponen los id que se generaran 
         int idPersonaGenerado = -1;
         int idClienteGenerado = -1;
@@ -50,7 +50,7 @@ public class ControllerCliente {
         //parametros de salida
         cstmt.registerOutParameter(16, Types.INTEGER);
         cstmt.registerOutParameter(17, Types.INTEGER);
-        cstmt.registerOutParameter(18, Types.INTEGER);
+        cstmt.registerOutParameter(18, Types.VARCHAR);
 
         //Ejecutamos el Stored Procedure:
         cstmt.executeUpdate();
