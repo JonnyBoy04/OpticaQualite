@@ -5,13 +5,25 @@
     </div>
     <div id="form" style="display: none;">
         <form action="" class="formulario" id="formulario">
-            <!-- Calve unica -->
+            <!-- Datos identificadores -->
+            <!-- codigo de barras -->
             <div>
                 <label for="txtCodigoB" class="formulario__label">Código de Barras</label>
-                <div id="codigoB">
-                    <svg id="codigoBarra"></svg>
+                <div id="CodigoB">
+                    <svg id="codigoBarraArm"></svg>
                 </div>
-                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <div class="Desactivado">
+                <!-- ID de Producto -->
+                <div>
+                    <label for="txtidProducto" class="formulario__label">ID Producto</label>
+                    <input id="txtidProducto" type="text" class="formulario__input"  readonly class="mt-2">
+                </div>
+                <!-- ID de Armazon -->
+                <div>
+                    <label for="txtidArmazon" class="formulario__label">ID Armazon</label>
+                    <input id="txtidArmazon" type="text" class="formulario__input"  readonly class="mt-2">
+                </div>
             </div>
             <!-- Nombre -->
             <div class="formulario__grupo" id="grupo__nombreAr">
@@ -39,6 +51,10 @@
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
+            <div>
+                <label for="txtFotografia" class="formulario__label">Fotografia</label>
+                <input id="txtFotografia" type="file">
             </div>
             <!-- color -->
             <div class="formulario__grupo" id="grupo__color">
@@ -85,9 +101,18 @@
                 </div>
                 <p class="formulario__input-error">Las existencias solo puede contener numeros</p>
             </div>
+            <!-- Dimenciones -->
+            <div class="formulario__grupo" id="grupo__dimencion">
+                <label for="txtDimen" class="formulario__label">Dimenciones</label>
+                <div class="formulario__grupo" id="grupo__dimencion">
+                    <input type="text" class="formulario__input" name="dimencion" id="txtDimen" placeholder="Dimenciones">
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Armazon" class="btn btn-success btn-lg" onclick="moduloArmazones.registrarArmazones();" id="btnAddArm"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Agregar Armazon" class="btn btn-success btn-lg" onclick="moduloArmazones.save();" id="btnAddArm"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
             <button title="Limpiar Formulario" class="btn btn-info btn-lg" onclick="moduloArmazones.limpiarFormulario();" id="btnCleanArm"><i class="fa fa-eraser" aria-hidden="true"></i></button>
             <button title="Modificar Armazon" class="btn btn-warning btn-lg disabled" onclick="moduloArmazones.ActualizarArmazon();" id="btnUpdateArm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
             <button title="Borrar Armazon" class="btn btn-danger btn-lg disabled" onclick="moduloArmazones.borrarArmazon();" id="btnDeleteArm"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
@@ -95,8 +120,8 @@
     </div>
     <hr>
     <div class="d-flex justify-content-between m-3">
-        <div>
-             <label for="txtBusquedaArmazón" class="form-label mx-3">Buscar Armazón</label>
+        <div id="buscar">
+            <label for="txtBusquedaArmazón" class="form-label mx-3">Buscar Armazón</label>
             <input type="text" id="txtBusquedaArmazon">
             <button class="btn btn-primary mx-2" onclick="moduloArmazones.buscarArmazon();">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
         </div>
@@ -110,7 +135,7 @@
             </button>
         </div>
     </div>
-    <table class="tabla table table-striped table-bordered table-hover">
+    <table id="tabla" class="tabla table table-striped table-bordered table-hover">
         <thead class="table-dark">
             <tr>
                 <th>Codigo de barras</th>

@@ -1,4 +1,4 @@
-/* global fetch, Swal */
+/* global fetch, Swal, import */
 let moduloEmpleado;
 let moduloLDC;
 let moduloArmazones;
@@ -120,6 +120,7 @@ function cargarModuloArmazon() {
                         import("../modulos/catalogoArmazones/scriptArmazones.js").then(
                                 function (controller) {
                                     moduloArmazones = controller;
+                                    moduloArmazones.inicializar();
                                 }
                         );
                     }

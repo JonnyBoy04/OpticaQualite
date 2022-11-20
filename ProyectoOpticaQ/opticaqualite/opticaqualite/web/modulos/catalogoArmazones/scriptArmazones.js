@@ -1,24 +1,184 @@
 /* global fetch, Swal */
 let indexArmazónSeleccionado;
 let armazones = [];
-let i = 4;
-let codigob = "OQ" + i;
+export function inicializar() {
+    $('#desplegar').on('click', function () {
+        $('#form').css('display', 'block');
+        $('#listar').css('display', 'block');
+        $('#desplegar').css('display', 'none');
+        $('#tabla').css('display','none');
+        $('#buscar').css('display','none');
+    });
+
+    $('#listar').on('click', function () {
+        $('#form').css('display', 'none');
+        $('#listar').css('display', 'none');
+        $('#desplegar').css('display', 'block');
+        $('#tabla').css('display','');
+        $('#buscar').css('display','block');
+    });
+    refrescarTabla();
+}
 
 
-$('#desplegar').on('click', function(){
-    $('#form').css('display','block');
-    $('#listar').css('display','block');
-    $('#desplegar').css('display','none');
-});
 
-$('#listar').on('click', function(){
-    $('#form').css('display','none');
-    $('#listar').css('display','none');
-    $('#desplegar').css('display','block');
-});
 
+export function save() {
+
+    let datos = null;
+    let params = null;
+    let armazon = new Object();// creamos un objeto de tipo armazon
+
+    armazon.producto = new Object();
+
+    if (document.getElementById("txtidArmazon").value.trim().length < 1) {
+        armazon.idArmazon = 0;
+        armazon.producto.idProducto = 0;
+    } else {
+        armazon.idArmazon = parseInt(document.getElementById("txtidArmazon").value);
+        armazon.producto.idProducto = parseInt(document.getElementById("txtidProducto").value);
+    }
+
+    armazon.producto.nombre = document.getElementById("txtNombreArm").value;
+    armazon.producto.marca = document.getElementById("txtMarca").value;
+    armazon.producto.codigoBarras = document.getElementById("codigoBarraArm").value;
+    armazon.producto.precioCompra = document.getElementById("txtPrecioCompra").value;
+    armazon.producto.precioVenta = document.getElementById("txtPrecioVenta").value;
+    armazon.producto.existencias = document.getElementById("txtExis").value;
+    armazon.fotografia = document.getElementById("txtFotografia").value;
+    armazon.modelo = document.getElementById("txtModelo").value;
+    armazon.color = document.getElementById("txtColor").value;
+    armazon.dimensiones = document.getElementById("txtDimen").value;
+    armazon.descripcion = document.getElementById("txtDesc").value;
+
+    //Comvierte un dato tipo Script a Cadena Json
+    datos = {
+        datosArmazon: JSON.stringify(armazon)
+    };
+    params = new URLSearchParams(datos);
+
+    fetch("api/armazon/save",
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                body: params
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+//                console.log(data);
+//                if (data.exception !== null) {
+//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+//                    return;
+//                }
+//                if (data.error !== null) {
+//                    Swal.fire('', data.error, 'warning');
+//                    return;
+//                }
+//                if (data.errorperm !== null) {
+//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+//                    return;
+//                }
+
+                document.getElementById("txtidArmazon").value = data.idArmazon;
+                document.getElementById("txtidProducto").value = data.producto.idProducto;
+                document.getElementById("codigoBarraArm").value = data.producto.codigoBarras;
+                Swal.fire('', 'Datos del Armazon actualizados correctamente.', 'success');
+                refrescarTabla();
+            });
+}
+
+export function refrescarTabla() {
+    let url = "api/armazon/getAll";
+    fetch(url)
+            .then(response => {
+                return response.json()
+            })
+            .then(function (data)
+            {
+                console.log(data);
+//                if (data.exception !== null) {
+//                    Swal.fire('',
+//                            'Error interno del servidor. Intente nuevamente más tarde',
+//                            'error'
+//                            );
+//                    return;
+//                }
+//                if (data.error !== null) {
+//                    Swal.fire('', data.error, 'warning');
+//                    return;
+//                }
+//                if (data.errorsec !== null) {
+//                    Swal.fire('', data.errorsec, 'error');
+//                    window.location.replace('index.html');
+//                    return;
+//                }
+                cargarTabla(data);
+            });
+}
+
+export function eliminar() {
+    let datos = null;
+    let params = null;
+    let armazon = new Object();
+
+    armazon.producto = new Object();
+
+    armazon.producto.nombre = document.getElementById("txtNombreArm").value;
+    armazon.producto.marca = document.getElementById("txtMarca").values;
+    armazon.producto.codigoBarras = document.getElementById("codigoBarraArm").value;
+    armazon.producto.precioCompra = document.getElementById("txtPrecioCompra").value;
+    armazon.producto.precioVenta = document.getElementById("txtPrecioVenta").value;
+    armazon.producto.existencias = document.getElementById("txtExis").value;
+    armazon.modelo = document.getElementById("txtModelo").value;
+    armazon.color = document.getElementById("txtColor").value;
+    armazon.dimensiones = document.getElementById("txtDimen").value;
+    armazon.descripcion = document.getElementById("txtDesc").value;
+
+    armazon.idArmazon = parseInt(document.getElementById("txtidArmazon").value);
+    armazon.producto.idProducto = parseInt(document.getElementById("txtidProducto").value);
+
+    //Convierte un dato tipo Script a Cadena Json
+    datos = {
+        datosArmazon: JSON.stringify(armazon)
+    };
+
+    params = new URLSearchParams(datos);
+
+    fetch("api/armazon/delete",
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                body: params
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+//                console.log(data);
+//                if (data.exception !== null) {
+//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+//                    return;
+//                }
+//                if (data.error !== null) {
+//                    Swal.fire('', data.error, 'warning');
+//                    return;
+//                }
+//                if (data.errorperm !== null) {
+//                    Swal.fire('', 'No tiene permiso pproductoara realizar esta operación', 'error');
+//                    return;
+//                }
+                refrescarTabla();
+                
+            });
+
+
+}
 export function agregarArmazon() {
-     i++;
+    //i++;
     let
             nombre,
             marca,
@@ -40,7 +200,7 @@ export function agregarArmazon() {
     existencia = document.getElementById("txtExis").value;
 
     let armazon = {};
-    armazon.codigo = codigob;
+    // armazon.codigo =scriptArmazones.js:179:5 codigob;
     armazon.nombre = nombre;
     armazon.marca = marca;
     armazon.modelo = modelo;
@@ -53,7 +213,7 @@ export function agregarArmazon() {
     armazones.push(armazon);
     limpiarFormulario();
     cargarTabla();
-   
+
 }
 
 export function registrarArmazones() {
@@ -72,20 +232,22 @@ export function registrarArmazones() {
     }
 }
 
-export function cargarTabla() {
+export function cargarTabla(data) {
     let cuerpo = "";
+    armazones = data;
+    console.log(armazones);
     armazones.forEach(function (armazon) {
         let registro =
                 '<tr onclick="moduloArmazones.seleccionarArmazon(' + armazones.indexOf(armazon) + ');">' +
-                '<td>' + armazon.codigo + '</td>' +
-                '<td>' + armazon.nombre + '</td>' +
-                '<td>' + armazon.marca + '</td>' +
+                '<td>' + armazon.producto.codigoBarras + '</td>' +
+                '<td>' + armazon.producto.nombre + '</td>' +
+                '<td>' + armazon.producto.marca + '</td>' +
                 '<td>' + armazon.color + '</td>' +
                 '<td>' + armazon.descripcion + '</td>' +
-                '<td>$' + armazon.precio_venta + '</td>' +
-                '<td>$' + armazon.precio_compra + '</td>' +
-                '<td>' + armazon.existencia + ' Pzas</td>' +
-                '<td>' + armazon.estatus + '</td></tr>';
+                '<td>$' + armazon.producto.precioVenta + '</td>' +
+                '<td>$' + armazon.producto.precioCompra + '</td>' +
+                '<td>' + armazon.producto.existencias + ' Pzas</td>' +
+                '<td>' + armazon.producto.estatus + '</td></tr>';
         cuerpo += registro;
     });
     document.getElementById("tblArmazones").innerHTML = cuerpo;
@@ -101,41 +263,45 @@ export function buscarArmazon() {
     resultados.forEach(function (armazon) {
         let registro =
                 '<tr onclick="moduloArmazones.seleccionarArmazon(' + armazones.indexOf(armazon) + ');">' +
-                '<td>' + armazon.codigo + '</td>' +
-                '<td>' + armazon.nombre + '</td>' +
-                '<td>' + armazon.marca + '</td>' +
+                '<td>' + armazon.producto.codigoBarras + '</td>' +
+                '<td>' + armazon.producto.nombre + '</td>' +
+                '<td>' + armazon.producto.marca + '</td>' +
                 '<td>' + armazon.color + '</td>' +
                 '<td>' + armazon.descripcion + '</td>' +
-                '<td>$' + armazon.precio_venta + '</td>' +
-                '<td>$' + armazon.precio_compra + '</td>' +
-                '<td>' + armazon.existencia + ' Pzas</td>' +
-                '<td>' + armazon.estatus + '</td></tr>';
+                '<td>$' + armazon.producto.precioVenta + '</td>' +
+                '<td>$' + armazon.producto.precioCompra + '</td>' +
+                '<td>' + armazon.producto.existencias + ' Pzas</td>' +
+                '<td>' + armazon.producto.status + '</td></tr>';
         cuerpo += registro;
     });
     document.getElementById("tblArmazones").innerHTML = cuerpo;
 }
 export function seleccionarArmazon(index) {
-    if (armazones[index].estatus === "Inactivo") {
+    if (armazones[index].estatus === 0) {
         Swal.fire('Armazón eliminado!', '', 'warning');
     } else {
-        document.getElementById("txtNombreArm").value = armazones[index].nombre;
-        document.getElementById("txtMarca").value = armazones[index].marca;
+        document.getElementById("txtNombreArm").value = armazones[index].producto.nombre;
+        document.getElementById("txtMarca").value = armazones[index].producto.marca;
         document.getElementById("txtModelo").value = armazones[index].modelo;
         document.getElementById("txtColor").value = armazones[index].color;
         document.getElementById("txtDesc").value = armazones[index].descripcion;
-        document.getElementById("txtPrecioVenta").value = armazones[index].precio_venta;
-        document.getElementById("txtPrecioCompra").value = armazones[index].precio_compra;
-        document.getElementById("txtExis").value = armazones[index].existencia;
+        document.getElementById("txtPrecioVenta").value = armazones[index].producto.precioVenta;
+        document.getElementById("txtPrecioCompra").value = armazones[index].producto.precioCompra;
+        document.getElementById("txtDimen").value = armazones[index].dimensiones;
+        document.getElementById("txtExis").value = armazones[index].producto.existencias;
         document.getElementById("btnUpdateArm").classList.remove("disabled");
         document.getElementById("btnDeleteArm").classList.remove("disabled");
-        document.getElementById("btnAddArm").classList.add("disabled");
+        document.getElementById("txtidArmazon").value = armazones[index].idArmazon;
+        document.getElementById("txtidProducto").value = armazones[index].producto.idProducto;
         indexArmazónSeleccionado = index;
 
-        JsBarcode("#codigoBarra", armazones[index].codigo, {
+        console.log(armazones[index].producto.codigoBarras);
+
+        JsBarcode("#codigoBarraArm", armazones[index].producto.codigoBarras, {
             format: "CODE128A",
             lineColor: "#000",
-            width: 2,
-            height: 40,
+            width: 1.5,
+            height: 30,
             displayValue: true
         });
     }
@@ -150,8 +316,12 @@ export function limpiarFormulario() {
     document.getElementById("txtPrecioVenta").value = "";
     document.getElementById("txtPrecioCompra").value = "";
     document.getElementById("txtExis").value = "";
+    document.getElementById("codigoBarraArm").value = "";
+    document.getElementById("txtidProducto").value = "";
+    document.getElementById("txtidArmazon").value = "";
+    
 
-    JsBarcode("#codigoBarra", " ", {
+    JsBarcode("#codigoBarraArm", " ", {
         format: "CODE128A",
         lineColor: "#000",
         width: 2,
@@ -164,13 +334,13 @@ export function limpiarFormulario() {
     indexArmazónSeleccionado = 0;
 
 }
-JsBarcode("#codigoBarra", " ", {
-    format: "CODE128A",
-    lineColor: "#000",
-    width: 2,
-    height: 40,
-    displayValue: true
-});
+//JsBarcode("#codigoBarra", " ", {
+//    format: "CODE128A",
+//    lineColor: "#000",
+//    width: 2,
+//    height: 40,
+//    displayValue: true
+//});
 export function modificarArmazon() {
     let
             nombre,
@@ -238,23 +408,23 @@ export function borrarArmazon() {
         CancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            armazones[indexArmazónSeleccionado].estatus = "Inactivo";
+            eliminar();
             limpiarFormulario();
-            cargarTabla();
             Swal.fire('Eliminado con exito!', '', 'success');
         }
     });
+
 }
 
-fetch("modulos/catalogoArmazones/datos_armazones.json")
-        .then(response => {
-            return response.json();
-        })
-        .then(function (jsondata) {
-            armazones = jsondata;
-            cargarTabla();
-        }
-        );
+//fetch("modulos/catalogoArmazones/datos_armazones.json")
+//        .then(response => {
+//            return response.json();
+//        })
+//        .then(function (jsondata) {
+//            armazones = jsondata;
+//            cargarTabla();
+//        }
+//        );
 //-----------------------------------------------------VALIDACION DE CAMPOS---------------------------------------------------------- 
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');

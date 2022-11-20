@@ -8,6 +8,7 @@ public class Armazon {
     String dimensiones;
     String descripcion;
     Producto producto;
+    String fotografia;
 
     public Producto getProducto() {
         return producto;
@@ -56,6 +57,14 @@ public class Armazon {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getFotografia() {
+        return fotografia;
+    }
+
+    public void setFotografia(String fotografia) {
+        this.fotografia = fotografia;
     }
 }
 
