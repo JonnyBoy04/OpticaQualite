@@ -54,7 +54,11 @@
             </div>
             <div>
                 <label for="txtFotografia" class="formulario__label">Fotografia</label>
-                <input id="txtFotografia" type="file">
+                <input id="txtFotografia" type="file" class="fotografia">
+            </div>
+            <div>
+                <label for="img" class="formulario__label">Imagen</label>
+                <input id="img"src="" type="image" class="fotografia">
             </div>
             <!-- color -->
             <div class="formulario__grupo" id="grupo__color">
@@ -135,7 +139,7 @@
             </button>
         </div>
     </div>
-    <table id="tabla" class="tabla table table-striped table-bordered table-hover">
+    <table id="tablaArm" class="tabla table table-striped table-bordered table-hover">
         <thead class="table-dark">
             <tr>
                 <th>Codigo de barras</th>
@@ -153,5 +157,33 @@
         </tbody>
     </table>
 </main>
+<script>
+        // Variables
+        const inputFile = document.querySelector('#txtFotografia');
+        const image = document.querySelector('#img');
+
+        /**
+         * Returns a file in Base64URL format.
+         * @param {File} file
+         * @return {Promise<string>}
+         */
+        async function encodeFileAsBase64URL(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.addEventListener('loadend', () => {
+                    resolve(reader.result);
+                });
+                reader.readAsDataURL(file);
+            });
+        };
+
+        // Eventos
+        inputFile.addEventListener('input', async (event) => {
+            // Convierto la primera imagen del input en una ruta Base64
+            const base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
+            // Anyado la ruta Base64 a la imagen
+            image.setAttribute('src', base64URL);
+        });
+    </script>
 
 

@@ -4,6 +4,7 @@ import com.creativespace.oq.model.Usuario;
 import com.creativespace.oq.db.ConexionMYSQL;
 import com.creativespace.oq.model.Producto;
 import com.creativespace.oq.model.Solucion;
+import com.mysql.cj.MysqlType;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -26,7 +27,7 @@ public class ControllerSolucion {
         Connection conn = connMySQL.open();
         CallableStatement cstmt = conn.prepareCall(sql);
 
-        cstmt.setString(1, "");
+        cstmt.setString(1, s.getProducto().getCodigoBarras());
         cstmt.setString(2, s.getProducto().getNombre());
         cstmt.setString(3, s.getProducto().getMarca());
         cstmt.setDouble(4, s.getProducto().getPrecioCompra());
@@ -41,9 +42,11 @@ public class ControllerSolucion {
 
         idProducto = cstmt.getInt(7);
         idSolucion = cstmt.getInt(8);
+        condigoBarras = cstmt.getString(9);
 
         s.getProducto().setIdProducto(idProducto);
         s.setIdSolucion(idSolucion);
+        s.getProducto().setCodigoBarras(condigoBarras);
 
         cstmt.close();
         connMySQL.close();
@@ -63,7 +66,7 @@ public class ControllerSolucion {
         //Con este objeto invocaremos al StoredProcedure:
         CallableStatement cstmt = conn.prepareCall(sql);
 
-        cstmt.setString(1, "");
+        cstmt.setString(1, s.getProducto().getCodigoBarras());
         cstmt.setString(2, s.getProducto().getNombre());
         cstmt.setString(3, s.getProducto().getMarca());
         cstmt.setDouble(4, s.getProducto().getPrecioCompra());
@@ -113,6 +116,7 @@ public class ControllerSolucion {
         Solucion s = new Solucion();
         Producto p = new Producto();
 
+        p.setCodigoBarras(rs.getString("codigoBarras"));
         p.setIdProducto(rs.getInt("idProducto"));
         p.setNombre(rs.getString("nombre"));
         p.setMarca(rs.getString("marca"));

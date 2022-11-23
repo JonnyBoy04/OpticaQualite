@@ -2,6 +2,9 @@
 let indexArmazónSeleccionado;
 let armazones = [];
 export function inicializar() {
+    configureTableFilter(document.getElementById('txtBusquedaArmazon'),
+                         document.getElementById('tablaArm'));
+                         
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
@@ -19,9 +22,6 @@ export function inicializar() {
     });
     refrescarTabla();
 }
-
-
-
 
 export function save() {
 
@@ -67,8 +67,6 @@ export function save() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-//                console.log(data);
 //                if (data.exception !== null) {
 //                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
 //                    return;
@@ -84,7 +82,6 @@ export function save() {
 
                 document.getElementById("txtidArmazon").value = data.idArmazon;
                 document.getElementById("txtidProducto").value = data.producto.idProducto;
-                document.getElementById("codigoBarraArm").value = data.producto.codigoBarras;
                 Swal.fire('', 'Datos del Armazon actualizados correctamente.', 'success');
                 refrescarTabla();
             });
@@ -157,8 +154,6 @@ export function eliminar() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-//                console.log(data);
 //                if (data.exception !== null) {
 //                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
 //                    return;
@@ -175,44 +170,6 @@ export function eliminar() {
                 
             });
 
-
-}
-export function agregarArmazon() {
-    //i++;
-    let
-            nombre,
-            marca,
-            modelo,
-            color,
-            descripcion,
-            codigo,
-            precio_venta,
-            precio_compra,
-            existencia;
-
-    nombre = document.getElementById("txtNombreArm").value;
-    marca = document.getElementById("txtMarca").value;
-    modelo = document.getElementById("txtModelo").value;
-    color = document.getElementById("txtColor").value;
-    descripcion = document.getElementById("txtDesc").value;
-    precio_venta = document.getElementById("txtPrecioVenta").value;
-    precio_compra = document.getElementById("txtPrecioCompra").value;
-    existencia = document.getElementById("txtExis").value;
-
-    let armazon = {};
-    // armazon.codigo =scriptArmazones.js:179:5 codigob;
-    armazon.nombre = nombre;
-    armazon.marca = marca;
-    armazon.modelo = modelo;
-    armazon.color = color;
-    armazon.descripcion = descripcion;
-    armazon.precio_venta = precio_venta;
-    armazon.precio_compra = precio_compra;
-    armazon.existencia = existencia;
-    armazon.estatus = "Activo";
-    armazones.push(armazon);
-    limpiarFormulario();
-    cargarTabla();
 
 }
 
@@ -235,7 +192,6 @@ export function registrarArmazones() {
 export function cargarTabla(data) {
     let cuerpo = "";
     armazones = data;
-    console.log(armazones);
     armazones.forEach(function (armazon) {
         let registro =
                 '<tr onclick="moduloArmazones.seleccionarArmazon(' + armazones.indexOf(armazon) + ');">' +
@@ -293,10 +249,6 @@ export function seleccionarArmazon(index) {
         document.getElementById("btnDeleteArm").classList.remove("disabled");
         document.getElementById("txtidArmazon").value = armazones[index].idArmazon;
         document.getElementById("txtidProducto").value = armazones[index].producto.idProducto;
-        indexArmazónSeleccionado = index;
-
-        console.log(armazones[index].producto.codigoBarras);
-
         JsBarcode("#codigoBarraArm", armazones[index].producto.codigoBarras, {
             format: "CODE128A",
             lineColor: "#000",
@@ -304,6 +256,7 @@ export function seleccionarArmazon(index) {
             height: 30,
             displayValue: true
         });
+        indexArmazónSeleccionado = index;
     }
 }
 
@@ -319,6 +272,7 @@ export function limpiarFormulario() {
     document.getElementById("codigoBarraArm").value = "";
     document.getElementById("txtidProducto").value = "";
     document.getElementById("txtidArmazon").value = "";
+    document.getElementById("txtDimen").value = "";
     
 
     JsBarcode("#codigoBarraArm", " ", {
@@ -333,68 +287,6 @@ export function limpiarFormulario() {
     document.getElementById("btnAddArm").classList.remove("disabled");
     indexArmazónSeleccionado = 0;
 
-}
-//JsBarcode("#codigoBarra", " ", {
-//    format: "CODE128A",
-//    lineColor: "#000",
-//    width: 2,
-//    height: 40,
-//    displayValue: true
-//});
-export function modificarArmazon() {
-    let
-            nombre,
-            marca,
-            modelo,
-            color,
-            descripcion,
-            codigo,
-            precio_venta,
-            precio_compra,
-            existencia;
-
-    nombre = document.getElementById("txtNombreArm").value;
-    marca = document.getElementById("txtMarca").value;
-    modelo = document.getElementById("txtModelo").value;
-    color = document.getElementById("txtColor").value;
-    descripcion = document.getElementById("txtDesc").value;
-    precio_venta = document.getElementById("txtPrecioVenta").value;
-    precio_compra = document.getElementById("txtPrecioCompra").value;
-    existencia = document.getElementById("txtExis").value;
-
-    let armazon = {};
-    armazon.nombre = nombre;
-    armazon.marca = marca;
-    armazon.modelo = modelo;
-    armazon.color = color;
-    armazon.descripcion = descripcion;
-    armazon.codigo = codigo;
-    armazon.precio_venta = precio_venta;
-    armazon.precio_compra = precio_compra;
-    armazon.existencia = existencia;
-    armazon.estatus = "Activo";
-    armazones[indexArmazónSeleccionado] = armazon;
-    limpiarFormulario();
-    cargarTabla();
-}
-
-export function ActualizarArmazon() {
-    Swal.fire({
-        title: '¿Quieres modificar el armazón?',
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: 'Guardar',
-        confirmButtonColor: '#6200EE',
-        denyButtonText: `No guardar`
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            modificarArmazon();
-            Swal.fire('Guardado!', '', 'success');
-        } else if (result.isDenied) {
-            Swal.fire('Los cambios no han sido guargados!', '', 'warning');
-        }
-    });
 }
 
 export function borrarArmazon() {
@@ -416,15 +308,6 @@ export function borrarArmazon() {
 
 }
 
-//fetch("modulos/catalogoArmazones/datos_armazones.json")
-//        .then(response => {
-//            return response.json();
-//        })
-//        .then(function (jsondata) {
-//            armazones = jsondata;
-//            cargarTabla();
-//        }
-//        );
 //-----------------------------------------------------VALIDACION DE CAMPOS---------------------------------------------------------- 
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');

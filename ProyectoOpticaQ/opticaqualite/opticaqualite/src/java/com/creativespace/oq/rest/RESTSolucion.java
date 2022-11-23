@@ -81,10 +81,10 @@ public class RESTSolucion {
         ControllerSolucion cs = new ControllerSolucion();
         
         try {
-         sol = gson.fromJson(datosSolucion, Solucion.class);
-         cs.delete(sol.getIdSolucion());
-         out = gson.toJson(sol);
-                } catch (JsonParseException jpe) {
+            sol = gson.fromJson(datosSolucion, Solucion.class);
+            cs.delete(sol.getProducto().getIdProducto());
+            out = gson.toJson(sol);
+        } catch (JsonParseException jpe) {
             jpe.printStackTrace();
             out = """
                 {"exception":"Formato JSON de datos incorrectos."}
@@ -92,7 +92,7 @@ public class RESTSolucion {
         } catch (Exception e) {
             e.printStackTrace();
             out = """
-                  {"exeption":"%s"}
+                  {"exception":"%s"}
                   """;
             out = String.format(out, e.toString());
         }

@@ -2,6 +2,9 @@
 let indexAccesorioSeleccionado;
 let accesorios = [];
 export function inicializar() {
+    configureTableFilter(document.getElementById('txtBusquedaAccesorio'),
+                         document.getElementById('tablaAcc'));
+                         
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');

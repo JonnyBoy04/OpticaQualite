@@ -85,7 +85,7 @@ public class RESTAccesorio {
 
         try {
             acc = gson.fromJson(datosAccesorio, Accesorio.class);
-            ca.delete(acc.getIdAccesorio());
+            ca.delete(acc.getProducto().getIdProducto());
             out = gson.toJson(acc);
         } catch (JsonParseException jpe) {
             jpe.printStackTrace();

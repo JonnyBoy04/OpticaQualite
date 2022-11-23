@@ -87,7 +87,7 @@ public class RESTEmpleado {
 
         try {
             emp = gson.fromJson(datosEmpleado, Empleado.class);
-            ce.delete(emp.getIdEmpleado());
+            ce.delete(emp.getPersona().getIdPersona());
             out = gson.toJson(emp);
         } catch (JsonParseException jpe) {
             jpe.printStackTrace();

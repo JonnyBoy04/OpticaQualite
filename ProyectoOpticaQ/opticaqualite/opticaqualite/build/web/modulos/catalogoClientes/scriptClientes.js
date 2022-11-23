@@ -3,6 +3,9 @@
 let indexClienteSeleccionado;
 let clientes = [];
 export function inicializar() {
+    configureTableFilter(document.getElementById('txtBusquedaCliente'),
+                         document.getElementById('tablaCli'));
+                         
    $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');

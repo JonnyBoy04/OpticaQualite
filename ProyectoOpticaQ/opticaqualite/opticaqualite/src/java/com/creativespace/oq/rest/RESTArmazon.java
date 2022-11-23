@@ -81,7 +81,7 @@ public class RESTArmazon {
         
             try{
              arm = gson.fromJson(datosArmazon, Armazon.class);
-             ca.delete(arm.getIdArmazon());
+             ca.delete(arm.getProducto().getIdProducto());
            
             out = gson.toJson(arm);
         

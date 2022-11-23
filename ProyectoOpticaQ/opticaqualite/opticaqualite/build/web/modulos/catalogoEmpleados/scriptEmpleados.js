@@ -3,11 +3,14 @@
 let indexEmpleadoSeleccionado;
 let empleados = [];
 export function inicializar() {
+    configureTableFilter(document.getElementById('txtBusquedaEmpleado'),
+                         document.getElementById('tablaEmp'));
+                         
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
         $('#desplegar').css('display', 'none');
-        $('#tabla').css('display','none');
+        $('#tablaEmp').css('display','none');
         $('#buscar').css('display','none');
     });
 
@@ -15,7 +18,7 @@ export function inicializar() {
         $('#form').css('display', 'none');
         $('#listar').css('display', 'none');
         $('#desplegar').css('display', 'block');
-        $('#tabla').css('display','');
+        $('#tablaEmp').css('display','');
         $('#buscar').css('display','block');
     });
     refrescarTabla();

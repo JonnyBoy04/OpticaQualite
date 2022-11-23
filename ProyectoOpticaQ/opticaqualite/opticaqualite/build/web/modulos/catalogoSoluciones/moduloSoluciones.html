@@ -5,8 +5,18 @@
     </div>
     <div id="form" style="display: none;">
         <form action="" class="formulario" id="formulario">
-
+            <div>
+                <label for="txtCodigoB" class="formulario__label">Código de Barras</label>
+                <div id="codigoB">
+                    <svg id="codigoBarraSol"></svg>
+                </div>
+                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
+            </div>
             <div class="Desactivado">
+                <div>
+                    <label for="txtCodigoBarrasSol" class="formulario__label">C&oacute;digo de Barras</label>
+                    <input id="txtCodigoBarrasSol" type="text" class="formulario__input"  readonly class="mt-2">
+                </div>
                 <!-- ID solucion -->
                 <div class="formulario__grupo">
                     <label class="formulario__label">ID Solucion</label>
@@ -68,7 +78,7 @@
         <div class="d-flex justify-content-around botones">
             <button title="Agregar Solucion" class="btn btn-success btn-lg" onclick="moduloSoluciones.saveSolucion();" id="btnAddSol"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
             <button title="Limpiar Solucion" class="btn btn-info btn-lg" onclick="moduloSoluciones.clean();" id="btnCleanSol"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-            <button title="Borrar Solucion" class="btn btn-danger btn-lg disabled" onclick="moduloSoluciones.deleteSolucion();" id="btnDeleteSol"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            <button title="Borrar Solucion" class="btn btn-danger btn-lg disabled" onclick="moduloSoluciones.borrarAccesorio();" id="btnDeleteSol"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>
     </div>
     <hr>
@@ -88,12 +98,11 @@
             </button>
         </div>
     </div>
-    <table id="tabla" class="tabla table table-striped table-bordered table-hover">
+    <table id="tablaSol" class="tabla table table-striped table-bordered table-hover">
         <thead class="table-dark">
             <tr>
                 <th>Nombre</th>
                 <th>Marca</th>
-                <th>Descripción</th>
                 <th>Precio Compra</th>
                 <th>Precio Venta</th>
                 <th>Existencias</th>
