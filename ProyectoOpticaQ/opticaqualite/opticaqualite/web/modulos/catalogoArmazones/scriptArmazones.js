@@ -1,15 +1,20 @@
 /* global fetch, Swal */
 let indexArmazónSeleccionado;
 let armazones = [];
+    let inputImagenArm = null;
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaArmazon'),
                          document.getElementById('tablaArm'));
-                         
+    
+    inputImagenArm = document.getElementById("txtFotografia");
+    inputImagenArm.onchange = function (e){
+        cargarFotografia(inputImagenArm);  
+    };
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
         $('#desplegar').css('display', 'none');
-        $('#tabla').css('display','none');
+        $('#tablaArm').css('display','none');
         $('#buscar').css('display','none');
     });
 
@@ -17,10 +22,30 @@ export function inicializar() {
         $('#form').css('display', 'none');
         $('#listar').css('display', 'none');
         $('#desplegar').css('display', 'block');
-        $('#tabla').css('display','');
+        $('#tablaArm').css('display','');
         $('#buscar').css('display','block');
     });
     refrescarTabla();
+}
+
+function cargarFotografia(objetoInputFile){
+    //Revisamos que el usuario haya seleccionado un archivo
+    if (objetoInputFile.files && objetoInputFile.files[0]) {
+        let reader = new FileReader();
+        
+        //Agregamos un oyente al lector del archivo para que,
+        //en cuanto el usuario carue una imagen, esta se lea
+        //y se convierta de forma automatica en una cadena de Base64:
+        reader.onload = function (e){
+            let fotoB64 = e.target.result;
+            document.getElementById("imgArm").src = fotoB64;
+            document.getElementById("txtACodigoImageArm").value = 
+                    fotoB64.substring(fotoB64.indexOf(",")+1, fotoB64.length);
+        };
+        //leemos el archivo que selecciono el usuario y lo
+        //convertimos en una cadena con la Base64
+        reader.readAsDataURL(objetoInputFile.files[0]);
+    }
 }
 
 export function save() {
@@ -45,7 +70,7 @@ export function save() {
     armazon.producto.precioCompra = document.getElementById("txtPrecioCompra").value;
     armazon.producto.precioVenta = document.getElementById("txtPrecioVenta").value;
     armazon.producto.existencias = document.getElementById("txtExis").value;
-    armazon.fotografia = document.getElementById("txtFotografia").value;
+    armazon.fotografia = document.getElementById("txtACodigoImageArm").value;
     armazon.modelo = document.getElementById("txtModelo").value;
     armazon.color = document.getElementById("txtColor").value;
     armazon.dimensiones = document.getElementById("txtDimen").value;
@@ -245,7 +270,6 @@ export function seleccionarArmazon(index) {
         document.getElementById("txtPrecioCompra").value = armazones[index].producto.precioCompra;
         document.getElementById("txtDimen").value = armazones[index].dimensiones;
         document.getElementById("txtExis").value = armazones[index].producto.existencias;
-        document.getElementById("btnUpdateArm").classList.remove("disabled");
         document.getElementById("btnDeleteArm").classList.remove("disabled");
         document.getElementById("txtidArmazon").value = armazones[index].idArmazon;
         document.getElementById("txtidProducto").value = armazones[index].producto.idProducto;
@@ -273,7 +297,6 @@ export function limpiarFormulario() {
     document.getElementById("txtidProducto").value = "";
     document.getElementById("txtidArmazon").value = "";
     document.getElementById("txtDimen").value = "";
-    
 
     JsBarcode("#codigoBarraArm", " ", {
         format: "CODE128A",
@@ -282,7 +305,6 @@ export function limpiarFormulario() {
         height: 40,
         displayValue: true
     });
-    document.getElementById("btnUpdateArm").classList.add("disabled");
     document.getElementById("btnDeleteArm").classList.add("disabled");
     document.getElementById("btnAddArm").classList.remove("disabled");
     indexArmazónSeleccionado = 0;

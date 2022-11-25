@@ -6,6 +6,24 @@
     <div id="form" style="display: none;">
         <form action="" class="formulario" id="formulario">
             <!-- Datos identificadores -->
+            <!-- Imagen -->
+            <div class="sidebar ms-2 text-center" style="width: 186px; border-color: green; border-style: solid;">
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <img id="imgArm" src="" style="width:156px; height:156px;">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <button id="btnSeleccionarImgArm" class="btn btn-outline-success"><i class="fas fa-upload"></i>&nbsp;&nbsp;Cargar Imagen</button>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input id="txtFotografia" type="file" class="fotografia">
+                    </div>
+                </div>
+            </div>
             <!-- codigo de barras -->
             <div>
                 <label for="txtCodigoB" class="formulario__label">Código de Barras</label>
@@ -51,14 +69,6 @@
                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
-            </div>
-            <div>
-                <label for="txtFotografia" class="formulario__label">Fotografia</label>
-                <input id="txtFotografia" type="file" class="fotografia">
-            </div>
-            <div>
-                <label for="img" class="formulario__label">Imagen</label>
-                <input id="img"src="" type="image" class="fotografia">
             </div>
             <!-- color -->
             <div class="formulario__grupo" id="grupo__color">
@@ -114,11 +124,18 @@
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
             </div>
+            <div class="row">
+                <div class="Desactivado col-12">
+                    <div class="form-floating">
+                        <textarea id="txtACodigoImageArm" class="form-control" placeholder=""></textarea>
+                        <labe for="txtACodigoImage">CB64</labe>
+                    </div>
+                </div>
+            </div>
         </form>
         <div class="d-flex justify-content-around botones">
             <button title="Agregar Armazon" class="btn btn-success btn-lg" onclick="moduloArmazones.save();" id="btnAddArm"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
             <button title="Limpiar Formulario" class="btn btn-info btn-lg" onclick="moduloArmazones.limpiarFormulario();" id="btnCleanArm"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-            <button title="Modificar Armazon" class="btn btn-warning btn-lg disabled" onclick="moduloArmazones.ActualizarArmazon();" id="btnUpdateArm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
             <button title="Borrar Armazon" class="btn btn-danger btn-lg disabled" onclick="moduloArmazones.borrarArmazon();" id="btnDeleteArm"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>
     </div>
@@ -127,7 +144,6 @@
         <div id="buscar">
             <label for="txtBusquedaArmazón" class="form-label mx-3">Buscar Armazón</label>
             <input type="text" id="txtBusquedaArmazon">
-            <button class="btn btn-primary mx-2" onclick="moduloArmazones.buscarArmazon();">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
         </div>
         <div>
             <button id="desplegar">Agregar</button>
@@ -158,32 +174,33 @@
     </table>
 </main>
 <script>
-        // Variables
-        const inputFile = document.querySelector('#txtFotografia');
-        const image = document.querySelector('#img');
+    // Variables
+    const inputFile = document.querySelector('#txtFotografia');
+    const image = document.querySelector('#img');
 
-        /**
-         * Returns a file in Base64URL format.
-         * @param {File} file
-         * @return {Promise<string>}
-         */
-        async function encodeFileAsBase64URL(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.addEventListener('loadend', () => {
-                    resolve(reader.result);
-                });
-                reader.readAsDataURL(file);
+    /**
+     * Returns a file in Base64URL format.
+     * @param {File} file
+     * @return {Promise<string>}
+     */
+    async function encodeFileAsBase64URL(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.addEventListener('loadend', () => {
+                resolve(reader.result);
             });
-        };
-
-        // Eventos
-        inputFile.addEventListener('input', async (event) => {
-            // Convierto la primera imagen del input en una ruta Base64
-            const base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
-            // Anyado la ruta Base64 a la imagen
-            image.setAttribute('src', base64URL);
+            reader.readAsDataURL(file);
         });
-    </script>
+    }
+    ;
+
+    // Eventos
+    inputFile.addEventListener('input', async (event) => {
+        // Convierto la primera imagen del input en una ruta Base64
+        const base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
+        // Anyado la ruta Base64 a la imagen
+        image.setAttribute('src', base64URL);
+    });
+</script>
 
 

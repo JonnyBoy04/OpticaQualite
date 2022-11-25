@@ -5,7 +5,7 @@
     </div>
     <div id="form" style="display: none;">
         <form action="" class="formulario" id="formulario">
-            <div>
+            <div class="formulario-50">
                 <label for="txtNumUnico" class="formulario__label">Número unico</label><br>
                 <input id="txtNumUnico" type="text" class="formulario__input"  readonly class="mt-2">
             </div>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <!-- Nombre -->
-            <div class="formulario__grupo" id="grupo__nombre">
+            <div class="formulario__grupo formulario-50" id="grupo__nombre">
                 <label for="txtNombre" class="formulario__label">Nombre(s)</label>
                 <div class="formulario__grupo" id="grupo__nombre">
                     <input type="text" class="formulario__input" name="nombre" id="txtNombre" placeholder="Nombre (s)">
@@ -31,7 +31,7 @@
                 <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
             </div>
             <!-- Apellido Paterno -->
-            <div class="formulario__grupo" id="grupo__apellidoP">
+            <div class="formulario__grupo formulario-50" id="grupo__apellidoP">
                 <label for="txtApePaterno" class="formulario__label">Apellido Paterno</label>
                 <div class="formulario__grupo" id="grupo__apellidoP">
                     <input type="text" class="formulario__input" name="apellidoP" id="txtApePaterno" placeholder="Apellido Paterno">
@@ -40,7 +40,7 @@
                 <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
             </div>
             <!-- Apellido Materno -->
-            <div class="formulario__grupo" id="grupo__apellidoM">
+            <div class="formulario__grupo formulario-50" id="grupo__apellidoM">
                 <label for="txtApeMaterno" class="formulario__label">Apellido Materno</label>
                 <div class="formulario__grupo" id="grupo__apellidoM">
                     <input type="text" class="formulario__input" name="apellidoM" id="txtApeMaterno" placeholder="Apellido Materno">
@@ -48,44 +48,44 @@
                 </div>
             </div>
             <!-- Genero -->
-            <div class="genero">
-                <label class="">G&eacute;nero</label>
-                <select class="form-select form-select-sm" id="txtGenero" name="txtGenero">
+            <div class="formulario-50">
+                <label class="">G&eacute;nero</label><br>
+                <select class="formulario__input" id="txtGenero" name="txtGenero">
                     <option value="M" >Masculino</option>
                     <option value="F">Femenino</option>
                     <option value="O">Otro</option>
                 </select>
             </div>
-            <div>
+            <div class="formulario-50">
                 <label for="txtFechaNacimientoCli" class="formulario__label">fecha naciminto</label><br>
                 <input type="text" class="formulario__input" id="txtFechaNacimientoCli">
             </div>
-            <div>
+            <div class="formulario-50">
                 <label for="txtCalleCli" class="formulario__label">Calle</label> <br>
                 <input type="text" class="formulario__input" id="txtCalleCli">
             </div>
-            <div>
+            <div class="formulario-50">
                 <label for="txtNumeroCli" class="formulario__label">Numero</label><br>
                 <input type="text" class="formulario__input" id="txtNumeroCli">
             </div>
-            <div>
+            <div class="formulario-50">
                 <label for="txtColoniaCli" class="formulario__label">Colonia</label><br>
                 <input type="text" class="formulario__input" id="txtColoniaCli">
             </div>
-            <div>
+            <div class="formulario-50">
                 <label for="txtCpCli" class="formulario__label">cp</label><br>
                 <input type="text" class="formulario__input" id="txtCpCli">
             </div>
-            <div>
+            <div class="formulario-50">
                 <label for="txtCiudadCli" class="formulario__label">Ciudad</label><br>
                 <input type="text" class="formulario__input" id="txtCiudadCli">
             </div>
-            <div>
+            <div class="formulario-50">
                 <label for="txtEstadoCli" class="formulario__label">Estado</label><br>
                 <input type="text" class="formulario__input" id="txtEstadoCli">
             </div>
             <!-- RFC --> 
-            <div class="formulario__grupo" id="grupo__rfc">
+            <div class="formulario__grupo formulario-50" id="grupo__rfc">
                 <label for="txtRfc" class="formulario__label">RFC</label>
                 <div>
                     <input type="text" class="formulario__input" name="rfc" id="txtRfc" placeholder="RFC">
@@ -94,7 +94,7 @@
                 <p class="formulario__input-error">El RFC debe contener 13 digitos y solo puede contener numeros, letras.</p>
             </div>
             <!-- Telefono Fijo -->
-            <div class="formulario__grupo" id="grupo__telefono">
+            <div class="formulario__grupo formulario-50" id="grupo__telefono">
                 <label for="txtTelefono" class="formulario__label">Tel&eacute;fono</label>
                 <div class="formulario__grupo-input">
                     <input type="text" class="formulario__input" name="telefono" id="txtTelefono" placeholder="Telefono fijo">
@@ -103,7 +103,7 @@
                 <p class="formulario__input-error">El tel&eacute;fono solo puede contener numeros y el maximo son 10 dígitos.</p>
             </div>
             <!-- Telefono Movil -->
-            <div class="formulario__grupo" id="grupo__telefonoM">
+            <div class="formulario__grupo formulario-50" id="grupo__telefonoM">
                 <label for="txtMovil" class="formulario__label">Teléfono Movil</label>
                 <div class="formulario__grupo-input">
                     <input type="text" class="formulario__input" name="telefonoM" id="txtMovil" placeholder="Telefono Movil">
@@ -112,7 +112,7 @@
                 <p class="formulario__input-error">El tel&eacute;fono solo puede contener numeros y el maximo son 10 d&iacute;gitos.</p>
             </div>
             <!-- Correo Electronico -->
-            <div class="formulario__grupo" id="grupo__correo">
+            <div class="formulario__grupo formulario-50" id="grupo__correo">
                 <label for="txtCorreo" class="formulario__label">Correo Electrónico</label>
                 <div class="formulario__grupo-input">
                     <input type="email" class="formulario__input" name="correo" id="txtCorreo" placeholder="correo@ejemplo.com">
@@ -134,8 +134,6 @@
         <div id="buscar">
             <label for="txtBusquedaCliente" class="form-label mx-3">Buscar Cliente</label>
             <input type="text" id="txtBusquedaCliente">
-            <button class="btn btn-primary mx-2" onclick="moduloCliente.buscarCliente();">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
-            <button class="btn btn-primary mx-2" onclick="moduloCliente.loadTabla();">Consultar <i class="fa fa-search" aria-hidden="true"></i></button>
         </div>
         <div>
             <button id="desplegar">Agregar</button>
