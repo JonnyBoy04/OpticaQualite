@@ -82,6 +82,7 @@ function cargarModuloMateriales() {
                         import("../modulos/catalogoMateriales/scriptMateriales.js").then(
                                 function (controller) {
                                     moduloMaterial = controller;
+                                    moduloMaterial.inicializar();
                                 }
                         );
                     }
@@ -181,6 +182,7 @@ function cargarModuloTratamientos() {
                         import("../modulos/catalogoTratamiento/scriptTratamientos.js").then(
                                 function (controller) {
                                     moduloTratamientos = controller;
+                                    moduloTratamientos.inicializar();
                                 }
                         );
                     }

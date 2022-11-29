@@ -1,12 +1,12 @@
-
 package com.creativespace.oq.model;
 
 public class Tratamiento {
+
     int idTratamiento;
     String nombre;
     double precioCompra;
     double precioVenta;
-    int status;
+    int estatus;
 
     public int getIdTratamiento() {
         return idTratamiento;
@@ -40,13 +40,12 @@ public class Tratamiento {
         this.precioVenta = precioVenta;
     }
 
-    public int getStatus() {
-        return status;
+    public int getEstatus() {
+        return estatus;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setEstatus(int estatus) {
+        this.estatus = estatus;
     }
-    
-    
+
 }

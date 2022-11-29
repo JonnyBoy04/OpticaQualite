@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/jonnyboy/Git/OpticaQualite/ProyectoOpticaQ/opticaqualite/opticaqualite/web/modulos/catalogoArmazones/scriptArmazones.js</file>
-            <file>file:/home/jonnyboy/Git/OpticaQualite/ProyectoOpticaQ/opticaqualite/opticaqualite/web/modulos/catalogoArmazones/moduloArmazones.html</file>
+            <file>file:/home/jonnyboy/Git/OpticaQualite/ProyectoOpticaQ/opticaqualite/opticaqualite/web/modulos/catalogoMateriales/moduloMateriales.html</file>
+            <file>file:/home/jonnyboy/Git/OpticaQualite/ProyectoOpticaQ/opticaqualite/opticaqualite/web/modulos/catalogoAccesorios/scriptAccesorios.js</file>
+            <file>file:/home/jonnyboy/Git/OpticaQualite/ProyectoOpticaQ/opticaqualite/opticaqualite/src/java/com/creativespace/oq/rest/RESTAccesorio.java</file>
+            <file>file:/home/jonnyboy/Git/OpticaQualite/ProyectoOpticaQ/opticaqualite/opticaqualite/web/modulos/catalogoMateriales/scriptMateriales.js</file>
+            <file>file:/home/jonnyboy/Git/OpticaQualite/ProyectoOpticaQ/opticaqualite/opticaqualite/src/java/com/creativespace/oq/rest/RESTTratamiento.java</file>
+            <file>file:/home/jonnyboy/Git/OpticaQualite/ProyectoOpticaQ/opticaqualite/opticaqualite/src/java/com/creativespace/oq/rest/RESTMaterial.java</file>
         </group>
     </open-files>
 </project-private>

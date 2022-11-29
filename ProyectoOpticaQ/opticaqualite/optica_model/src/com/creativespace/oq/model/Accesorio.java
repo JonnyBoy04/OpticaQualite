@@ -1,6 +1,7 @@
 package com.creativespace.oq.model;
 
 public class Accesorio {
+
     int idAccesorio;
     Producto producto;
 
@@ -19,6 +20,5 @@ public class Accesorio {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
-    
-    
+
 }

@@ -1,6 +1,7 @@
 package com.creativespace.oq.model;
 
 public class Producto {
+
     int idProducto;
     String codigoBarras;
     String nombre;

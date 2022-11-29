@@ -3,43 +3,60 @@
 let indexTratamientoSeleccionado;
 let tratamientos = [];
 
-$('#desplegar').on('click', function(){
-    $('#form').css('display','block');
-    $('#listar').css('display','block');
-    $('#desplegar').css('display','none');
-});
+export function inicializar() {
+    configureTableFilter(document.getElementById('txtBusquedaTratamiento'),
+                         document.getElementById('tablaTra'));
+                         
+    $('#desplegar').on('click', function () {
+        $('#form').css('display', 'block');
+        $('#listar').css('display', 'block');
+        $('#desplegar').css('display', 'none');
+        $('#tablaTra').css('display','none');
+        $('#buscar').css('display','none');
+    });
 
-$('#listar').on('click', function(){
-    $('#form').css('display','none');
-    $('#listar').css('display','none');
-    $('#desplegar').css('display','block');
-});
+    $('#listar').on('click', function () {
+        $('#form').css('display', 'none');
+        $('#listar').css('display', 'none');
+        $('#desplegar').css('display', 'block');
+        $('#tablaTra').css('display','');
+        $('#buscar').css('display','block');
+    });
+    refrescarTabla();
+}
+export function refrescarTabla() {
+    let url = "api/tratamiento/getAll";
+    fetch(url)
+            .then(response => {
+                return response.json()
 
-export function addTratamiento() {
-    let
-            nombre,
-            precioCompra,
-            precioVenta;
-
-
-    nombre = document.getElementById("txtNombreTratamiento").value;
-    precioCompra = parseInt(document.getElementById("txtPrecioCompraTratamiento").value);
-    precioVenta = parseInt(document.getElementById("txtPrecioVentaTratamiento").value);
-
-    let tratamiento = {};
-
-    tratamiento.nombre = nombre;
-    tratamiento.precioCompra = precioCompra;
-    tratamiento.precioVenta = precioVenta;
-
-    tratamiento.estatus = "Activo";
-    tratamientos.push(tratamiento);
-    clean();
-    loadTabla();
+            })
+            .then(function (data)
+            {
+                console.log(data);
+//                if (data.exception !== null) {
+//                    Swal.fire('',
+//                            'Error interno del servidor. Intente nuevamente más tarde',
+//                            'error'
+//                            );
+//                    return;
+//                }
+//                if (data.error !== null) {
+//                    Swal.fire('', data.error, 'warning');
+//                    return;
+//                }
+//                if (data.errorsec !== null) {
+//                    Swal.fire('', data.errorsec, 'error');
+//                    window.location.replace('index.html');
+//                    return;
+//                }
+                cargarTabla(data);
+            });
 }
 
-export function loadTabla() {
+export function cargarTabla(data) {
     let cuerpo = "";
+    tratamientos = data;
     tratamientos.forEach(function (tratamiento) {
         let registro =
                 '<tr onclick="moduloTratamientos.selectTratamiento(' + tratamientos.indexOf(tratamiento) + ');">' +
@@ -52,25 +69,6 @@ export function loadTabla() {
     document.getElementById("tblTratamiento").innerHTML = cuerpo;
 }
 
-export function buscarTratamiento() {
-    let filtro = document.getElementById("txtBusquedaTratamiento").value;
-
-    let filtroMinuscula = filtro.toLowerCase();
-
-    let resultados = tratamientos.filter(element => element.nombre.toLowerCase().split(' ')[0] === filtroMinuscula || element.nombre.toLowerCase().split(' ')[1] === filtroMinuscula || element.nombre === filtro);
-
-    let cuerpo = "";
-    resultados.forEach(function (tratamiento) {
-        let registro =
-                '<tr onclick="moduloTratamientos.selectTratamiento(' + tratamientos.indexOf(tratamiento) + ');">' +
-                '<td>' + tratamiento.nombre + '</td>' +
-                '<td>$' + tratamiento.precioCompra + '</td>' +
-                '<td>$' + tratamiento.precioVenta + '</td>' +
-                '<td>' + tratamiento.estatus + '</td></tr>';
-        cuerpo += registro;
-    });
-    document.getElementById("tblTratamiento").innerHTML = cuerpo;
-}
 
 export function selectTratamiento(index) {
     if (tratamientos[index].estatus === "Inactivo") {
@@ -79,7 +77,6 @@ export function selectTratamiento(index) {
         document.getElementById("txtNombreTratamiento").value = tratamientos[index].nombre;
         document.getElementById("txtPrecioCompraTratamiento").value = parseInt(tratamientos[index].precioCompra);
         document.getElementById("txtPrecioVentaTratamiento").value = parseInt(tratamientos[index].precioVenta);
-        document.getElementById("btnUpdateTra").classList.remove("disabled");
         document.getElementById("btnDeleteTra").classList.remove("disabled");
         document.getElementById("btnAddTra").classList.add("disabled");
         indexTratamientoSeleccionado = index;
@@ -96,47 +93,6 @@ export function clean() {
     document.getElementById("btnDeleteTra").classList.add("disabled");
     document.getElementById("btnAddTra").classList.remove("disabled");
     indexTratamientoSeleccionado = 0;
-}
-
-export function updateTratamiento() {
-    let
-            nombre,
-            precioCompra,
-            precioVenta;
-
-    nombre = document.getElementById("txtNombreTratamiento").value;
-    precioCompra = parseInt(document.getElementById("txtPrecioCompraTratamiento").value);
-    precioVenta = parseInt(document.getElementById("txtPrecioVentaTratamiento").value);
-
-
-    let tratamiento = {};
-    tratamiento.nombre = nombre;
-    tratamiento.precioCompra = precioCompra;
-    tratamiento.precioVenta = precioVenta;
-
-    tratamiento.estatus = "Activo";
-    tratamientos[indexTratamientoSeleccionado] = tratamiento;
-    clean();
-    loadTabla();
-}
-
-export function modificarTratamiento() {
-    Swal.fire({
-        title: '¿Quieres modificar el tratamiento?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Guardar',
-        confirmButtonColor: '#6200EE',
-        denyButtonText: `No guardar`
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            updateTratamiento();
-            Swal.fire('Guardado!', '', 'success');
-        } else if (result.isDenied) {
-            Swal.fire('Los cambios no han sido guargados!', '', 'warning');
-        }
-    });
 }
 
 export function deleteTratamiento() {
@@ -157,17 +113,6 @@ export function deleteTratamiento() {
         }
     });
 }
-
-fetch("modulos/catalogoTratamiento/datos_tratamientos.json")
-        .then(response => {
-            return response.json();
-        })
-        .then(function (jsondata) {
-            tratamientos = jsondata;
-            loadTabla();
-        }
-        );
-
 //------------------ Validacion -------------------------//
 
 const formulario = document.getElementById('formulario');
