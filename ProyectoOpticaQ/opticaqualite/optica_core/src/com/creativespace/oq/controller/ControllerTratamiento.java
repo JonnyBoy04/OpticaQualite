@@ -4,11 +4,10 @@ import com.creativespace.oq.db.ConexionMYSQL;
 import com.creativespace.oq.model.Tratamiento;
 import java.sql.PreparedStatement;
 import java.sql.CallableStatement;
-import java.sql.Statement;
 import java.util.List;
 import java.sql.ResultSet;
 import java.sql.Connection;
-import java.sql.Types;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +15,38 @@ import java.util.ArrayList;
  * @author jonnyboy
  */
 public class ControllerTratamiento {
-    public List<Tratamiento> getAll(String filtro) throws Exception {
+    public void insertarTratamiento(Tratamiento t) throws SQLException{
+        String sql = "INSERT INTO tratamiento (nombre, precioCompra, precioVenta) VALUES(?,?,?);";
+        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        Connection conn = connMySQL.open();
+        CallableStatement ctm = conn.prepareCall(sql);
+        ctm.setString(1, t.getNombre());
+        ctm.setDouble(2, t.getPrecioCompra());
+        ctm.setDouble(3, t.getPrecioVenta());
+        
+        ctm.executeUpdate();
+        
+        ctm.close();
+        connMySQL.close();
+    }
+    
+    public void actualizarTratamiento(Tratamiento t) throws SQLException{
+        String sql = "UPDATE tratamiento SET nombre = ?, precioCompra = ?, precioVenta = ? WHERE idTratamiento = ?;";
+        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        Connection conn = connMySQL.open();
+        CallableStatement ctm = conn.prepareCall(sql);
+        ctm.setString(1, t.getNombre());
+        ctm.setDouble(2, t.getPrecioCompra());
+        ctm.setDouble(3, t.getPrecioVenta());
+        ctm.setInt(4, t.getIdTratamiento());
+        
+        ctm.executeUpdate();
+        
+        ctm.close();
+        connMySQL.close();
+    }
+    
+    public List<Tratamiento> obtenerTratamiento(String filtro) throws Exception {
         String sql = "SELECT * FROM tratamiento";
 
         ConexionMYSQL connMySQL = new ConexionMYSQL();

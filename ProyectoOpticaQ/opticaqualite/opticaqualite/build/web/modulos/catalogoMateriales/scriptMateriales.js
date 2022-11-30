@@ -29,9 +29,52 @@ export function guardarMaterial() {
     let params = null;
     let material = new Object();
     
-    if (expr) {
-        
+    if (document.getElementById("txtCodigoMaterial").value.trim().length < 1) {
+        material.idMaterial = 0;
+    }else{
+        material.idMaterial = parseInt(document.getElementById("txtCodigoMaterial").value);
     }
+    
+    material.nombre = document.getElementById("txtNombreMaterial").value;
+    material.precioCompra = parseFloat(document.getElementById("txtPrecioCompraMaterial").value);
+    material.precioVenta = parseFloat(document.getElementById("txtPrecioVentaMaterial").value);
+    
+    datos = {
+        datosMaterial: JSON.stringify(material)
+    };
+
+    params = new URLSearchParams(datos);
+
+    fetch("api/material/save",
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                body: params
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+//                console.log(data);
+//                if (data.exception !== null) {
+//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+//                    return;
+//                }
+//                if (data.error !== null) {
+//                    Swal.fire('', data.error, 'warning');
+//                    return;
+//                }
+//                if (data.errorperm !== null) {
+//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+//                    return;
+//                }
+
+                document.getElementById("txtCodigoMaterial").value = data.idMaterial;
+                Swal.fire('', 'Datos del material actualizados correctamente.', 'success');
+                refrescarTabla();
+                limpiarFormulario();
+            });
 }
 
 export function refrescarTabla() {
@@ -85,24 +128,21 @@ export function selectMaterial(index) {
     if (materiales[index].estatus === "Inactivo") {
         Swal.fire('Material eliminado!', '', 'warning');
     } else {
+        document.getElementById("txtCodigoMaterial").value = materiales[index].idMaterial;
         document.getElementById("txtNombreMaterial").value = materiales[index].nombre;
         document.getElementById("txtPrecioCompraMaterial").value = parseInt(materiales[index].precioCompra);
         document.getElementById("txtPrecioVentaMaterial").value = parseInt(materiales[index].precioVenta);
         document.getElementById("btnDeleteTra").classList.remove("disabled");
-        document.getElementById("btnAddTra").classList.add("disabled");
         indexMaterialSeleccionado = index;
     }
 }
 
-export function clean() {
+export function limpiarFormulario() {
+    document.getElementById("txtCodigoMaterial").value = "";
     document.getElementById("txtNombreMaterial").value = "";
     document.getElementById("txtPrecioCompraMaterial").value = "";
     document.getElementById("txtPrecioVentaMaterial").value = "";
-
-
-    document.getElementById("btnUpdateTra").classList.add("disabled");
     document.getElementById("btnDeleteTra").classList.add("disabled");
-    document.getElementById("btnAddTra").classList.remove("disabled");
     indexMaterialSeleccionado = 0;
 }
 

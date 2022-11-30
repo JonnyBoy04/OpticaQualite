@@ -239,7 +239,8 @@ export function seleccionarAccesorio(index) {
 }
 
 export function limpiarFormulario() {
-
+    document.getElementById("txtCodigoAccesorio").value = "";
+    document.getElementById("txtCodigoProducto").value = "";
     document.getElementById("txtNombreAccesorio").value = "";
     document.getElementById("txtPrecioCompraA").value = "";
     document.getElementById("txtPrecioVentaA").value = "";

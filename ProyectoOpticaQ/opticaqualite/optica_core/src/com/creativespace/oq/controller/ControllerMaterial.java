@@ -9,7 +9,6 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 
 /**
@@ -33,13 +32,14 @@ public class ControllerMaterial {
     }
     
     public void actualizarMaterial(Material m) throws SQLException{
-        String sql = "UPDATE material SET nombre = ?, precioCompra = ?, precioVenta = ?;";
+        String sql = "UPDATE material SET nombre = ?, precioCompra = ?, precioVenta = ? WHERE idMaterial = ?;";
         ConexionMYSQL connMySQL = new ConexionMYSQL();
         Connection conn = connMySQL.open();
         CallableStatement ctm = conn.prepareCall(sql);
         ctm.setString(1, m.getNombre());
         ctm.setDouble(2, m.getPrecioCompra());
         ctm.setDouble(3, m.getPrecioVenta());
+        ctm.setInt(4, m.getIdMaterial());
         
         ctm.executeUpdate();
         
@@ -47,7 +47,7 @@ public class ControllerMaterial {
         connMySQL.close();
     }
     
-    public void delete(int id) throws Exception {
+    public void borrarMaterial(int id) throws Exception {
         String sql = "UPDATE material SET estatus = 0 WHERE idMaterial = "+id;
         
         ConexionMYSQL connMySQL = new ConexionMYSQL();
@@ -58,7 +58,7 @@ public class ControllerMaterial {
         connMySQL.close();
     }
     
-    public List<Material> getAll(String filtro) throws Exception {
+    public List<Material> obtenerMaterial(String filtro) throws Exception {
         String sql = "SELECT * FROM material";
 
         ConexionMYSQL connMySQL = new ConexionMYSQL();

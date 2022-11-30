@@ -31,12 +31,45 @@ public class RESTTratamiento {
 
         try {
             ct = new ControllerTratamiento();
-            tratamientos = ct.getAll(filtro);
+            tratamientos = ct.obtenerTratamiento(filtro);
             out = new Gson().toJson(tratamientos);
         } catch (Exception e) {
             e.printStackTrace();
             out = "{\"exeption\":\"Error interno del servidor.\"}";
         }
+        return Response.status(Response.Status.OK).entity(out).build();
+    }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("save")
+    public Response save(@FormParam("datosTratamiento") @DefaultValue("") String datosTratamiento) {
+        String out = null;
+        Gson gson = new Gson();
+        Tratamiento tra = null;
+        ControllerTratamiento cm = new ControllerTratamiento();
+
+        try {
+            tra = gson.fromJson(datosTratamiento, Tratamiento.class);
+            if (tra.getIdTratamiento()== 0) {
+                cm.insertarTratamiento(tra);
+            } else {
+                cm.actualizarTratamiento(tra);
+            }
+            out = gson.toJson(tra);
+        } catch (JsonParseException jpe) {
+            jpe.printStackTrace();
+            out = """
+                {"exception":"Formato JSON de datos incorrectos."}
+                """;
+        } catch (Exception e) {
+            e.printStackTrace();
+            out = """
+                  {"exception":"%s"}
+                  """;
+            out = String.format(out, e.toString());
+        }
+
         return Response.status(Response.Status.OK).entity(out).build();
     }
 }

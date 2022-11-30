@@ -5,16 +5,8 @@
     </div>
     <div id="form" style="display: none;">
         <form class="formulario col-lg-5" id="formulario">
-            <div>
-                <div>
-                    <input type="number" id="txtCodigoMaterial">
-                </div>
-                <div>
-
-                </div>
-                <div>
-
-                </div>
+            <div class="Desactivado">
+                <input type="number" id="txtCodigoMaterial">
             </div>
             <!-- Nombre del Material -->
             <div class="formulario__grupo" id="grupo__nombreMa">
@@ -45,7 +37,7 @@
             </div>
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Material" class="btn btn-success btn-lg" onclick="moduloMaterial.agregarMaterial();" id="btnAddTra"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Agregar Material" class="btn btn-success btn-lg" onclick="moduloMaterial.guardarMaterial();" id="btnAddTra"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
             <button title="Limpiar Matarial" class="btn btn-info btn-lg" onclick="moduloMaterial.clean();" id="btnCleanTra"><i class="fa fa-eraser" aria-hidden="true"></i></button>
             <button title="Borrar Material" class="btn btn-danger btn-lg disabled" onclick="moduloMaterial.deleteMaterial();" id="btnDeleteTra"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>

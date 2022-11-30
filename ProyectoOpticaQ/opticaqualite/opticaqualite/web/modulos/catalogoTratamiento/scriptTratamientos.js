@@ -24,6 +24,60 @@ export function inicializar() {
     });
     refrescarTabla();
 }
+
+export function guardarTratamiento() {
+    let datos = null;
+    let params = null;
+    let tratamiento = new Object();
+    
+    if (document.getElementById("txtCodigoTratamineto").value.trim().length < 1) {
+        tratamiento.idTratamiento = 0;
+    }else{
+        tratamiento.idTratamiento = parseInt(document.getElementById("txtCodigoTratamineto").value);
+    }
+    
+    tratamiento.nombre = document.getElementById("txtNombreTratamiento").value;
+    tratamiento.precioCompra = parseFloat(document.getElementById("txtPrecioCompraTratamiento").value);
+    tratamiento.precioVenta = parseFloat(document.getElementById("txtPrecioVentaTratamiento").value);
+    
+    datos = {
+        datosTratamiento: JSON.stringify(tratamiento)
+    };
+
+    params = new URLSearchParams(datos);
+
+    fetch("api/tratamiento/save",
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                body: params
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+//                console.log(data);
+//                if (data.exception !== null) {
+//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+//                    return;
+//                }
+//                if (data.error !== null) {
+//                    Swal.fire('', data.error, 'warning');
+//                    return;
+//                }
+//                if (data.errorperm !== null) {
+//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+//                    return;
+//                }
+
+                document.getElementById("txtCodigoTratamineto").value = data.idTratamiento;
+                Swal.fire('', 'Datos del tratamiento actualizados correctamente.', 'success');
+                refrescarTabla();
+                limpiarFormulario();
+            });
+}
+
 export function refrescarTabla() {
     let url = "api/tratamiento/getAll";
     fetch(url)
@@ -71,27 +125,24 @@ export function cargarTabla(data) {
 
 
 export function selectTratamiento(index) {
-    if (tratamientos[index].estatus === "Inactivo") {
+    if (tratamientos[index].estatus === 0) {
         Swal.fire('Tratamiento eliminado!', '', 'warning');
     } else {
+        document.getElementById("txtCodigoTratamineto").value = tratamientos[index].idTratamiento;
         document.getElementById("txtNombreTratamiento").value = tratamientos[index].nombre;
         document.getElementById("txtPrecioCompraTratamiento").value = parseInt(tratamientos[index].precioCompra);
         document.getElementById("txtPrecioVentaTratamiento").value = parseInt(tratamientos[index].precioVenta);
         document.getElementById("btnDeleteTra").classList.remove("disabled");
-        document.getElementById("btnAddTra").classList.add("disabled");
         indexTratamientoSeleccionado = index;
     }
 }
 
-export function clean() {
+export function limpiarFormulario() {
+    document.getElementById("txtCodigoTratamineto").value = "";
     document.getElementById("txtNombreTratamiento").value = "";
     document.getElementById("txtPrecioCompraTratamiento").value = "";
     document.getElementById("txtPrecioVentaTratamiento").value = "";
-
-
-    document.getElementById("btnUpdateTra").classList.add("disabled");
     document.getElementById("btnDeleteTra").classList.add("disabled");
-    document.getElementById("btnAddTra").classList.remove("disabled");
     indexTratamientoSeleccionado = 0;
 }
 

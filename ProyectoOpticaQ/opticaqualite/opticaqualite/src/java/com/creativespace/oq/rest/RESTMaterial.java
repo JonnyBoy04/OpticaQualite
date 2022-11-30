@@ -32,7 +32,7 @@ public class RESTMaterial {
 
         try {
             cm = new ControllerMaterial();
-            materiales = cm.getAll(filtro);
+            materiales = cm.obtenerMaterial(filtro);
             out = new Gson().toJson(materiales);
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,14 +44,14 @@ public class RESTMaterial {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("save")
-    public Response save(@FormParam("datosAccesorio") @DefaultValue("") String datosAccesorio) {
+    public Response save(@FormParam("datosMaterial") @DefaultValue("") String datosMaterial) {
         String out = null;
         Gson gson = new Gson();
         Material mat = null;
         ControllerMaterial cm = new ControllerMaterial();
 
         try {
-            mat = gson.fromJson(datosAccesorio, Material.class);
+            mat = gson.fromJson(datosMaterial, Material.class);
             if (mat.getIdMaterial()== 0) {
                 cm.insertarMaterial(mat);
             } else {
