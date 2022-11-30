@@ -3,22 +3,22 @@ let indexAccesorioSeleccionado;
 let accesorios = [];
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaAccesorio'),
-                         document.getElementById('tablaAcc'));
-                         
+            document.getElementById('tablaAcc'));
+
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
         $('#desplegar').css('display', 'none');
-        $('#tablaAcc').css('display','none');
-        $('#buscar').css('display','none');
+        $('#tablaAcc').css('display', 'none');
+        $('#buscar').css('display', 'none');
     });
 
     $('#listar').on('click', function () {
         $('#form').css('display', 'none');
         $('#listar').css('display', 'none');
         $('#desplegar').css('display', 'block');
-        $('#tablaAcc').css('display','');
-        $('#buscar').css('display','block');
+        $('#tablaAcc').css('display', '');
+        $('#buscar').css('display', 'block');
     });
     refrescarTabla();
 }
@@ -141,7 +141,7 @@ export function refrescarTabla() {
     fetch(url)
             .then(response => {
                 return response.json()
-        
+
             })
             .then(function (data)
             {
@@ -206,7 +206,7 @@ export function buscarAccesorio() {
 }
 
 export function seleccionarAccesorio(index) {
-    
+
     habilitarFormulario();
     document.getElementById("txtNombreAccesorio").value = accesorios[index].producto.nombre;
     document.getElementById("txtPrecioCompraA").value = accesorios[index].producto.precioCompra;
@@ -217,15 +217,15 @@ export function seleccionarAccesorio(index) {
     document.getElementById("txtCodigoProducto").value = accesorios[index].producto.idProducto;
     document.getElementById("txtCodigoAccesorio").value = accesorios[index].idAccesorio;
     JsBarcode("#codigoBarra", accesorios[index].producto.codigoBarras, {
-            format: "CODE128A",
-            lineColor: "#000",
-            width: 1.5,
-            height: 30,
-            displayValue: true
-        });
+        format: "CODE128A",
+        lineColor: "#000",
+        width: 1.5,
+        height: 30,
+        displayValue: true
+    });
     document.getElementById("btnDeleteAcc").classList.remove("disabled");
     indexAccesorioSeleccionado = index;
-    
+
     if (accesorios[index].producto.estatus === 0) {
         Swal.fire({
             icon: 'error',
@@ -249,12 +249,12 @@ export function limpiarFormulario() {
     document.getElementById("txtCodigoProducto").value = "";
     document.getElementById("txtCodigoAccesorio").value = "";
     JsBarcode("#codigoBarra", " ", {
-            format: "CODE128A",
-            lineColor: "#000",
-            width: 1.5,
-            height: 30,
-            displayValue: true
-        });
+        format: "CODE128A",
+        lineColor: "#000",
+        width: 1.5,
+        height: 30,
+        displayValue: true
+    });
     document.getElementById("btnAddAcc").classList.remove("disabled");
     document.getElementById("btnDeleteAcc").classList.add("disabled");
     indexAccesorioSeleccionado = 0;

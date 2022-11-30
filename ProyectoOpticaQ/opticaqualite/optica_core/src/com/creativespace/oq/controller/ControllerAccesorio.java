@@ -14,17 +14,20 @@ import java.util.ArrayList;
 
 /**
  * Clase controlador Accesorio
+ *
  * @author jonnyboy
  */
 public class ControllerAccesorio {
 
     /**
-     * Se crea la instruccion de MySQL para llamar el procedimiento almacenado para agregar un accesorio
-     * se asignan se llenan los 9 parametros, 6 de ellos son datos del armazon los otros 3 son los IDS generados
-     * en la base de datos
+     * Se crea la instruccion de MySQL para llamar el procedimiento almacenado
+     * para agregar un accesorio se asignan se llenan los 9 parametros, 6 de
+     * ellos son datos del armazon los otros 3 son los IDS generados en la base
+     * de datos
+     *
      * @param a
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public int insert(Accesorio a) throws Exception {
         String sql = """
@@ -66,10 +69,12 @@ public class ControllerAccesorio {
     }
 
     /**
-     * Se ejecuta el procedimiento almacenado que actualiza el accesorio seleccionado,
-     * el procedimiento recibe 7 parametros los cuales son los datos del armazon a actualizar
+     * Se ejecuta el procedimiento almacenado que actualiza el accesorio
+     * seleccionado, el procedimiento recibe 7 parametros los cuales son los
+     * datos del armazon a actualizar
+     *
      * @param a
-     * @throws Exception 
+     * @throws Exception
      */
     public void update(Accesorio a) throws Exception {
         String sql = """
@@ -87,7 +92,7 @@ public class ControllerAccesorio {
         ctm.setDouble(5, a.getProducto().getPrecioVenta());
         ctm.setInt(6, a.getProducto().getExistencias());
         ctm.setInt(7, a.getProducto().getIdProducto());
-        
+
         ctm.executeUpdate();
 
         ctm.close();
@@ -95,14 +100,16 @@ public class ControllerAccesorio {
     }
 
     /**
-     * Se ejecuta una instrucción donde se elimina un accesorio de manera logica (se cambia es estatus a 0)
-     * en este metodo solo se recibe un parametro que es el id del accesorio a eliminar
+     * Se ejecuta una instrucción donde se elimina un accesorio de manera logica
+     * (se cambia es estatus a 0) en este metodo solo se recibe un parametro que
+     * es el id del accesorio a eliminar
+     *
      * @param id
-     * @throws Exception 
+     * @throws Exception
      */
     public void delete(int id) throws Exception {
-        String sql = "UPDATE producto SET estatus = 0 WHERE idProducto = "+id;
-        
+        String sql = "UPDATE producto SET estatus = 0 WHERE idProducto = " + id;
+
         ConexionMYSQL connMySQL = new ConexionMYSQL();
         Connection conn = connMySQL.open();
         Statement stm = conn.createStatement();
@@ -113,9 +120,10 @@ public class ControllerAccesorio {
 
     /**
      * Con este metodo se traen todos los datos de la vista v_accesrios
+     *
      * @param filtro
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public List<Accesorio> getAll(String filtro) throws Exception {
         String sql = "SELECT * FROM v_accesorios";
@@ -134,18 +142,20 @@ public class ControllerAccesorio {
         connMySQL.close();
         return accesorios;
     }
-    
+
     /**
-     * Este metodo nos permite asignar los valores obtenidos de la vista de accesorio en la base de datos y 
-     * son asignados a los atributos de accesorio y producto
+     * Este metodo nos permite asignar los valores obtenidos de la vista de
+     * accesorio en la base de datos y son asignados a los atributos de
+     * accesorio y producto
+     *
      * @param rs
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     private Accesorio fill(ResultSet rs) throws Exception {
         Accesorio a = new Accesorio();
         Producto p = new Producto();
-        
+
         p.setCodigoBarras(rs.getString("codigoBarras"));
         p.setIdProducto(rs.getInt("idProducto"));
         p.setNombre(rs.getString("nombre"));

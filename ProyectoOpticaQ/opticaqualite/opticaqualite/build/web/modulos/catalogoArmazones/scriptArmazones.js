@@ -1,46 +1,46 @@
 /* global fetch, Swal */
 let indexArmazónSeleccionado;
 let armazones = [];
-    let inputImagenArm = null;
+let inputImagenArm = null;
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaArmazon'),
-                         document.getElementById('tablaArm'));
-    
+            document.getElementById('tablaArm'));
+
     inputImagenArm = document.getElementById("txtFotografia");
-    inputImagenArm.onchange = function (e){
-        cargarFotografia(inputImagenArm);  
+    inputImagenArm.onchange = function (e) {
+        cargarFotografia(inputImagenArm);
     };
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
         $('#desplegar').css('display', 'none');
-        $('#tablaArm').css('display','none');
-        $('#buscar').css('display','none');
+        $('#tablaArm').css('display', 'none');
+        $('#buscar').css('display', 'none');
     });
 
     $('#listar').on('click', function () {
         $('#form').css('display', 'none');
         $('#listar').css('display', 'none');
         $('#desplegar').css('display', 'block');
-        $('#tablaArm').css('display','');
-        $('#buscar').css('display','block');
+        $('#tablaArm').css('display', '');
+        $('#buscar').css('display', 'block');
     });
     refrescarTabla();
 }
 
-function cargarFotografia(objetoInputFile){
+function cargarFotografia(objetoInputFile) {
     //Revisamos que el usuario haya seleccionado un archivo
     if (objetoInputFile.files && objetoInputFile.files[0]) {
         let reader = new FileReader();
-        
+
         //Agregamos un oyente al lector del archivo para que,
         //en cuanto el usuario carue una imagen, esta se lea
         //y se convierta de forma automatica en una cadena de Base64:
-        reader.onload = function (e){
+        reader.onload = function (e) {
             let fotoB64 = e.target.result;
             document.getElementById("imgArm").src = fotoB64;
-            document.getElementById("txtACodigoImageArm").value = 
-                    fotoB64.substring(fotoB64.indexOf(",")+1, fotoB64.length);
+            document.getElementById("txtACodigoImageArm").value =
+                    fotoB64.substring(fotoB64.indexOf(",") + 1, fotoB64.length);
         };
         //leemos el archivo que selecciono el usuario y lo
         //convertimos en una cadena con la Base64
@@ -48,7 +48,7 @@ function cargarFotografia(objetoInputFile){
     }
 }
 
-export function save() {
+export function guardarArmazon() {
 
     let datos = null;
     let params = null;
@@ -56,16 +56,16 @@ export function save() {
 
     armazon.producto = new Object();
 
-    if (document.getElementById("txtidArmazon").value.trim().length < 1) {
+    if (document.getElementById("txtIdArmazon").value.trim().length < 1) {
         armazon.idArmazon = 0;
         armazon.producto.idProducto = 0;
     } else {
-        armazon.idArmazon = parseInt(document.getElementById("txtidArmazon").value);
-        armazon.producto.idProducto = parseInt(document.getElementById("txtidProducto").value);
+        armazon.idArmazon = parseInt(document.getElementById("txtIdArmazon").value);
+        armazon.producto.idProducto = parseInt(document.getElementById("txtIdProducto").value);
     }
 
     armazon.producto.nombre = document.getElementById("txtNombreArm").value;
-    armazon.producto.marca = document.getElementById("txtMarca").value;
+    armazon.producto.marca = document.getElementById("txtMarcaArm").value;
     armazon.producto.codigoBarras = document.getElementById("codigoBarraArm").value;
     armazon.producto.precioCompra = document.getElementById("txtPrecioCompra").value;
     armazon.producto.precioVenta = document.getElementById("txtPrecioVenta").value;
@@ -105,8 +105,8 @@ export function save() {
 //                    return;
 //                }
 
-                document.getElementById("txtidArmazon").value = data.idArmazon;
-                document.getElementById("txtidProducto").value = data.producto.idProducto;
+                document.getElementById("txtIdArmazon").value = data.idArmazon;
+                document.getElementById("txtIdProducto").value = data.producto.idProducto;
                 Swal.fire('', 'Datos del Armazon actualizados correctamente.', 'success');
                 refrescarTabla();
             });
@@ -149,7 +149,7 @@ export function eliminar() {
     armazon.producto = new Object();
 
     armazon.producto.nombre = document.getElementById("txtNombreArm").value;
-    armazon.producto.marca = document.getElementById("txtMarca").values;
+    armazon.producto.marca = document.getElementById("txtMarcaArm").values;
     armazon.producto.codigoBarras = document.getElementById("codigoBarraArm").value;
     armazon.producto.precioCompra = document.getElementById("txtPrecioCompra").value;
     armazon.producto.precioVenta = document.getElementById("txtPrecioVenta").value;
@@ -158,9 +158,10 @@ export function eliminar() {
     armazon.color = document.getElementById("txtColor").value;
     armazon.dimensiones = document.getElementById("txtDimen").value;
     armazon.descripcion = document.getElementById("txtDesc").value;
+    armazon.fotografia = document.getElementById("txtACodigoImageArm").value;
 
-    armazon.idArmazon = parseInt(document.getElementById("txtidArmazon").value);
-    armazon.producto.idProducto = parseInt(document.getElementById("txtidProducto").value);
+    armazon.idArmazon = parseInt(document.getElementById("txtIdArmazon").value);
+    armazon.producto.idProducto = parseInt(document.getElementById("txtIdProducto").value);
 
     //Convierte un dato tipo Script a Cadena Json
     datos = {
@@ -192,7 +193,7 @@ export function eliminar() {
 //                    return;
 //                }
                 refrescarTabla();
-                
+
             });
 
 
@@ -262,7 +263,7 @@ export function seleccionarArmazon(index) {
         Swal.fire('Armazón eliminado!', '', 'warning');
     } else {
         document.getElementById("txtNombreArm").value = armazones[index].producto.nombre;
-        document.getElementById("txtMarca").value = armazones[index].producto.marca;
+        document.getElementById("txtMarcaArm").value = armazones[index].producto.marca;
         document.getElementById("txtModelo").value = armazones[index].modelo;
         document.getElementById("txtColor").value = armazones[index].color;
         document.getElementById("txtDesc").value = armazones[index].descripcion;
@@ -271,8 +272,9 @@ export function seleccionarArmazon(index) {
         document.getElementById("txtDimen").value = armazones[index].dimensiones;
         document.getElementById("txtExis").value = armazones[index].producto.existencias;
         document.getElementById("btnDeleteArm").classList.remove("disabled");
-        document.getElementById("txtidArmazon").value = armazones[index].idArmazon;
-        document.getElementById("txtidProducto").value = armazones[index].producto.idProducto;
+        document.getElementById("txtIdArmazon").value = armazones[index].idArmazon;
+        document.getElementById("txtIdProducto").value = armazones[index].producto.idProducto;
+        document.getElementById("txtACodigoImageArm").value = armazones[index].fotografia;
         JsBarcode("#codigoBarraArm", armazones[index].producto.codigoBarras, {
             format: "CODE128A",
             lineColor: "#000",
@@ -286,7 +288,7 @@ export function seleccionarArmazon(index) {
 
 export function limpiarFormulario() {
     document.getElementById("txtNombreArm").value = "";
-    document.getElementById("txtMarca").value = "";
+    document.getElementById("txtMarcaArm").value = "";
     document.getElementById("txtModelo").value = "";
     document.getElementById("txtColor").value = "";
     document.getElementById("txtDesc").value = "";
@@ -294,8 +296,8 @@ export function limpiarFormulario() {
     document.getElementById("txtPrecioCompra").value = "";
     document.getElementById("txtExis").value = "";
     document.getElementById("codigoBarraArm").value = "";
-    document.getElementById("txtidProducto").value = "";
-    document.getElementById("txtidArmazon").value = "";
+    document.getElementById("txtIdProducto").value = "";
+    document.getElementById("txtIdArmazon").value = "";
     document.getElementById("txtDimen").value = "";
 
     JsBarcode("#codigoBarraArm", " ", {

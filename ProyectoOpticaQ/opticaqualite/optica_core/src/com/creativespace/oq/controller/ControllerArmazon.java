@@ -59,6 +59,8 @@ public class ControllerArmazon {
         idArmazonGenerado = cstmt.getInt(12);
         codigoBarrasGenerado = cstmt.getString(13);
 
+        System.out.println(idProductoGenerado);
+        System.out.println(idArmazonGenerado);
         a.getProducto().setIdProducto(idProductoGenerado);
         a.setIdArmazon(idArmazonGenerado);
         a.getProducto().setCodigoBarras(codigoBarrasGenerado);
@@ -72,7 +74,7 @@ public class ControllerArmazon {
     public void update(Armazon a) throws Exception {
         String sql = "{call actualizarArmazon (?,?,?,?,?," //Datos del producto
                 + "?,?,?,?," // Datos del armazon
-                + "?,?) }"; // Datos de retorno 
+                + "?,?,?) }"; // Datos de retorno 
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
         ConexionMYSQL connMySQL = new ConexionMYSQL();
@@ -93,9 +95,10 @@ public class ControllerArmazon {
         cstmt.setString(7, a.getColor());
         cstmt.setString(8, a.getDimensiones());
         cstmt.setString(9, a.getDescripcion());
+        cstmt.setString(10, a.getFotografia());
 
-        cstmt.setInt(10, a.getIdArmazon());
         cstmt.setInt(11, a.getProducto().getIdProducto());
+        cstmt.setInt(12, a.getIdArmazon());
 
         cstmt.executeUpdate();
 
