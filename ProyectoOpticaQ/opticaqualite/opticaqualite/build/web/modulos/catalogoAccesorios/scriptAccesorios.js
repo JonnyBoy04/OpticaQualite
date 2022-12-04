@@ -184,27 +184,6 @@ export function cargarTabla(data) {
 
 }
 
-export function buscarAccesorio() {
-    let filtro = document.getElementById("txtBusquedaAccesorio").value;
-
-    let resultados = accesorios.filter(element => element.nombre === filtro);
-
-    let cuerpo = "";
-    resultados.forEach(function (accesorio) {
-        let registro =
-                '<tr onclick="moduloAccesorio.seleccionarAccesorio(' + accesorios.indexOf(accesorio) + ');">' +
-                '<td>' + accesorio.nombre + '</td>' +
-                '<td>$' + accesorio.precioCompra + '</td>' +
-                '<td>$' + accesorio.precioVenta + '</td>' +
-                '<td>' + accesorio.existencias + ' Pzas</td>' +
-                '<td>' + accesorio.producto.estatus + '</td></tr>';
-        cuerpo += registro;
-    });
-    document.getElementById("tblAccesorio").innerHTML = cuerpo;
-
-
-}
-
 export function seleccionarAccesorio(index) {
 
     habilitarFormulario();

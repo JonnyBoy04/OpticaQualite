@@ -232,7 +232,7 @@ function cargarModuloCompra() {
         footer: 'El modulo se terminara en el siguiente cuatrimestre'
     });
 }
-function cargarIndex(){
+function cargarIndex() {
     fetch("../index.html")
             .then(
                     function (response) {
