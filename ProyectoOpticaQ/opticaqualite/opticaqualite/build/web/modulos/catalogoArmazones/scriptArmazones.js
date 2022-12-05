@@ -67,14 +67,14 @@ export function guardarArmazon() {
     armazon.producto.nombre = document.getElementById("txtNombreArm").value;
     armazon.producto.marca = document.getElementById("txtMarcaArm").value;
     armazon.producto.codigoBarras = document.getElementById("codigoBarraArm").value;
-    armazon.producto.precioCompra = document.getElementById("txtPrecioCompra").value;
-    armazon.producto.precioVenta = document.getElementById("txtPrecioVenta").value;
-    armazon.producto.existencias = document.getElementById("txtExis").value;
+    armazon.producto.precioCompra = document.getElementById("txtPrecioCompraArm").value;
+    armazon.producto.precioVenta = document.getElementById("txtPrecioVentaArm").value;
+    armazon.producto.existencias = document.getElementById("txtExisArm").value;
     armazon.fotografia = document.getElementById("txtACodigoImageArm").value;
-    armazon.modelo = document.getElementById("txtModelo").value;
-    armazon.color = document.getElementById("txtColor").value;
-    armazon.dimensiones = document.getElementById("txtDimen").value;
-    armazon.descripcion = document.getElementById("txtDesc").value;
+    armazon.modelo = document.getElementById("txtModeloArm").value;
+    armazon.color = document.getElementById("txtColorArm").value;
+    armazon.dimensiones = document.getElementById("txtDimenArm").value;
+    armazon.descripcion = document.getElementById("txtDescArm").value;
 
     //Comvierte un dato tipo Script a Cadena Json
     datos = {
@@ -151,13 +151,13 @@ export function eliminar() {
     armazon.producto.nombre = document.getElementById("txtNombreArm").value;
     armazon.producto.marca = document.getElementById("txtMarcaArm").values;
     armazon.producto.codigoBarras = document.getElementById("codigoBarraArm").value;
-    armazon.producto.precioCompra = document.getElementById("txtPrecioCompra").value;
-    armazon.producto.precioVenta = document.getElementById("txtPrecioVenta").value;
-    armazon.producto.existencias = document.getElementById("txtExis").value;
-    armazon.modelo = document.getElementById("txtModelo").value;
-    armazon.color = document.getElementById("txtColor").value;
-    armazon.dimensiones = document.getElementById("txtDimen").value;
-    armazon.descripcion = document.getElementById("txtDesc").value;
+    armazon.producto.precioCompra = document.getElementById("txtPrecioCompraArm").value;
+    armazon.producto.precioVenta = document.getElementById("txtPrecioVentaArm").value;
+    armazon.producto.existencias = document.getElementById("txtExisArm").value;
+    armazon.modelo = document.getElementById("txtModeloArm").value;
+    armazon.color = document.getElementById("txtColorArm").value;
+    armazon.dimensiones = document.getElementById("txtDimenArm").value;
+    armazon.descripcion = document.getElementById("txtDescArm").value;
     armazon.fotografia = document.getElementById("txtACodigoImageArm").value;
 
     armazon.idArmazon = parseInt(document.getElementById("txtIdArmazon").value);
@@ -264,13 +264,13 @@ export function seleccionarArmazon(index) {
     } else {
         document.getElementById("txtNombreArm").value = armazones[index].producto.nombre;
         document.getElementById("txtMarcaArm").value = armazones[index].producto.marca;
-        document.getElementById("txtModelo").value = armazones[index].modelo;
-        document.getElementById("txtColor").value = armazones[index].color;
-        document.getElementById("txtDesc").value = armazones[index].descripcion;
-        document.getElementById("txtPrecioVenta").value = armazones[index].producto.precioVenta;
-        document.getElementById("txtPrecioCompra").value = armazones[index].producto.precioCompra;
-        document.getElementById("txtDimen").value = armazones[index].dimensiones;
-        document.getElementById("txtExis").value = armazones[index].producto.existencias;
+        document.getElementById("txtModeloArm").value = armazones[index].modelo;
+        document.getElementById("txtColorArm").value = armazones[index].color;
+        document.getElementById("txtDescArm").value = armazones[index].descripcion;
+        document.getElementById("txtPrecioVentaArm").value = armazones[index].producto.precioVenta;
+        document.getElementById("txtPrecioCompraArm").value = armazones[index].producto.precioCompra;
+        document.getElementById("txtDimenArm").value = armazones[index].dimensiones;
+        document.getElementById("txtExisArm").value = armazones[index].producto.existencias;
         document.getElementById("btnDeleteArm").classList.remove("disabled");
         document.getElementById("txtIdArmazon").value = armazones[index].idArmazon;
         document.getElementById("txtIdProducto").value = armazones[index].producto.idProducto;
@@ -289,16 +289,16 @@ export function seleccionarArmazon(index) {
 export function limpiarFormulario() {
     document.getElementById("txtNombreArm").value = "";
     document.getElementById("txtMarcaArm").value = "";
-    document.getElementById("txtModelo").value = "";
-    document.getElementById("txtColor").value = "";
-    document.getElementById("txtDesc").value = "";
-    document.getElementById("txtPrecioVenta").value = "";
-    document.getElementById("txtPrecioCompra").value = "";
-    document.getElementById("txtExis").value = "";
+    document.getElementById("txtModeloArm").value = "";
+    document.getElementById("txtColorArm").value = "";
+    document.getElementById("txtDescArm").value = "";
+    document.getElementById("txtPrecioVentaArm").value = "";
+    document.getElementById("txtPrecioCompraArm").value = "";
+    document.getElementById("txtExisArm").value = "";
     document.getElementById("codigoBarraArm").value = "";
     document.getElementById("txtIdProducto").value = "";
     document.getElementById("txtIdArmazon").value = "";
-    document.getElementById("txtDimen").value = "";
+    document.getElementById("txtDimenArm").value = "";
 
     JsBarcode("#codigoBarraArm", " ", {
         format: "CODE128A",

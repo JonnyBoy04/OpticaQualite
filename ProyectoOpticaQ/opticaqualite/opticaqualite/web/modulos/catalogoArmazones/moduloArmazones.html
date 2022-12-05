@@ -6,29 +6,30 @@
     <div id="form" style="display: none;">
         <form action="" class="formulario" id="formulario">
             <!-- Datos identificadores -->
-            <!-- Imagen -->
-            <div class="sidebar ms-2 text-center" style="width: 186px; border-color: green; border-style: solid;">
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <img id="imgArm" src="" style="width:156px; height:156px;">
+            <!-- Imagen Y codigo de barras-->
+            <div class="imagen20">
+                <div style="width: 100%; text-align: center">
+                    <label for="txtCodigoB" class="formulario__label">Código de Barras</label>
+                    <div id="CodigoB">
+                        <svg id="codigoBarraArm"></svg>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <button id="btnSeleccionarImgArm" class="btn btn-outline-success"><i class="fas fa-upload"></i>&nbsp;&nbsp;Cargar Imagen</button>
+                <div class="sidebar ms-2 text-center" style="width: 100%; border-color: green; border-style: solid;">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <img id="imgArm" src="" style="width:156px; height:156px;">
+                        </div>
                     </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <input id="txtFotografia" type="file" class="fotografia">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <button id="btnSeleccionarImgAcc" class="btn btn-outline-success"><i class="fas fa-upload"></i>&nbsp;&nbsp;Cargar Imagen</button>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- codigo de barras -->
-            <div>
-                <label for="txtCodigoB" class="formulario__label">Código de Barras</label>
-                <div id="CodigoB">
-                    <svg id="codigoBarraArm"></svg>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input id="txtFotografia" type="file" class="fotografia">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="Desactivado">
@@ -44,85 +45,88 @@
                 </div>
             </div>
             <!-- Nombre -->
-            <div class="formulario__grupo" id="grupo__nombreAr">
-                <label for="txtNombreArm" class="formulario__label">Nombre del Armazón</label>
-                <div class="formulario__grupo" id="grupo__nombreAr">
-                    <input id="txtNombreArm" type="text" name="nombreAr" class="formulario__input">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+            <div class="input80">
+                <div class="formulario__grupo form-26" id="grupo__nombreAr">
+                    <label for="txtNombreArm" class="formulario__label">Nombre del Armazón</label>
+                    <div class="formulario__grupo" id="grupo__nombreAr">
+                        <input id="txtNombreArm" type="text" name="nombreAr" class="formulario__input">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
-                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
-            </div>
-            <!-- marca -->
-            <div class="formulario__grupo" id="grupo__marca">
-                <label for="txtMarcaArm" class="formulario__label">Marca</label> 
-                <div class="formulario__grupo" id="grupo__marca">
-                    <input type="text" class="formulario__input" name="marca" id="txtMarcaArm" placeholder="Marca">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
+                <div class="formulario__grupo form-26" id="grupo__marca">
+                    <label for="txtMarcaArm" class="formulario__label">Marca</label> 
+                    <div class="formulario__grupo" id="grupo__marca">
+                        <input type="text" class="formulario__input" name="marca" id="txtMarcaArm" placeholder="Marca">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
-                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
-            </div>
-            <!-- modelo -->
-            <div class="formulario__grupo" id="grupo__modelo">
-                <label for="txtModelo" class="formulario__label">Modelo</label>
-                <div class="formulario__grupo" id="grupo__modelo">
-                    <input type="text" class="formulario__input" name="modelo" id="txtModelo" placeholder="Modelo"> 
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
+                <div class="formulario__grupo form-26" id="grupo__modelo">
+                    <label for="txtModeloArm" class="formulario__label">Modelo</label>
+                    <div class="formulario__grupo" id="grupo__modelo">
+                        <input type="text" class="formulario__input" name="modelo" id="txtModeloArm" placeholder="Modelo"> 
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
-                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
-            </div>
-            <!-- color -->
-            <div class="formulario__grupo" id="grupo__color">
-                <label for="txtColor" class="formulario__label">Color</label>
-                <div class="formulario__grupo" id="grupo__color">
-                    <input type="text" class="formulario__input" name="color" id="txtColor" placeholder="Color">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
+                <div class="formulario__grupo form-26" id="grupo__color">
+                    <label for="txtColorArm" class="formulario__label">Color</label>
+                    <div class="formulario__grupo" id="grupo__color">
+                        <input type="text" class="formulario__input" name="color" id="txtColorArm" placeholder="Color">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
-                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
-            </div>
-            <!-- Descripción  -->
-            <div class="formulario__grupo" id="grupo__descripcion">
-                <label for="txtDesc" class="formulario__label">Descripción</label>
-                <div class="formulario__grupo" id="grupo__descripcion">
-                    <input type="text" class="formulario__input" name="descripcion" id="txtDesc" placeholder="Descripción">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
+
+                <div class="formulario__grupo form-26" id="grupo__descripcion">
+                    <label for="txtDescArm" class="formulario__label">Descripción</label>
+                    <div class="formulario__grupo" id="grupo__descripcion">
+                        <input type="text" class="formulario__input" name="descripcion" id="txtDescArm" placeholder="Descripción">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
-                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
-            </div>
-            <!-- precioVenta -->
-            <div class="formulario__grupo" id="grupo__precioven">
-                <label for="txtPrecioVenta" id="">Precio de Venta</label>
-                <div class="formulario__grupo" id="grupo__precioven">
-                    <input type="number" class="formulario__input" name="precioven" id="txtPrecioVenta" placeholder="Precio de Ventas">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
+                <div class="formulario__grupo form-26" id="grupo__precioven">
+                    <label for="txtPrecioVentaArm" id="">Precio de Venta</label>
+                    <div class="formulario__grupo" id="grupo__precioven">
+                        <input type="number" class="formulario__input" name="precioven" id="txtPrecioVentaArm" placeholder="Precio de Ventas">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El precio de venta solo puede contener numeros</p>
                 </div>
-                <p class="formulario__input-error">El precio de venta solo puede contener numeros</p>
-            </div>
-            <!-- precioCompra -->
-            <div class="formulario__grupo" id="grupo__preciocom">
-                <label for="txtPrecioCompra" id="">Precio de Compra</label>
-                <div class="formulario__grupo" id="grupo__preciocom">
-                    <input type="number" class="formulario__input" name="preciocom" id="txtPrecioCompra" placeholder="Precio de Compra">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
+                <div class="formulario__grupo form-26" id="grupo__preciocom">
+                    <label for="txtPrecioCompraArm" id="">Precio de Compra</label>
+                    <div class="formulario__grupo" id="grupo__preciocom">
+                        <input type="number" class="formulario__input" name="preciocom" id="txtPrecioCompraArm" placeholder="Precio de Compra">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">El precio de compra solo puede contener numeros</p>
                 </div>
-                <p class="formulario__input-error">El precio de compra solo puede contener numeros</p>
-            </div>
-            <!-- Existencias -->
-            <div class="formulario__grupo" id="grupo__existencias">
-                <label for="txtExis" id="">Existencias</label>
-                <div class="formulario__grupo" id="grupo__existencias">
-                    <input type="number" class="formulario__input" name="existencias" id="txtExis" placeholder="Precio de Ventas">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
+                <div class="formulario__grupo form-26" id="grupo__existencias">
+                    <label for="txtExisArm" id="">Existencias</label>
+                    <div class="formulario__grupo" id="grupo__existencias">
+                        <input type="number" class="formulario__input" name="existencias" id="txtExisArm" placeholder="Precio de Ventas">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Las existencias solo puede contener numeros</p>
                 </div>
-                <p class="formulario__input-error">Las existencias solo puede contener numeros</p>
-            </div>
-            <!-- Dimenciones -->
-            <div class="formulario__grupo" id="grupo__dimencion">
-                <label for="txtDimen" class="formulario__label">Dimenciones</label>
-                <div class="formulario__grupo" id="grupo__dimencion">
-                    <input type="text" class="formulario__input" name="dimencion" id="txtDimen" placeholder="Dimenciones">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
+                <div class="formulario__grupo form-26" id="grupo__dimencion">
+                    <label for="txtDimenArm" class="formulario__label">Dimenciones</label>
+                    <div class="formulario__grupo" id="grupo__dimencion">
+                        <input type="text" class="formulario__input" name="dimencion" id="txtDimenArm" placeholder="Dimenciones">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
-                <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
             </div>
             <div class="row">
                 <div class="Desactivado col-12">
@@ -173,34 +177,5 @@
         </tbody>
     </table>
 </main>
-<script>
-    // Variables
-    const inputFile = document.querySelector('#txtFotografia');
-    const image = document.querySelector('#img');
-
-    /**
-     * Returns a file in Base64URL format.
-     * @param {File} file
-     * @return {Promise<string>}
-     */
-    async function encodeFileAsBase64URL(file) {
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.addEventListener('loadend', () => {
-                resolve(reader.result);
-            });
-            reader.readAsDataURL(file);
-        });
-    }
-    ;
-
-    // Eventos
-    inputFile.addEventListener('input', async (event) => {
-        // Convierto la primera imagen del input en una ruta Base64
-        const base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
-        // Anyado la ruta Base64 a la imagen
-        image.setAttribute('src', base64URL);
-    });
-</script>
 
 
