@@ -81,7 +81,7 @@ public class RESTCliente {
         ControllerCliente cc = new ControllerCliente();
         try {
             cli = gson.fromJson(datosCliente, Cliente.class);
-            cc.delete(cli.getPersona().getIdPersona());
+            cc.delete(cli.getIdCliente());
             out = gson.toJson(cli);
         } catch (JsonParseException jpe) {
             jpe.printStackTrace();

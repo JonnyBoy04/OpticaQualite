@@ -110,7 +110,7 @@ public class ControllerCliente {
     }
 
     public void delete(int id) throws Exception {
-        String sql = "UPDATE cliente set estatus = 0 where idCliente = " + id;
+        String sql = "UPDATE cliente SET estatus = 0 WHERE idCliente = " + id;
 
         ConexionMYSQL connMySQL = new ConexionMYSQL();
 
