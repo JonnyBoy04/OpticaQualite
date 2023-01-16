@@ -1,7 +1,7 @@
 function iniciarSesion() {
     Swal.fire({
         title: 'Inicio de sesion',
-        html: `<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+        html: `<span class="input-group-addon"><i class="fa-solid fa-envelope fa-fw"></i></span>
                <input type="text" id="login" class="swal2-input" placeholder="Usuario">
                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
                <input type="password" id="password" class="swal2-input" placeholder="Contraseña">`,
@@ -108,7 +108,7 @@ function iniciarSesion() {
                                     </li>\n\
                                     <li>\n\
                                         <a  onclick="cargarModuloPresupuesto()">\n\
-                                           <i class="fa-solid fa-ballot-check fa-2x"></i>\n\
+                                           <i class="fa-solid fa-coins fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 Presupuesto\n\
                                             </span>\n\
