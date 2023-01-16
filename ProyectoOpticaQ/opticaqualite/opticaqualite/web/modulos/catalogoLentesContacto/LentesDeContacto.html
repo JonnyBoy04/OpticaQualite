@@ -4,9 +4,9 @@
         <h2>Gestión de Lentes De Contacto</h2>  
     </div>
     <div id="form" style="display: none;">
-        <form action="" class="formulario" id="formulario">
+        <form action="" class="formulario d-flex justify-content-between" id="formulario">
             <!-- Nombre -->
-            <div class="formulario__grupo" id="grupo__nombreLDC">
+            <div class="formulario__grupo formulario-25" id="grupo__nombreLDC">
                 <label for="txtnombreLDC" class="formulario__label">Nombre</label>
                 <div class="formulario__grupo" id="grupo__nombreLDC">
                     <input type="text" class="formulario__input align-center" name="nombreLDC" id="txtnombreLDC" placeholder="Nombre">
@@ -15,7 +15,7 @@
                 <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
             </div>
             <!-- Marca -->
-            <div class="formulario__grupo" id="grupo__marcaL">
+            <div class="formulario__grupo formulario-25" id="grupo__marcaL">
                 <label for="txtmarcaL" class="formulario__label">Marca</label>
                 <div class="formulario__grupo" id="grupo__marcaL">
                     <input type="text" class="formulario__input" name="marcaL" id="txtmarcaL" placeholder="marca">
@@ -23,7 +23,7 @@
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
             </div>
-            <div class="formulario__grupo" id="grupo__colorL">
+            <div class="formulario__grupo formulario-25" id="grupo__colorL">
                 <label for="txtcolorL" class="formulario__label">color</label>
                 <div class="formulario__grupo" id="grupo__colorL">
                     <input type="text" class="formulario__input" name="colorL" id="txtcolorL" placeholder="color">
@@ -32,7 +32,7 @@
                 <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
             </div>
             <!-- Apellido Materno -->
-            <div class="formulario__grupo" id="grupo__queraL">
+            <div class="formulario__grupo formulario-25" id="grupo__queraL">
                 <label for="txtqueraL" class="formulario__label">Queratometría</label>
                 <div class="formulario__grupo" id="grupo__queraL">
                     <input type="text" class="formulario__input" name="queraL" id="txtqueraL" placeholder="quera">
@@ -42,17 +42,17 @@
             </div>
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Lente" class="btn btn-success btn-lg" onclick="moduloLDC.agregarLC();" id="btnAddLente"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Agregar Lente" class="btn btn-success btn-lg" onclick="moduloLDC.agregarLC();" id="btnAddLente"><i class="fa-solid fa-floppy-disk"></i></button>
             <button title="Limpiar Lente" class="btn btn-info btn-lg" onclick="moduloLDC.clean();" id="btnClean"><i class="fa fa-eraser" aria-hidden="true"></i></button>
             <button title="Modificar Lente" class="btn btn-warning btn-lg disabled" onclick="moduloLDC.modificarLente();" id="btnUpdateLente"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
             <button title="Borrar Lente" class="btn btn-danger btn-lg disabled" onclick="moduloLDC.deleteLente();" id="btnDeleteLente"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>
     </div>
     <hr>
-    <div class="d-flex justify-content-between m-3">
-        <div>
-            <label for="txtBusquedaLente" class="form-label mx-3">Buscar Lente</label>
-            <input type="text" id="txtBusquedaLente">
+    <div class="d-flex justify-content-between m-3 align-items-end">
+        <div class="d-flex" style="width: 50%; align-items: center">
+            <label for="txtBusquedaLente" class="form-label mx-3">Buscar Lente</label><br>
+            <input type="text" class="input-buscar" id="txtBusquedaLente" style="width: 100%">
         </div>
         <div>
             <button id="desplegar">Agregar</button>

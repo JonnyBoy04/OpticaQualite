@@ -29,14 +29,14 @@ function iniciarSesion() {
                         if (login === data.usuario.nombre && password === data.usuario.contrasenia) {
                            cargarMenu();
                     Swal.fire('Sesion iniciada correctamente', '', 'success');
-                    document.getElementById("botonIniciarSesion").innerHTML = '<h2 class="text-white" style="display:flex; align-items: center; font-size: 22px;">Simón Jonathan Zendejas Gutiérrez<i class="logo fa fa-user-circle" aria-hidden="true"></i></h2>';
+                    document.getElementById("botonIniciarSesion").innerHTML = '<h2 class="text-white" style="display:flex; align-items: center; font-size: 22px;">'+data.persona.nombre+' '+data.persona.apellidoPaterno+' '+data.persona.apellidoMaterno+'<i class="logo fa fa-user-circle" aria-hidden="true"></i></h2>';
                     document.getElementById("menu").innerHTML =
                                 '<div class="area"></div>\n\
                             <nav class="main-menu">\n\
                                 <ul>\n\
                                     <li class="has-subnav">\n\
                                         <a  onclick="cargarModuloClientes()">\n\
-                                            <i class="fa fa-user fa-2x"></i>\n\
+                                            <i class="fa fa-users fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 Clientes\n\
                                             </span>\n\
@@ -67,16 +67,8 @@ function iniciarSesion() {
                                         </a>\n\
                                     </li>\n\
                                     <li>\n\
-                                        <a>\n\
-                                            <i class="fa fa-shopping-cart fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
-                                                Productos\n\
-                                            </span>\n\
-                                        </a>\n\
-                                    </li>\n\
-                                    \n\<li>\n\
                                         <a  onclick="cargarModuloArmazon()">\n\
-                                           <i class="fa fa-2x"></i>\n\
+                                           <i class="fa-solid fa-glasses fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 -Armazones\n\
                                             </span>\n\
@@ -84,7 +76,7 @@ function iniciarSesion() {
                                     </li>\n\
                                     \n\<li>\n\
                                         <a  onclick="cargarModuloAccesorios()">\n\
-                                           <i class="fa fa-2x"></i>\n\
+                                           <i class="fa-solid fa-basket-shopping fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 -Accesorios\n\
                                             </span>\n\
@@ -92,7 +84,7 @@ function iniciarSesion() {
                                     </li>\n\
                                     <li>\n\
                                        <a  onclick="cargarModuloSoluciones()">\n\
-                                            <i class="fa fa-2x"></i>\n\
+                                            <i class="fa-solid fa-bottle-droplet fa-2x"></i></i>\n\
                                             <span class="nav-text">\n\
                                                 -Soluciones\n\
                                             </span>\n\
@@ -100,7 +92,7 @@ function iniciarSesion() {
                                     </li>\n\
                                     <li>\n\
                                         <a  onclick="cargarmoduloLDC()">\n\
-                                           <i class="fa fa-2x"></i>\n\
+                                           <i class="fa-solid fa-eye fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 -Lente de contacto\n\
                                             </span>\n\
@@ -108,7 +100,7 @@ function iniciarSesion() {
                                     </li>\n\
 \n\                                 <li>\n\
                                         <a  onclick="cargarModuloExamenVista()">\n\
-                                            <i class="fa fa-eye fa-2x"></i>\n\
+                                            <i class="fa-solid fa-file-lines fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 Examen de la vista\n\
                                             </span>\n\
@@ -116,7 +108,7 @@ function iniciarSesion() {
                                     </li>\n\
                                     <li>\n\
                                         <a  onclick="cargarModuloPresupuesto()">\n\
-                                            <i class="fa fa-bar-chart-o fa-2x"></i>\n\
+                                           <i class="fa-solid fa-ballot-check fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 Presupuesto\n\
                                             </span>\n\
@@ -124,7 +116,7 @@ function iniciarSesion() {
                                     </li>\n\
                                      <li>\n\
                                         <a  onclick="cargarModuloVentas()">\n\
-                                            <i class="fa fa-bar-chart-o fa-2x"></i>\n\
+                                            <i class="fa-solid fa-bag-shopping fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 Ventas\n\
                                             </span>\n\
@@ -132,7 +124,7 @@ function iniciarSesion() {
                                     </li>\n\
                                   <li>\n\
                                         <a  onclick="cargarModuloPagos()">\n\
-                                            <i class="fa fa-bar-chart-o fa-2x"></i>\n\
+                                            <i class="fa-solid fa-money-bill fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 Pagos\n\
                                             </span>\n\
@@ -140,7 +132,7 @@ function iniciarSesion() {
                                     </li>\n\
                                      <li>\n\
                                         <a  onclick="cargarModuloCompra()">\n\
-                                            <i class="fa fa-bar-chart-o fa-2x"></i>\n\
+                                            <i class="fa-solid fa-cart-shopping fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 Bitacora de copra\n\
                                             </span>\n\
@@ -150,7 +142,7 @@ function iniciarSesion() {
                                 <ul class="logout">\n\
                                     <li>\n\
                                        <a onclick="cerrarSesion()">\n\
-                                             <i class="fa fa-power-off fa-2x"></i>\n\
+                                             <i class="gg-log-off"></i>\n\
                                             <span class="nav-text">\n\
                                                 Cerrar sesión\n\
                                             </span>\n\

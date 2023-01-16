@@ -38,6 +38,26 @@ public class RESTEmpleado {
         return Response.status(Response.Status.OK).entity(out).build();
     }
     
+    @GET
+    @Path("buscar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscar(@QueryParam("filtro") @DefaultValue("") String filtro) {
+        String out = null;
+        ControllerEmpleado ce = null;
+        List<Empleado> empleados = null;
+
+        try {
+            ce = new ControllerEmpleado();
+            empleados = ce.buscarEmpleado(filtro);
+            out = new Gson().toJson(empleados);
+        } catch (Exception e) {
+            e.printStackTrace();
+            out = "{\"exeption\":\"Error interno del servidor.\"}";
+        }
+
+        return Response.status(Response.Status.OK).entity(out).build();
+    }
+    
     @POST
     @Path("save")
     @Produces(MediaType.APPLICATION_JSON)

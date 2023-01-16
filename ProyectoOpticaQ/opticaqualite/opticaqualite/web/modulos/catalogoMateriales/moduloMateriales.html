@@ -4,50 +4,50 @@
         <h2>Gestión de Material</h2> 
     </div>
     <div id="form" style="display: none;">
-        <form class="formulario col-lg-5" id="formulario">
+        <form class="formulario d-flex justify-content-between" id="formulario">
             <div class="Desactivado">
                 <input type="number" id="txtCodigoMaterial">
             </div>
             <!-- Nombre del Material -->
-            <div class="formulario__grupo" id="grupo__nombreMa">
+            <div class="formulario__grupo formulario-33" id="grupo__nombreMa">
                 <label for="txtNombreMaterial" class="formulario__label">Nombre del Material</label>
                 <div class="formulario__grupo" id="grupo__nombreMa">
                     <input id="txtNombreMaterial" type="text" class="formulario__input" name="nombreMa" placeholder="nombre" class="mt-2">
-                    <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">Campo obligatorio</p>
             </div>
             <!-- Precio del Material -->
-            <div class="formulario__grupo" id="grupo__precioCMa">
+            <div class="formulario__grupo formulario-33" id="grupo__precioCMa">
                 <label for="txtPrecioCompraMaterial" class="formulario__label">Precio Compra</label>
                 <div class="formulario__grupo" id="grupo__precioCMa">
                     <input id="txtPrecioCompraMaterial" type="number" class="formulario__input" name="precioCMa" placeholder="precio de Compra" class="mt-2">
-                    <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">El precio de compra solo puede<br>contener numeros</p>
             </div>
             <!-- Venta del Material -->
-            <div class="formulario__grupo" id="grupo__precioVMa">
+            <div class="formulario__grupo formulario-33" id="grupo__precioVMa">
                 <label for="txtPrecioVentaMaterial" class="formulario__label">Precio venta</label>
                 <div class="formulario__grupo" id="grupo__precioVMa">
                     <input id="txtPrecioVentaMaterial" type="number" class="formulario__input" name="precioVMa" placeholder="precio de Venta" class="mt-2">
-                    <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">El precio de venta solo puede<br>contener numeros</p>
             </div>
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Material" class="btn btn-success btn-lg" onclick="moduloMaterial.guardarMaterial();" id="btnAddTra"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Agregar Material" class="btn btn-success btn-lg" onclick="moduloMaterial.guardarMaterial();" id="btnAddTra"><i class="fa-solid fa-floppy-disk"></i></button>
             <button title="Limpiar Matarial" class="btn btn-info btn-lg" onclick="moduloMaterial.clean();" id="btnCleanTra"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-            <button title="Borrar Material" class="btn btn-danger btn-lg disabled" onclick="moduloMaterial.deleteMaterial();" id="btnDeleteTra"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            <button title="Borrar Material" class="btn btn-danger btn-lg disabled" onclick="moduloMaterial.borrarMaterial();" id="btnDeleteTra"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>
     </div>
     <!-- Tabla de datos -->
     <hr>
-    <div class="d-flex justify-content-between m-3">
-        <div id="buscar">
-            <label for="txtBusquedaMaterial" class="form-label mx-3">Buscar Material</label>
-            <input type="text" id="txtBusquedaMaterial">
+    <div class="d-flex justify-content-between m-3 align-items-end">
+        <div id="buscar" style="width: 50%;">
+            <label for="txtBusquedaMaterial" class="form-label mx-3">Buscar Material</label><br>
+            <input type="text" class="input-buscar" id="txtBusquedaMaterial" style="width: 100%;">
         </div>
         <div>
             <button id="desplegar">Agregar</button>

@@ -4,51 +4,51 @@
         <h2>Gestión de Tratamiento</h2> 
     </div>
     <div id="form" style="display: none;">
-        <form class="formulario col-lg-5" id="formulario">
+        <form class="formulario d-flex justify-content-between" id="formulario">
             <!-- Id -->
             <div class="Desactivado">
                 <input type="number" id="txtCodigoTratamineto">
             </div>
             <!-- Nombre del Tratamiento -->
-            <div class="formulario__grupo" id="grupo__nombreT">
+            <div class="formulario__grupo formulario-33" id="grupo__nombreT">
                 <label for="txtNombreTratamiento" class="formulario__label">Nombre del Tratamiento</label>
                 <div class="formulario__grupo" id="grupo__nombreT">
                     <input id="txtNombreTratamiento" type="text" class="formulario__input" name="nombreT" placeholder="nombre" class="mt-2">
-                    <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">Campo obligatorio</p>
             </div>
             <!-- Precio del Tratamiento -->
-            <div class="formulario__grupo" id="grupo__precioCT">
+            <div class="formulario__grupo formulario-33" id="grupo__precioCT">
                 <label for="txtPrecioCompraTratamiento" class="formulario__label">Precio Compra</label>
                 <div class="formulario__grupo" id="grupo__precioCT">
                     <input id="txtPrecioCompraTratamiento" type="number" class="formulario__input" name="precioCT" placeholder="precio de Compra" class="mt-2">
-                    <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">El precio de compra solo puede<br>contener numeros</p>
             </div>
             <!-- Venta del Tratamiento -->
-            <div class="formulario__grupo" id="grupo__precioVT">
+            <div class="formulario__grupo formulario-33 " id="grupo__precioVT">
                 <label for="txtPrecioVentaTratamiento" class="formulario__label">Precio venta</label>
                 <div class="formulario__grupo" id="grupo__precioVT">
                     <input id="txtPrecioVentaTratamiento" type="number" class="formulario__input" name="precioVT" placeholder="precio de Venta" class="mt-2">
-                    <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">El precio de venta solo puede<br>contener numeros</p>
             </div>
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Tratamiento" class="btn btn-success btn-lg" onclick="moduloTratamientos.guardarTratamiento();" id="btnAddTra"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Agregar Tratamiento" class="btn btn-success btn-lg" onclick="moduloTratamientos.guardarTratamiento();" id="btnAddTra"><i class="fa-solid fa-floppy-disk"></i></button>
             <button title="Limpiar Tratamiento" class="btn btn-info btn-lg" onclick="moduloTratamientos.limpiarFormulario();" id="btnCleanTra"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-            <button title="Borrar Tratamiento" class="btn btn-danger btn-lg disabled" onclick="moduloTratamientos.deleteTratamiento();" id="btnDeleteTra"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            <button title="Borrar Tratamiento" class="btn btn-danger btn-lg disabled" onclick="moduloTratamientos.borrarTratamiento();" id="btnDeleteTra"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>
     </div>
     <!-- Tabla de datos -->
     <hr>
-    <div class="d-flex justify-content-between m-3">
-        <div id="buscar">
-             <label for="txtBusquedaTratamiento" class="form-label mx-3">Buscar Tratamiento</label>
-            <input type="text" id="txtBusquedaTratamiento">
+    <div class="d-flex justify-content-between m-3 align-items-end">
+        <div id="buscar" style="width: 50%;">
+            <label for="txtBusquedaTratamiento" class="form-label mx-3">Buscar Tratamiento</label><br>
+            <input type="text" class="input-buscar" id="txtBusquedaTratamiento" style="width: 100%">
         </div>
         <div>
             <button id="desplegar">Agregar</button>

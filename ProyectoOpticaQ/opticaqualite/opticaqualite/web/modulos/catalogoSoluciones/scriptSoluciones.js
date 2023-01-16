@@ -22,10 +22,10 @@ export function inicializar() {
         $('#tablaSol').css('display', '');
         $('#buscar').css('display', 'block');
     });
-    refreshTable();
+    refrescarTabla();
 }
 
-export function saveSolucion() {
+export function guardarSolucion() {
     let datos = null;
     let params = null;
     let solucion = new Object();
@@ -64,26 +64,42 @@ export function saveSolucion() {
         document.getElementById("txtIdProducto").value = data.producto.idProducto;
         document.getElementById("txtIdSolucion").value = data.idSolucion;
         Swal.fire('', 'Datos de solucion actualizados correctamente.', 'success');
-        refreshTable();
-        clean();
+        refrescarTabla();
+        limpiarFormulario();
     });
 }
 
-export function refreshTable() {
+export function registrarSolucion() {
+    if (campos.nombreSol && campos.marcaSol && campos.DescripcionSol && campos.precioVentaSol && campos.precioCompraSol && campos.existenciasSol) {
+        guardarSolucion();
+        Swal.fire('Registro Guardado!', ' ', 'success');
+        document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+            icono.classList.remove('formulario__grupo-correcto');
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Datos incorrectos o vacios'
+        });
+    }
+}
+
+export function refrescarTabla() {
     let url = "api/solucion/getAll";
     fetch(url).then(response => {
         return response.json();
     }).then(function (data) {
-        loadTabla(data);
+        cargarTabla(data);
     });
 }
-export function loadTabla(data) {
+export function cargarTabla(data) {
     let cuerpo = "";
     soluciones = data;
     console.log(soluciones);
     soluciones.forEach(function (solucion) {
         let registro =
-                '<tr onclick="moduloSoluciones.selectSolucion(' + soluciones.indexOf(solucion) + ');">' +
+                '<tr onclick="moduloSoluciones.seleccionarSolucion(' + soluciones.indexOf(solucion) + ');">' +
                 '<td>' + solucion.producto.nombre + '</td>' +
                 '<td>' + solucion.producto.marca + '</td>' +
                 '<td>$' + solucion.producto.precioCompra + '</td>' +
@@ -95,7 +111,7 @@ export function loadTabla(data) {
     document.getElementById("tblSoluciones").innerHTML = cuerpo;
 }
 
-export function selectSolucion(index) {
+export function seleccionarSolucion(index) {
     if (soluciones[index].estatus === "Inactivo") {
         Swal.fire('Solucion eliminada', '', 'warning');
     } else {
@@ -119,7 +135,7 @@ export function selectSolucion(index) {
     }
 }
 
-export function clean() {
+export function limpiarFormulario() {
     document.getElementById("txtIdProducto").value = "";
     document.getElementById("txtIdSolucion").value = "";
     document.getElementById("txtNombreSol").value = "";
@@ -139,7 +155,7 @@ export function clean() {
     indexSolucionSeleccionado = 0;
 }
 
-export function borrarAccesorio() {
+export function borrarSolucion() {
     Swal.fire({
         title: '¿Quieres eliminar la solución seleccionada?',
         showCancelButton: true,
@@ -150,14 +166,14 @@ export function borrarAccesorio() {
         CancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            deleteSolucion();
-            clean();
+            eliminarSolucion();
+            limpiarFormulario();
             Swal.fire('Eliminada con exito!', '', 'success');
         }
     });
 }
 
-export function deleteSolucion() {
+export function eliminarSolucion() {
     let datos = null;
     let params = null;
     let solucion = new Object();
@@ -189,8 +205,8 @@ export function deleteSolucion() {
                 return response.json();
             })
             .then(function (data) {
-                refreshTable();
-                clean();
+                refrescarTabla();
+                limpiarFormulario();
             });
 }
 
@@ -243,15 +259,11 @@ const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input.value)) {
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
         campos[campo] = true;
     } else {
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
         campos[campo] = false;
     }

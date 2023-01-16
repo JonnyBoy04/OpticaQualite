@@ -5,21 +5,21 @@ let materiales = [];
 
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaMaterial'),
-                         document.getElementById('tablaMat'));
+            document.getElementById('tablaMat'));
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
         $('#desplegar').css('display', 'none');
-        $('#tablaMat').css('display','none');
-        $('#buscar').css('display','none');
+        $('#tablaMat').css('display', 'none');
+        $('#buscar').css('display', 'none');
     });
 
     $('#listar').on('click', function () {
         $('#form').css('display', 'none');
         $('#listar').css('display', 'none');
         $('#desplegar').css('display', 'block');
-        $('#tablaMat').css('display','');
-        $('#buscar').css('display','block');
+        $('#tablaMat').css('display', '');
+        $('#buscar').css('display', 'block');
     });
     refrescarTabla();
 }
@@ -28,17 +28,17 @@ export function guardarMaterial() {
     let datos = null;
     let params = null;
     let material = new Object();
-    
+
     if (document.getElementById("txtCodigoMaterial").value.trim().length < 1) {
         material.idMaterial = 0;
-    }else{
+    } else {
         material.idMaterial = parseInt(document.getElementById("txtCodigoMaterial").value);
     }
-    
+
     material.nombre = document.getElementById("txtNombreMaterial").value;
     material.precioCompra = parseFloat(document.getElementById("txtPrecioCompraMaterial").value);
     material.precioVenta = parseFloat(document.getElementById("txtPrecioVentaMaterial").value);
-    
+
     datos = {
         datosMaterial: JSON.stringify(material)
     };
@@ -77,6 +77,68 @@ export function guardarMaterial() {
             });
 }
 
+export function eliminarMaterial() {
+    let datos = null;
+    let params = null;
+    let material = new Object();
+
+    material.idMaterial = parseInt(document.getElementById("txtCodigoMaterial").value);
+    material.nombre = document.getElementById("txtNombreMaterial").value;
+    material.precioCompra = parseFloat(document.getElementById("txtPrecioCompraMaterial").value);
+    material.precioVenta = parseFloat(document.getElementById("txtPrecioVentaMaterial").value);
+
+    datos = {
+        datosMaterial: JSON.stringify(material)
+    };
+
+    params = new URLSearchParams(datos);
+
+    fetch("api/material/delete",
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                body: params
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+//                console.log(data);
+//                if (data.exception !== null) {
+//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+//                    return;
+//                }
+//                if (data.error !== null) {
+//                    Swal.fire('', data.error, 'warning');
+//                    return;
+//                }
+//                if (data.errorperm !== null) {
+//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+//                    return;
+//                }
+
+                refrescarTabla();
+                limpiarFormulario();
+            });
+}
+
+export function registrarMaterial() {
+    if (campos.nombreMa && campos.precioVMa && campos.precioCMa) {
+        guardarMaterial();
+        Swal.fire('Registro Guardado!', ' ', 'success');
+        document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+            icono.classList.remove('formulario__grupo-correcto');
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Datos incorrectos o vacios'
+        });
+    }
+}
+
 export function refrescarTabla() {
     let url = "api/material/getAll";
     fetch(url)
@@ -112,7 +174,7 @@ export function cargarTabla(data) {
     materiales = data;
     materiales.forEach(function (tratamiento) {
         let registro =
-                '<tr onclick="moduloMaterial.selectMaterial(' + materiales.indexOf(tratamiento) + ');">' +
+                '<tr onclick="moduloMaterial.seleccionarMaterial(' + materiales.indexOf(tratamiento) + ');">' +
                 '<td>' + tratamiento.nombre + '</td>' +
                 '<td>$' + tratamiento.precioCompra + '</td>' +
                 '<td>$' + tratamiento.precioVenta + '</td>' +
@@ -124,7 +186,7 @@ export function cargarTabla(data) {
 }
 
 
-export function selectMaterial(index) {
+export function seleccionarMaterial(index) {
     if (materiales[index].estatus === "Inactivo") {
         Swal.fire('Material eliminado!', '', 'warning');
     } else {
@@ -146,7 +208,7 @@ export function limpiarFormulario() {
     indexMaterialSeleccionado = 0;
 }
 
-export function deleteMaterial() {
+export function borrarMaterial() {
     Swal.fire({
         title: '¿Quieres eliminar el material seleccionado?',
         showCancelButton: true,
@@ -157,9 +219,7 @@ export function deleteMaterial() {
         CancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            materiales[indexMaterialSeleccionado].estatus = "Inactivo";
-            clean();
-            loadTabla();
+            eliminarMaterial();
             Swal.fire('Eliminado con exito!', '', 'success');
         }
     });
@@ -205,15 +265,11 @@ const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input.value)) {
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
         campos[campo] = true;
     } else {
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
         campos[campo] = false;
     }

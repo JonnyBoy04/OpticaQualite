@@ -4,8 +4,8 @@
         <h2>Gestión de Soluciones</h2>  
     </div>
     <div id="form" style="display: none;">
-        <form action="" class="formulario" id="formulario">
-            <div>
+        <form action="" class="formulario d-flex justify-content-between" id="formulario">
+            <div class="formulario-33">
                 <label for="txtCodigoB" class="formulario__label">Código de Barras</label>
                 <div id="codigoB">
                     <svg id="codigoBarraSol"></svg>
@@ -30,62 +30,62 @@
             </div>
 
             <!-- Nombre de Solucion -->
-            <div class="formulario__grupo" id="grupo__nombreSol">
+            <div class="formulario__grupo formulario-33" id="grupo__nombreSol">
                 <label for="txtNombreSol" class="formulario__label">Nombre</label>
                 <div>
                     <input type="text" class="formulario__input" name="nombreSol" id="txtNombreSol" placeholder="Nombre de Solucion" class="mt-2">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                   
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente</p>
             </div>
             <!-- Marca -->
-            <div class="formulario__grupo" id="grupo__marcaSol">
+            <div class="formulario__grupo formulario-33" id="grupo__marcaSol">
                 <label for="txtMarcaSol" class="formulario__label">Marca</label>
                 <div>
                     <input type="text" class="formulario__input" name="marcaSol" id="txtMarcaSol" placeholder="Marca" class="mt-2">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                   
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente</p>
             </div>
             <!-- Precio Venta -->
-            <div class="formulario__grupo" id="grupo__precioVentaSol">
+            <div class="formulario__grupo formulario-33" id="grupo__precioVentaSol">
                 <label for="txtPrecioVentaSol" class="formulario__label">Precio de venta</label>
                 <div class="formulario__grupo-input">
                     <input type="number" class="formulario__input" name="precioVentaSol" id="txtPrecioVentaSol" placeholder="Precio de venta">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                   
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente</p>
             </div>
             <!-- Precio Compra -->
-            <div class="formulario__grupo" id="grupo__precioCompraSol">
+            <div class="formulario__grupo formulario-33" id="grupo__precioCompraSol">
                 <label for="txtPrecioCompraSol" class="formulario__label">Precio de compra</label>
                 <div class="formulario__grupo-input">
                     <input type="number" class="formulario__input" name="precioCompraSol" id="txtPrecioCompraSol" placeholder="Precio de compra">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                   
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente</p>
             </div>
             <!-- Existencias -->
-            <div class="formulario__grupo" id="grupo__existenciasSol">
+            <div class="formulario__grupo formulario-33" id="grupo__existenciasSol">
                 <label for="txtExistenciasSol" class="formulario__label">Existencias</label>
                 <div class="formulario__grupo" id="grupo__nombre">
                     <input type="number" class="formulario__input" name="existenciasSol" id="txtExistenciasSol" placeholder="Existencias">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                   
                 </div>
                 <p class="formulario__input-error">Campo invalido, rellene correctamente</p>
             </div>
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Solucion" class="btn btn-success btn-lg" onclick="moduloSoluciones.saveSolucion();" id="btnAddSol"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
-            <button title="Limpiar Solucion" class="btn btn-info btn-lg" onclick="moduloSoluciones.clean();" id="btnCleanSol"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-            <button title="Borrar Solucion" class="btn btn-danger btn-lg disabled" onclick="moduloSoluciones.borrarAccesorio();" id="btnDeleteSol"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            <button title="Agregar Solucion" class="btn btn-success btn-lg" onclick="moduloSoluciones.guardarSolucion();" id="btnAddSol"><i class="fa-solid fa-floppy-disk"></i></button>
+            <button title="Limpiar Solucion" class="btn btn-info btn-lg" onclick="moduloSoluciones.limpiarFormulario();" id="btnCleanSol"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+            <button title="Borrar Solucion" class="btn btn-danger btn-lg disabled" onclick="moduloSoluciones.borrarSolucion();" id="btnDeleteSol"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>
     </div>
     <hr>
-    <div class="d-flex justify-content-between m-3">
-        <div id="buscar">
-            <label for="txtBusquedaSolucion" class="form-label mx-3">Buscar Solucion</label>
-            <input type="text" id="txtBusquedaSolucion">
+    <div class="d-flex justify-content-between m-3 align-items-end">
+        <div id="buscar" style="width: 50%;">
+            <label for="txtBusquedaSolucion" class="form-label mx-3">Buscar Solucion</label><br>
+            <input type="text" class="input-buscar" id="txtBusquedaSolucion" style="width: 100%;">
         </div>
         <div>
             <button id="desplegar">Agregar</button>

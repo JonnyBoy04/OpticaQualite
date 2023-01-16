@@ -32,10 +32,10 @@
             <!-- Datos de seguridad -->
             <!-- Usuario -->
             <div class="formulario__grupo formulario-50" id="grupo__usuario">
-                <label for="txtUsuarioEmp" class="formulario__label">Usuario</label>
+                <label for="txtUsuarioEmp class="formulario__label">Usuario</label>
                 <div>
                     <input type="text" class="formulario__input" name="usuario" id="txtUsuarioEmp" placeholder="Usuario" class="mt-2">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y <br>solo puede contener numeros, letras y guion bajo.</p>
             </div>
@@ -44,7 +44,7 @@
                 <label for="txtContraseniaEmp" class="formulario__label">Contraseña</label>
                 <div class="formulario__grupo-input">
                     <input type="password" class="formulario__input" name="password" id="txtContraseniaEmp" placeholder="Contraseña">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
             </div>
@@ -60,7 +60,7 @@
                 <label for="txtNombreEmp" class="formulario__label">Nombre(s)</label>
                 <div class="formulario__grupo" id="grupo__nombre">
                     <input type="text" class="formulario__input" name="nombre" id="txtNombreEmp" placeholder="Nombre (s)">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">Campo obligatorio.</p>
             </div>
@@ -69,7 +69,7 @@
                 <label for="txtApePaternoEmp" class="formulario__label">Apellido Paterno</label>
                 <div class="formulario__grupo" id="grupo__apellidoP">
                     <input type="text" class="formulario__input" name="apellidoP" id="txtApePaternoEmp" placeholder="Apellido Paterno">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">Campo obligatorio.</p>
             </div>
@@ -78,7 +78,7 @@
                 <label for="txtApeMaternoEmp" class="formulario__label">Apellido Materno</label>
                 <div class="formulario__grupo" id="grupo__apellidoM">
                     <input type="text" class="formulario__input" name="apellidoM" id="txtApeMaternoEmp" placeholder="Apellido Materno">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
             </div>
             <!-- Genero -->
@@ -100,7 +100,7 @@
                 <label for="txtRfcEmp" class="formulario__label">RFC</label><br>
                 <div>
                     <input type="text" class="formulario__input" name="rfc" id="txtRfcEmp" placeholder="RFC">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">El RFC debe contener 13 digitos y <br>solo puede contener numeros, letras.</p>
             </div>
@@ -143,7 +143,7 @@
                 <label for="txtTelefonoEmp" class="formulario__label">Teléfono</label>
                 <div class="formulario__grupo-input">
                     <input type="tel" class="formulario__input" name="telefono" id="txtTelefonoEmp" placeholder="Telefono fijo">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">El telefono solo puede contener <br>numeros y el maximo son 10 dígitos.</p>
             </div>
@@ -152,7 +152,7 @@
                 <label for="txtMovilEmp" class="formulario__label">Teléfono Movil</label>
                 <div class="formulario__grupo-input">
                     <input type="tel" class="formulario__input" name="telefonoM" id="txtMovilEmp" placeholder="Telefono Movil">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">El telefono solo puede contener <br>numeros y el maximo son 10 dígitos.</p>
             </div>
@@ -161,23 +161,23 @@
                 <label for="txtCorreoEmp" class="formulario__label">Correo Electrónico</label>
                 <div class="formulario__grupo-input">
                     <input type="email" class="formulario__input" name="correo" id="txtCorreoEmp" placeholder="correo@ejemplo.com">
-                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    
                 </div>
                 <p class="formulario__input-error">El correo solo puede contener letras, <br>numeros, puntos, guiones y guion bajo.</p>
             </div>
 
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Empleado" class="btn btn-success btn-lg" onclick="moduloEmpleado.guardarEmpleado();" id="btnAddEmp"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+            <button title="Agregar Empleado" class="btn btn-success btn-lg" onclick="moduloEmpleado.guardarEmpleado();" id="btnAddEmp"><i class="fa-solid fa-floppy-disk"></i></button>
             <button title="Limpiar Formulario" class="btn btn-info btn-lg" onclick="moduloEmpleado.limpiar();" id="btnCleanEmp"><i class="fa fa-eraser" aria-hidden="true"></i></button>
             <button title="Borrar Empleado" class="btn btn-danger btn-lg disabled" onclick="moduloEmpleado.borrarEmpleado();" id="btnDeleteEmp"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>
     </div>
     <hr>
-    <div class="d-flex justify-content-between m-3">
-        <div id="buscar">
-            <label for="txtBusquedaEmpleado" class="form-label mx-3">Buscar Empleado</label>
-            <input type="text" id="txtBusquedaEmpleado">
+    <div class="d-flex justify-content-between m-3 align-items-end">
+        <div id="buscar" style="width: 50%">
+            <label for="txtBusquedaEmpleado" class="form-label">Buscar Empleado</label><br>
+            <input type="text" class="input-buscar" id="txtBusquedaEmpleado" style="width: 100%">
         </div>
         <div>
             <button id="desplegar">Formulario</button>

@@ -1,4 +1,4 @@
-/* global fetch, Swal */
+    /* global fetch, Swal */
 
 let indexClienteSeleccionado;
 let clientes = [];
@@ -12,6 +12,7 @@ export function inicializar() {
         $('#desplegar').css('display', 'none');
         $('#tablaCli').css('display','none');
         $('#buscar').css('display','none');
+        
     });
 
     $('#listar').on('click', function () {
@@ -19,12 +20,12 @@ export function inicializar() {
         $('#listar').css('display', 'none');
         $('#desplegar').css('display', 'block');
         $('#tablaCli').css('display','');
-        $('#buscar').css('display','block');
+        $('#buscar').css('display','flex');
     });
-    refreshTable();
+    refrescarTabla();
 }
 
-export function save() {
+export function guardarCliente() {
     let datos = null;
     let params = null;
     let cliente = new Object();
@@ -93,27 +94,28 @@ export function save() {
                 document.getElementById("txtCodigoPersona").value = data.persona.idPersona;
                 document.getElementById("txtNumUnico").value = data.numeroUnico;
                 Swal.fire('', 'Datos del cliente actualizados correctamente.', 'success');
-                refreshTable();
-                clean();
+                refrescarTabla();
+                limpiarFormulario();
             });
 }
 
-//export function agregarCliente() {
-//    if (campos.nombre && campos.apellidoP && campos.correo && campos.telefonoM) {
-//        addCliente();
-//        Swal.fire('Registro Guardado!', '', 'success');
-//        document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-//            icono.classList.remove('formulario__grupo-correcto');
-//        });
-//    } else {
-//        Swal.fire({
-//            icon: 'error',
-//            title: 'Error',
-//            text: 'Datos incorrectos o vacios'
-//        });
-//    }
-//}
-export function refreshTable() {
+export function registrarCliente() {
+    if (campos.nombre && campos.apellidoP && campos.rfc && campos.telefonoM && campos.correo) {
+        guardarCliente();
+        Swal.fire('Registro Guardado!', ' ', 'success');
+        document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+            icono.classList.remove('formulario__grupo-correcto');
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Datos incorrectos o vacios'
+        });
+    }
+}
+
+export function refrescarTabla() {
     let url = "api/cliente/getAll";
     fetch(url)
             .then(response => {
@@ -138,18 +140,18 @@ export function refreshTable() {
                 //                    window.location.replace('index.html');
                 //                    return;
                 //                }
-                loadTabla(data);
+                cargarTabla(data);
             });
 }
 
 //Agregado beforeIndexRow para colorear seleccion
 let beforeIndexRow = null;
-export function loadTabla(data) {
+export function cargarTabla(data) {
     let cuerpo = "";
     clientes = data;
     clientes.forEach(function (cliente) {
         let registro =
-                '<tr id=' + clientes.indexOf(cliente) + ' onclick="moduloCliente.selectCliente(' + clientes.indexOf(cliente) + ');">' +
+                '<tr id=' + clientes.indexOf(cliente) + ' onclick="moduloCliente.seleccionarCliente(' + clientes.indexOf(cliente) + ');">' +
                 '<td>' + cliente.persona.nombre + '</td>' +
                 '<td>' + cliente.persona.apellidoPaterno + ' ' + cliente.persona.apellidoMaterno + '</td>' +
                 '<td>' + cliente.persona.genero + '</td>' +
@@ -160,7 +162,7 @@ export function loadTabla(data) {
     document.getElementById("tblClientes").innerHTML = cuerpo;
 }
 
-export function selectCliente(index) {
+export function seleccionarCliente(index) {
     document.getElementById("txtNumUnico").value = clientes[index].numeroUnico;
     document.getElementById("txtNombre").value = clientes[index].persona.nombre;
     document.getElementById("txtApePaterno").value = clientes[index].persona.apellidoPaterno;
@@ -188,15 +190,7 @@ export function selectCliente(index) {
     document.getElementById("desplegar").classList.add("desactivado");
     //Saque toda esta parte del else para optimizar la seleccion y la reactivacion
 
-    //Agregado condicional para evitar que se duplique el color al seleccionar.
-    if (beforeIndexRow === null) {
-        colorRow(index);
-        beforeIndexRow = index;
-    } else {
-        document.getElementById(beforeIndexRow).removeAttribute("class");
-        beforeIndexRow = index;
-        colorRow(index);
-    }
+
     if (clientes[index].status === 0) {
         Swal.fire({
             icon: 'error',
@@ -223,7 +217,7 @@ function colorRow(index) {
     document.getElementById(index).setAttribute("class", "colorRowTableSelect");
 }
 
-export function clean() {
+export function limpiarFormulario() {
     document.getElementById("txtNumUnico").value = "";
     document.getElementById("txtNombre").value = "";
     document.getElementById("txtApePaterno").value = "";
@@ -248,24 +242,6 @@ export function clean() {
     indexClienteSeleccionado = 0;
 }
 
-export function modificarCliente() {
-    Swal.fire({
-        title: '¿Quieres modificar al cliente?',
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: 'Guardar',
-        confirmButtonColor: '#6200EE',
-        denyButtonText: `No guardar`
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            updateCliente();
-            Swal.fire('Guardado!', '', 'success');
-        } else if (result.isDenied) {
-            Swal.fire('Los cambios no han sido guargados!', '', 'warning');
-        }
-    });
-}
 //Nueva funcion reactivar para deshacer a los inactivos
 export function reactivateCliente() {
     clientes[indexClienteSeleccionado].estatus = "Activo";
@@ -281,30 +257,10 @@ export function reactivateCliente() {
     document.getElementById("btnDelete").classList.add("disabled");
     document.getElementById("btnReactive").classList.add("disabled");
     document.getElementById("btnAdd").classList.remove("disabled");
-    loadTabla();
+    cargarTabla();
     Swal.fire('Reactivado con exito.!', '', 'success');
 }
 
-export function buscarCliente() {
-    let filtro = document.getElementById("txtBusquedaCliente").value;
-
-    let filtroMinuscula = filtro.toLowerCase();
-
-
-    let resultados = clientes.filter(element => element.nombre.toLowerCase() === filtroMinuscula || element.nombre.toLowerCase().split(' ')[0] === filtroMinuscula || element.nombre.toLowerCase().split(' ')[1] === filtroMinuscula || element.apellido_paterno.toLowerCase() === filtroMinuscula || element.apellido_materno.toLowerCase() === filtroMinuscula);
-    let cuerpo = "";
-    resultados.forEach(function (cliente) {
-        let registro =
-                '<tr onclick="moduloCliente.selectCliente(' + clientes.indexOf(cliente) + ');">' +
-                '<td>' + cliente.nombre + '</td>' +
-                '<td>' + cliente.apellido_paterno + ' ' + cliente.apellido_materno + '</td>' +
-                '<td>' + cliente.genero + '</td>' +
-                '<td>' + cliente.telefono_movil + '</td>' +
-                '<td>' + cliente.estatus + '</td></tr>';
-        cuerpo += registro;
-    });
-    document.getElementById("tblClientes").innerHTML = cuerpo;
-}
 
 export function eliminar() {
     let datos = null;
@@ -357,10 +313,10 @@ export function eliminar() {
 //                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
 //                    return;
 //                }
-                refreshTable();
+                refrescarTabla();
             });
 }
-export function deleteCliente() {
+export function borrarCliente() {
     Swal.fire({
         title: '¿Quieres eliminar el cliente seleccionado?',
         showCancelButton: true,
@@ -372,21 +328,11 @@ export function deleteCliente() {
     }).then((result) => {
         if (result.isConfirmed) {
             eliminar();
-            clean();
+            limpiarFormulario();
             Swal.fire('Eliminado con exito!', '', 'success');
         }
     });
 }
-//
-//fetch("modulos/catalogoClientes/datos_clientes.json")
-//        .then(response => {
-//            return response.json();
-//        })
-//        .then(function (jsondata) {
-//            clientes = jsondata;
-//            loadTabla();
-//        }
-//        );
 
 //-----------------------------------------------------VALIDACION DE CAMPOS---------------------------------------------------------- 
 const formulario = document.getElementById('formulario');
@@ -433,15 +379,11 @@ const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input.value)) {
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
         campos[campo] = true;
     } else {
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
         campos[campo] = false;
     }

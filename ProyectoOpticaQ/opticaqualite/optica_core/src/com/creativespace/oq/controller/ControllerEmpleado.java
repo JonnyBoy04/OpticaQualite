@@ -115,6 +115,34 @@ public class ControllerEmpleado {
         return idEmpleadoGenerado;
     }
 
+    public List<Empleado> buscarEmpleado(String filtro) throws Exception {
+        //La consulta SQL a ejecutar:
+        String sql = "CALL buscarEmpleado('"+filtro+"')";
+
+        //Con este objeto nos vamos a conectar a la Base de Datos:
+        ConexionMYSQL connMySQL = new ConexionMYSQL();
+
+        //Abrimos la conexión con la Base de Datos:
+        Connection conn = connMySQL.open();
+
+        //Con este objeto ejecutaremos la consulta:
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        //Aquí guardaremos los resultados de la consulta:
+        ResultSet rs = pstmt.executeQuery();
+
+        List<Empleado> empleados = new ArrayList<>();
+
+        while (rs.next()) {
+            empleados.add(fill(rs));
+        }
+
+        rs.close();
+        pstmt.close();
+        connMySQL.close();
+
+        return empleados;
+    }
     /**
      * Se ejecuta el procedimiento almacenado que actualiza el empleado seleccionado,
      * el procedimiento recibe 21 parametros los cuales son los datos del empleado a actualizar

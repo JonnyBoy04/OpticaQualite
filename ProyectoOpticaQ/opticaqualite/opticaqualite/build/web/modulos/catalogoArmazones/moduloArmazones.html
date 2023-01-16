@@ -3,8 +3,8 @@
     <div class="text-white barraSup text-center justify-content-center">
         <h2>Gestión de Armazones</h2>  
     </div>
-    <div id="form" style="display: none;">
-        <form action="" class="formulario" id="formulario">
+    <div id="form" style="display: none; flex-wrap: wrap">
+        <form action="" class="formulario" id="formulario" style="flex-wrap: wrap; justify-content: space-between">
             <!-- Datos identificadores -->
             <!-- Imagen Y codigo de barras-->
             <div class="imagen20">
@@ -17,7 +17,8 @@
                 <div class="sidebar ms-2 text-center" style="width: 100%; border-color: green; border-style: solid;">
                     <div class="row mt-2">
                         <div class="col-12">
-                            <img id="imgArm" src="" style="width:156px; height:156px;">
+                            <img id="imgArm" src="../../src/ImagenDefault.png" style="width:156px; height:156px;">
+
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -45,109 +46,109 @@
                 </div>
             </div>
             <!-- Nombre -->
-            <div class="input80">
-                <div class="formulario__grupo form-26" id="grupo__nombreAr">
+            <div class="input80 justify-content-between">
+                <div class="formulario__grupo form-armazones" id="grupo__nombreAr">
                     <label for="txtNombreArm" class="formulario__label">Nombre del Armazón</label>
                     <div class="formulario__grupo" id="grupo__nombreAr">
                         <input id="txtNombreArm" type="text" name="nombreAr" class="formulario__input">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
                     </div>
                     <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
 
-                <div class="formulario__grupo form-26" id="grupo__marca">
+                <div class="formulario__grupo form-armazones" id="grupo__marca">
                     <label for="txtMarcaArm" class="formulario__label">Marca</label> 
                     <div class="formulario__grupo" id="grupo__marca">
                         <input type="text" class="formulario__input" name="marca" id="txtMarcaArm" placeholder="Marca">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
                     </div>
                     <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
 
-                <div class="formulario__grupo form-26" id="grupo__modelo">
+                <div class="formulario__grupo form-armazones" id="grupo__modelo">
                     <label for="txtModeloArm" class="formulario__label">Modelo</label>
                     <div class="formulario__grupo" id="grupo__modelo">
                         <input type="text" class="formulario__input" name="modelo" id="txtModeloArm" placeholder="Modelo"> 
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
                     </div>
                     <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
 
-                <div class="formulario__grupo form-26" id="grupo__color">
+                <div class="formulario__grupo form-armazones" id="grupo__color">
                     <label for="txtColorArm" class="formulario__label">Color</label>
                     <div class="formulario__grupo" id="grupo__color">
                         <input type="text" class="formulario__input" name="color" id="txtColorArm" placeholder="Color">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
                     </div>
                     <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
 
 
-                <div class="formulario__grupo form-26" id="grupo__descripcion">
+                <div class="formulario__grupo form-armazones" id="grupo__descripcion">
                     <label for="txtDescArm" class="formulario__label">Descripción</label>
                     <div class="formulario__grupo" id="grupo__descripcion">
                         <input type="text" class="formulario__input" name="descripcion" id="txtDescArm" placeholder="Descripción">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
                     </div>
                     <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
 
-                <div class="formulario__grupo form-26" id="grupo__precioven">
+                <div class="formulario__grupo form-armazones" id="grupo__precioven">
                     <label for="txtPrecioVentaArm" id="">Precio de Venta</label>
                     <div class="formulario__grupo" id="grupo__precioven">
                         <input type="number" class="formulario__input" name="precioven" id="txtPrecioVentaArm" placeholder="Precio de Ventas">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
                     </div>
                     <p class="formulario__input-error">El precio de venta solo puede contener numeros</p>
                 </div>
 
-                <div class="formulario__grupo form-26" id="grupo__preciocom">
+                <div class="formulario__grupo form-armazones" id="grupo__preciocom">
                     <label for="txtPrecioCompraArm" id="">Precio de Compra</label>
                     <div class="formulario__grupo" id="grupo__preciocom">
                         <input type="number" class="formulario__input" name="preciocom" id="txtPrecioCompraArm" placeholder="Precio de Compra">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
                     </div>
                     <p class="formulario__input-error">El precio de compra solo puede contener numeros</p>
                 </div>
 
-                <div class="formulario__grupo form-26" id="grupo__existencias">
+                <div class="formulario__grupo form-armazones" id="grupo__existencias">
                     <label for="txtExisArm" id="">Existencias</label>
                     <div class="formulario__grupo" id="grupo__existencias">
                         <input type="number" class="formulario__input" name="existencias" id="txtExisArm" placeholder="Precio de Ventas">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+
                     </div>
                     <p class="formulario__input-error">Las existencias solo puede contener numeros</p>
                 </div>
 
-                <div class="formulario__grupo form-26" id="grupo__dimencion">
-                    <label for="txtDimenArm" class="formulario__label">Dimenciones</label>
+                <div class="formulario__grupo form-armazones" id="grupo__dimencion">
+                    <label for="txtDimenArm" id="">Dimenciones</label>
                     <div class="formulario__grupo" id="grupo__dimencion">
-                        <input type="text" class="formulario__input" name="dimencion" id="txtDimenArm" placeholder="Dimenciones">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        <input type="text" class="formulario__input" name="dimencion" id="txtDimenArm" placeholder="Precio de Ventas">
+
                     </div>
                     <p class="formulario__input-error">Campo invalido, rellene correctamente el campo</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="Desactivado col-12">
+            <div class="Desactivado">
+                <div class=" col-12">
                     <div class="form-floating">
                         <textarea id="txtACodigoImageArm" class="form-control" placeholder=""></textarea>
-                        <labe for="txtACodigoImage">CB64</labe>
+                        <labe for="txtACodigoImageArm">CB64</labe>
                     </div>
                 </div>
             </div>
         </form>
         <div class="d-flex justify-content-around botones">
-            <button title="Agregar Armazon" class="btn btn-success btn-lg" onclick="moduloArmazones.guardarArmazon();" id="btnAddArm"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button title="Agregar Armazon" class="btn btn-success btn-lg" onclick="moduloArmazones.guardarArmazon();" id="btnAddArm"><i class="fa-solid fa-floppy-disk"></i></button>
             <button title="Limpiar Formulario" class="btn btn-info btn-lg" onclick="moduloArmazones.limpiarFormulario();" id="btnCleanArm"><i class="fa fa-eraser" aria-hidden="true"></i></button>
             <button title="Borrar Armazon" class="btn btn-danger btn-lg disabled" onclick="moduloArmazones.borrarArmazon();" id="btnDeleteArm"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         </div>
     </div>
     <hr>
-    <div class="d-flex justify-content-between m-3">
-        <div id="buscar">
-            <label for="txtBusquedaArmazón" class="form-label mx-3">Buscar Armazón</label>
-            <input type="text" id="txtBusquedaArmazon">
+    <div class="d-flex justify-content-between m-3 align-items-end">
+        <div id="buscar" style="width: 50%;">
+            <label for="txtBusquedaArmazón" class="form-label">Buscar Armazón</label><br>
+            <input type="text" class="input-buscar" id="txtBusquedaArmazon" style="width: 100%">
         </div>
         <div>
             <button id="desplegar">Agregar</button>

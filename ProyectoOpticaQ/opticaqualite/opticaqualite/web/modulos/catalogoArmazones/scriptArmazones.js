@@ -2,6 +2,7 @@
 let indexArmazónSeleccionado;
 let armazones = [];
 let inputImagenArm = null;
+
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaArmazon'),
             document.getElementById('tablaArm'));
@@ -48,7 +49,8 @@ function cargarFotografia(objetoInputFile) {
     }
 }
 
-export function guardarArmazon() {
+
+ export function guardarArmazon() {
 
     let datos = null;
     let params = null;
@@ -201,7 +203,7 @@ export function eliminar() {
 
 export function registrarArmazones() {
     if (campos.nombreAr && campos.marca && campos.modelo && campos.color && campos.precioven && campos.preciocom && campos.existencias) {
-        agregarArmazon();
+        guardarArmazon();
         Swal.fire('Registro Guardado!', ' ', 'success');
         document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
             icono.classList.remove('formulario__grupo-correcto');
@@ -259,6 +261,9 @@ export function buscarArmazon() {
     document.getElementById("tblArmazones").innerHTML = cuerpo;
 }
 export function seleccionarArmazon(index) {
+
+    let armazon = new Object();
+
     if (armazones[index].estatus === 0) {
         Swal.fire('Armazón eliminado!', '', 'warning');
     } else {
@@ -275,6 +280,9 @@ export function seleccionarArmazon(index) {
         document.getElementById("txtIdArmazon").value = armazones[index].idArmazon;
         document.getElementById("txtIdProducto").value = armazones[index].producto.idProducto;
         document.getElementById("txtACodigoImageArm").value = armazones[index].fotografia;
+        var imagenCargada = document.getElementById("txtACodigoImageArm").value;
+        let img = document.getElementById("imgArm");
+        img.src = 'data:image/png;base64,' + imagenCargada;
         JsBarcode("#codigoBarraArm", armazones[index].producto.codigoBarras, {
             format: "CODE128A",
             lineColor: "#000",
@@ -287,6 +295,8 @@ export function seleccionarArmazon(index) {
 }
 
 export function limpiarFormulario() {
+    let img = document.getElementById("imgArm");
+    img.src = null;
     document.getElementById("txtNombreArm").value = "";
     document.getElementById("txtMarcaArm").value = "";
     document.getElementById("txtModeloArm").value = "";
@@ -296,6 +306,8 @@ export function limpiarFormulario() {
     document.getElementById("txtPrecioCompraArm").value = "";
     document.getElementById("txtExisArm").value = "";
     document.getElementById("codigoBarraArm").value = "";
+    document.getElementById("imgArm").value = null;
+    document.getElementById("txtACodigoImageArm").value ="";
     document.getElementById("txtIdProducto").value = "";
     document.getElementById("txtIdArmazon").value = "";
     document.getElementById("txtDimenArm").value = "";
@@ -387,15 +399,11 @@ const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input.value)) {
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
         campos[campo] = true;
     } else {
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
         campos[campo] = false;
     }

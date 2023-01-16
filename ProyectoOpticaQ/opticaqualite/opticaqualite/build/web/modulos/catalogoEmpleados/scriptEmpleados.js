@@ -107,21 +107,21 @@ export function guardarEmpleado() {
             });
 }
 
-//export function guardarEmpleado() {
-//    if (campos.usuario && campos.nombre && campos.apellidoP && campos.rfc && campos.password && campos.correo && campos.telefono && campos.telefonoM) {
-//        guardar();
-//        Swal.fire('Registro Guardado!', '', 'success');
-//        document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-//            icono.classList.remove('formulario__grupo-correcto');
-//        });
-//    } else {
-//        Swal.fire({
-//            icon: 'error',
-//            title: 'Error',
-//            text: 'Datos incorrectos o vacios'
-//        });
-//    }
-//}
+export function registrarEmpleado() {
+    if (campos.usuario && campos.nombre && campos.apellidoP && campos.rfc && campos.password && campos.correo && campos.telefono && campos.telefonoM) {
+        guardarEmpleado();
+        Swal.fire('Registro Guardado!', '', 'success');
+        document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+            icono.classList.remove('formulario__grupo-correcto');
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Datos incorrectos o vacios'
+        });
+    }
+}
 
 export function eliminarEmpleado() {
     let datos = null;
@@ -255,26 +255,6 @@ export function cargarTabla(data) {
     document.getElementById("tblEmpleados").innerHTML = cuerpo;
 }
 
-export function buscarEmpleado() {
-    let filtro = document.getElementById("txtBusquedaEmpleado").value;
-    let filtroMinuscula = filtro.toLowerCase();
-    let resultados = empleados.filter(element => element.usuario === filtro || element.nombre.toLowerCase() === filtroMinuscula || element.nombre.toLowerCase().split(' ')[0] === filtroMinuscula || element.nombre.toLowerCase().split(' ')[1] === filtroMinuscula || element.apellido_paterno.toLowerCase() === filtroMinuscula || element.apellido_materno.toLowerCase() === filtroMinuscula);
-    let cuerpo = "";
-    resultados.forEach(function (empleado) {
-        let registro =
-                '<tr onclick="moduloEmpleado.selectEmpleado(' + empleados.indexOf(empleado) + ');">' +
-                '<td>' + empleado.persona.nombre + '</td>' +
-                '<td>' + empleado.persona.apellidoPaterno + ' ' + empleado.persona.apellidoMaterno + '</td>' +
-                '<td>' + empleado.usuario.nombre + '</td>' +
-                '<td>' + empleado.usuario.contrasenia + '</td>' +
-                '<td>' + empleado.persona.genero + '</td>' +
-                '<td>' + empleado.persona.telMovil + '</td>' +
-                '<td>' + empleado.status + '</td></tr>';
-        cuerpo += registro;
-    });
-    document.getElementById("tblEmpleados").innerHTML = cuerpo;
-}
-
 export function seleccionarEmpleado(index) {
     habilitarFormulario();
 
@@ -342,25 +322,6 @@ export function limpiar() {
     document.getElementById("btnAddEmp").classList.remove("disabled");
     document.getElementById("btnDeleteEmp").classList.add("disabled");
     indexEmpleadoSeleccionado = 0;
-}
-
-export function modificarEmpleado() {
-    Swal.fire({
-        title: '¿Quieres modificar al empleado?',
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: 'Guardar',
-        confirmButtonColor: '#6200EE',
-        denyButtonText: `No guardar`
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            updateEmpleado();
-            Swal.fire('Guardado!', '', 'success');
-        } else if (result.isDenied) {
-            Swal.fire('Los cambios no han sido guargados!', '', 'warning');
-        }
-    });
 }
 
 export function habilitarFormulario() {
@@ -464,15 +425,11 @@ const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input.value)) {
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
         campos[campo] = true;
     } else {
         document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
         document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
         campos[campo] = false;
     }
