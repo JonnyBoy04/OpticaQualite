@@ -1,3 +1,12 @@
+async function encriptar(texto) {
+    const encoder = new TextEncoder();//Invocamos la clase que convierte un String
+    const data = encoder.encode(texto);
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hash));
+    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
 function iniciarSesion() {
     Swal.fire({
         title: 'Inicio de sesion',
@@ -10,28 +19,30 @@ function iniciarSesion() {
         preConfirm: () => {
             let datos = null;
             let params = null;
-            let url = "api/login/login";
+            let url = "api/log/in";
             let login = Swal.getPopup().querySelector('#login').value;
             let password = Swal.getPopup().querySelector('#password').value;
-            datos = {usuario: login, contrasenia: password};
-            params = new URLSearchParams(datos);
-            fetch(url,
-                    {
-                        method: "POST",
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
-                        body: params
-                    })
-                    .then(response => {
-                        return response.json();
-                    })
-                    .then(function (data)
-                    {
-                        if (login === data.usuario.nombre && password === data.usuario.contrasenia) {
-                           cargarMenu();
-                    Swal.fire('Sesion iniciada correctamente', '', 'success');
-                    document.getElementById("botonIniciarSesion").innerHTML = '<h2 class="text-white" style="display:flex; align-items: center; font-size: 22px;">'+data.persona.nombre+' '+data.persona.apellidoPaterno+' '+data.persona.apellidoMaterno+'<i class="logo fa fa-user-circle" aria-hidden="true"></i></h2>';
-                    document.getElementById("menu").innerHTML =
-                                '<div class="area"></div>\n\
+
+            encriptar(password).then((textoEncriptado) => {
+                datos = JSON.stringify({nombre: login, contrasenia: textoEncriptado});
+                params = new URLSearchParams({datos: datos});
+                fetch(url,
+                        {
+                            method: "POST",
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                            body: params
+                        })
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(function (data)
+                        {
+                            if (login === data.usuario.nombre && textoEncriptado === data.usuario.contrasenia) {
+                                cargarMenu();
+                                Swal.fire('Sesion iniciada correctamente', '', 'success');
+                                document.getElementById("botonIniciarSesion").innerHTML = '<h2 class="text-white" style="display:flex; align-items: center; font-size: 22px;">' + data.persona.nombre + ' ' + data.persona.apellidoPaterno + ' ' + data.persona.apellidoMaterno + '<i class="logo fa fa-user-circle" aria-hidden="true"></i></h2>';
+                                document.getElementById("menu").innerHTML =
+                                        '<div class="area"></div>\n\
                             <nav class="main-menu">\n\
                                 <ul>\n\
                                     <li class="has-subnav">\n\
@@ -150,14 +161,37 @@ function iniciarSesion() {
                                     </li>\n\
                                 </ul>\n\
                             </nav>';
-                            document.getElementById("titulo").classList.add("Desactivado");
-                        } else {
-                            Swal.showValidationMessage(`Usuario o contraseña incorrectas.`);
-                        }
-                    });
+                                document.getElementById("titulo").classList.add("Desactivado");
+                            } else {
+                                Swal.showValidationMessage(`Usuario o contraseña incorrectas.`);
+                            }
+                        });
+            });
         }
 
     });
+}
+
+function accesar() {
+    let login = document.getElementById('login').value;
+    let password = document.getElementById('password').value;
+    let datos = null;
+    let params = null;
+    datos = JSON.stringify({usuario: login, contrasenia: password});
+    params = new URLSearchParams(datos);
+    fetch("api/log/in",
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                body: params
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(function (data)
+            {
+                alert("Bienvenido " + data.persona.nombre);
+            });
 }
 
 function cerrarSesion() {

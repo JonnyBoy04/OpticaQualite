@@ -85,6 +85,7 @@ public class ControllerLogin {
         p.setNumero(rs.getString("numero"));
         p.setTelCasa(rs.getString("telcasa"));
         p.setTelMovil(rs.getString("telmovil"));
+        p.setRfc(rs.getString("rfc"));
 
         e.setIdEmpleado(rs.getInt("idEmpleado"));
         e.setNumeroUnico(rs.getString("numeroUnico"));
@@ -96,7 +97,7 @@ public class ControllerLogin {
         e.getUsuario().setLastToken(rs.getString("lastToken"));
         e.getUsuario().setLastTokenDate(rs.getString("dateLastToken"));
         e.setNumeroUnico(rs.getString("numeroUnico"));
-
+        e.setEstatus(rs.getInt("estatus"));
         e.setPersona(p);
 
         return e;

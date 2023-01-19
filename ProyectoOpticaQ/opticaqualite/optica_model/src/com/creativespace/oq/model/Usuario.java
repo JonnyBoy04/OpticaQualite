@@ -1,6 +1,11 @@
 package com.creativespace.oq.model;
 
 
+import java.util.Date;
+import org.apache.commons.codec.digest.DigestUtils;
+
+
+
 public class Usuario {
 
     int idUsuario;
@@ -50,12 +55,25 @@ public class Usuario {
         this.lastToken = lastToken;
     }
 
+    public void setLastTokenDate(String lastTokenDate) {
+        this.lastTokenDate = lastTokenDate;
+    }
+    
+    public void setLastToken() {
+        String u = this.getNombre();
+        String p = this.getContrasenia();
+        String k = new Date().toString();
+        String x = (DigestUtils.sha256Hex(u+";"+p+";"+k));
+        this.lastToken = x;
+    }
+
     public String getLastTokenDate() {
         return lastTokenDate;
     }
 
-    public void setLastTokenDate(String lastTokenDate) {
-        this.lastTokenDate = lastTokenDate;
+    public void setLastTokenDate() {
+        String fecha = new Date().toString();
+        this.lastTokenDate = fecha;
     }
 
 }

@@ -154,7 +154,7 @@ public class ControllerEmpleado {
         String sql = "{call actualizarEmpleado(  ?, ?, ?, ?, ?, ?, ?, "+ //Datos Personales
                 "?, ?, ?, ?, ?, ?, ?, ?,"+ 
                 "?, ?, ?, "+ // Datos de Seguridad
-                "?, ?, ?)}"; // IDs
+                "?, ?, ?, ?)}"; // IDs
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
         ConexionMYSQL connMySQL = new ConexionMYSQL();
@@ -185,7 +185,7 @@ public class ControllerEmpleado {
         cstmt.setString(16, e.getUsuario().getNombre());
         cstmt.setString(17, e.getUsuario().getContrasenia());
         cstmt.setString(18, e.getUsuario().getRol());
-
+        
         cstmt.setInt(19, e.getPersona().getIdPersona());
         cstmt.setInt(20, e.getUsuario().getIdUsuario());
         cstmt.setInt(21, e.getIdEmpleado());        
