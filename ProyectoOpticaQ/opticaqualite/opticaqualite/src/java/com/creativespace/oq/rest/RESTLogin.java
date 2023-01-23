@@ -14,37 +14,39 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("log")
-public class RESTLogin extends Application{
-    
+public class RESTLogin extends Application {
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("in")
-    public Response login(@FormParam("datos") @DefaultValue("") String datos){
+    public Response login(@FormParam("datos") @DefaultValue("") String datos) {
         Gson gson = new Gson();
         Usuario usuario = gson.fromJson(datos, Usuario.class);
         String out = null;
         ControllerLogin cl = new ControllerLogin();
         Empleado emp = null;
         RESTEmpleado re = new RESTEmpleado();
-        
-        try{
+
+        try {
             emp = cl.login(usuario.getNombre(), usuario.getContrasenia());
             if (emp != null) {
+                emp.getUsuario().setLastToken();
                 out = new Gson().toJson(emp);
-            }else{
+                cl.generarToken(emp.getUsuario().getIdUsuario(), emp.getUsuario().getLastToken());
+            } else {
                 out = """
                       {"error":"Datos de Credencial Incorrectos"}
                       """;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             out = """
                   {"excepcion":"%s"}
                   """;
             out = String.format(out, e.toString());
         }
-        
+
         return Response.status(Response.Status.OK).entity(out).build();
-    } 
-    
+    }
+
 }

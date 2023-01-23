@@ -8,6 +8,7 @@ import com.creativespace.oq.db.ConexionMYSQL;
 import com.creativespace.oq.model.Empleado;
 import com.creativespace.oq.model.Persona;
 import com.creativespace.oq.model.Usuario;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,15 +18,17 @@ import java.sql.ResultSet;
  * @author jonnyboy
  */
 public class ControllerLogin {
-    
+
     /**
-     * Con este metodo se traen todos los datos del empleado donde coincida su usuario y contraseña
+     * Con este metodo se traen todos los datos del empleado donde coincida su
+     * usuario y contraseña
+     *
      * @param usuario
      * @param contrasenia
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
-     public Empleado login(String usuario, String contrasenia) throws Exception {
+    public Empleado login(String usuario, String contrasenia) throws Exception {
         //La consulta SQL a ejecutar:
         String sql = "SELECT * FROM v_empleados VE WHERE VE.nombreUsuario = ? AND VE.contrasenia = ?";
 
@@ -39,19 +42,18 @@ public class ControllerLogin {
         PreparedStatement pstmt = conn.prepareStatement(sql);
 
         //Aquí guardaremos los resultados de la consulta:
-        ResultSet rs = null; 
-        
+        ResultSet rs = null;
+
         pstmt.setString(1, usuario);
         pstmt.setString(2, contrasenia);
-        
+
         rs = pstmt.executeQuery();
-        
+
         Empleado emp = null;
 
-
-         if (rs.next()) {
-             emp = fill(rs);
-         }
+        if (rs.next()) {
+            emp = fill(rs);
+        }
 
         rs.close();
         pstmt.close();
@@ -59,14 +61,16 @@ public class ControllerLogin {
 
         return emp;
     }
-     
-     /**
-      * Con el metodo fill se llenan los atributos del empleado, persona y usuario
-      * @param rs
-      * @return
-      * @throws Exception 
-      */
-     private Empleado fill(ResultSet rs) throws Exception {
+
+    /**
+     * Con el metodo fill se llenan los atributos del empleado, persona y
+     * usuario
+     *
+     * @param rs
+     * @return
+     * @throws Exception
+     */
+    private Empleado fill(ResultSet rs) throws Exception {
         Empleado e = new Empleado();
         Persona p = new Persona();
 
@@ -101,5 +105,24 @@ public class ControllerLogin {
         e.setPersona(p);
 
         return e;
+    }
+
+    public void generarToken(int id, String t) throws Exception {
+        String sql = "CALL generarToken(?,?)";
+
+        ConexionMYSQL connMySQL = new ConexionMYSQL();
+
+        //Abrimos la conexión con la Base de Datos:
+        Connection conn = connMySQL.open();
+
+        //Con este objeto invocaremos al StoredProcedure:
+        CallableStatement cstmt = conn.prepareCall(sql);
+
+        cstmt.setString(1, t);
+        cstmt.setInt(2, id);
+        cstmt.executeUpdate();
+
+        cstmt.close();
+        connMySQL.close();
     }
 }

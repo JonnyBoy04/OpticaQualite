@@ -15,16 +15,19 @@ import java.sql.Types;
 
 /**
  * Clase controlador para empleado
+ *
  * @author jonnyboy
  */
 public class ControllerEmpleado {
 
     /**
-     * IsAdmin nos permite comprobar si un empleado registrado es administrador o empleado ordinario
-     * se recibe como parametro un empleado el cual se comprueba si es nulo o su usuario y su nombre
-     * de usuario estan nulos no es Admin 
+     * IsAdmin nos permite comprobar si un empleado registrado es administrador
+     * o empleado ordinario se recibe como parametro un empleado el cual se
+     * comprueba si es nulo o su usuario y su nombre de usuario estan nulos no
+     * es Admin
+     *
      * @param e
-     * @return 
+     * @return
      */
     public static boolean isAdmin(Empleado e) {
         if (e == null || e.getUsuario() == null || e.getUsuario().getNombre() == null) {
@@ -35,18 +38,22 @@ public class ControllerEmpleado {
     }
 
     /**
-     * Se crea la instruccion de MySQL para llamar el procedimiento almacenado para agregar un empleado
-     * se asignan se llenan los 9 parametros, 18 de ellos son datos del armazon los otros 5 son los ID's y 
-     * clave unica generados en la base de datos
+     * Se crea la instruccion de MySQL para llamar el procedimiento almacenado
+     * para agregar un empleado se asignan se llenan los 9 parametros, 18 de
+     * ellos son datos del armazon los otros 5 son los ID's y clave unica
+     * generados en la base de datos
+     *
      * @param e
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public int insert(Empleado e) throws Exception {
         //Definimos la consulta SQL que invoca al Stored Procedure:
-        String sql = "{call insertarEmpleado(?, ?, ?, ?, ?, ?, ?, ?,"+ // Datos Personales
-                "?, ?, ?, ?, ?, ?, ?, "+ 
-                "?, ?, ?, "+ // Datos de Seguridad
+        String sql = "{call insertarEmpleado(?, ?, ?, ?, ?, ?, ?, ?,"
+                + // Datos Personales
+                "?, ?, ?, ?, ?, ?, ?, "
+                + "?, ?, ?, "
+                + // Datos de Seguridad
                 "?, ?, ?, ?, ?)}";  // Valores de Retorno
 
         //Aquí guardaremos los ID's que se generarán:
@@ -117,7 +124,7 @@ public class ControllerEmpleado {
 
     public List<Empleado> buscarEmpleado(String filtro) throws Exception {
         //La consulta SQL a ejecutar:
-        String sql = "CALL buscarEmpleado('"+filtro+"')";
+        String sql = "CALL buscarEmpleado('" + filtro + "')";
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
         ConexionMYSQL connMySQL = new ConexionMYSQL();
@@ -143,18 +150,23 @@ public class ControllerEmpleado {
 
         return empleados;
     }
+
     /**
-     * Se ejecuta el procedimiento almacenado que actualiza el empleado seleccionado,
-     * el procedimiento recibe 21 parametros los cuales son los datos del empleado a actualizar
+     * Se ejecuta el procedimiento almacenado que actualiza el empleado
+     * seleccionado, el procedimiento recibe 21 parametros los cuales son los
+     * datos del empleado a actualizar
+     *
      * @param e
-     * @throws Exception 
+     * @throws Exception
      */
     public void update(Empleado e) throws Exception {
         //Definimos la consulta SQL que invoca al Stored Procedure:
-        String sql = "{call actualizarEmpleado(  ?, ?, ?, ?, ?, ?, ?, "+ //Datos Personales
-                "?, ?, ?, ?, ?, ?, ?, ?,"+ 
-                "?, ?, ?, "+ // Datos de Seguridad
-                "?, ?, ?, ?)}"; // IDs
+        String sql = "{call actualizarEmpleado(  ?, ?, ?, ?, ?, ?, ?, "
+                + //Datos Personales
+                "?, ?, ?, ?, ?, ?, ?, ?,"
+                + "?, ?, ?, "
+                + // Datos de Seguridad
+                "?, ?, ?)}"; // IDs
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
         ConexionMYSQL connMySQL = new ConexionMYSQL();
@@ -185,10 +197,10 @@ public class ControllerEmpleado {
         cstmt.setString(16, e.getUsuario().getNombre());
         cstmt.setString(17, e.getUsuario().getContrasenia());
         cstmt.setString(18, e.getUsuario().getRol());
-        
+
         cstmt.setInt(19, e.getPersona().getIdPersona());
         cstmt.setInt(20, e.getUsuario().getIdUsuario());
-        cstmt.setInt(21, e.getIdEmpleado());        
+        cstmt.setInt(21, e.getIdEmpleado());
         //Ejecutamos el Stored Procedure
         cstmt.executeUpdate();
 
@@ -197,14 +209,16 @@ public class ControllerEmpleado {
     }
 
     /**
-     * Se ejecuta una instrucción donde se elimina un empleado de manera logica (se cambia es estatus a 0)
-     * en este metodo solo se recibe un parametro que es el id del empleado a eliminar
+     * Se ejecuta una instrucción donde se elimina un empleado de manera logica
+     * (se cambia es estatus a 0) en este metodo solo se recibe un parametro que
+     * es el id del empleado a eliminar
+     *
      * @param id
-     * @throws Exception 
+     * @throws Exception
      */
     public void delete(int id) throws Exception {
-        String sql = "UPDATE empleado SET estatus = 0 WHERE idEmpleado = "+id;
-        
+        String sql = "UPDATE empleado SET estatus = 0 WHERE idEmpleado = " + id;
+
         ConexionMYSQL connMySQL = new ConexionMYSQL();
         Connection conn = connMySQL.open();
         Statement stm = conn.createStatement();
@@ -215,9 +229,10 @@ public class ControllerEmpleado {
 
     /**
      * Con este metodo se traen todos los datos de la vista v_empleados
+     *
      * @param filtro
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public List<Empleado> getAll(String filtro) throws Exception {
         //La consulta SQL a ejecutar:
@@ -249,11 +264,13 @@ public class ControllerEmpleado {
     }
 
     /**
-     * Este metodo nos permite asignar los valores obtenidos de la vista de empleados en la base de datos y 
-     * son asignados a los atributos de empleado, persona y usuario
+     * Este metodo nos permite asignar los valores obtenidos de la vista de
+     * empleados en la base de datos y son asignados a los atributos de
+     * empleado, persona y usuario
+     *
      * @param rs
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     private Empleado fill(ResultSet rs) throws Exception {
         Empleado e = new Empleado();
