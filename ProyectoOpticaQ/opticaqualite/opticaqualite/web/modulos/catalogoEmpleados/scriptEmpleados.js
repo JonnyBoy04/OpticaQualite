@@ -4,22 +4,22 @@ let indexEmpleadoSeleccionado;
 let empleados = [];
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaEmpleado'),
-                         document.getElementById('tablaEmp'));
-                         
+            document.getElementById('tablaEmp'));
+
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
         $('#desplegar').css('display', 'none');
-        $('#tablaEmp').css('display','none');
-        $('#buscar').css('display','none');
+        $('#tablaEmp').css('display', 'none');
+        $('#buscar').css('display', 'none');
     });
 
     $('#listar').on('click', function () {
         $('#form').css('display', 'none');
         $('#listar').css('display', 'none');
         $('#desplegar').css('display', 'block');
-        $('#tablaEmp').css('display','');
-        $('#buscar').css('display','block');
+        $('#tablaEmp').css('display', '');
+        $('#buscar').css('display', 'block');
     });
     refrescarTabla();
 }
@@ -83,27 +83,26 @@ export function guardarEmpleado() {
             })
             .then(function (data) {
                 console.log(data);
-//                console.log(data);
-//                if (data.exception !== null) {
-//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorperm !== null) {
-//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
-//                    return;
-//                }
-
-                document.getElementById("txtCodigoEmpleado").value = data.idEmpleado;
-                document.getElementById("txtCodigoUsuario").value = data.usuario.idUsuario;
-                document.getElementById("txtCodigoPersona").value = data.persona.idPersona;
-                document.getElementById("txtNumUnicoEmp").value = data.numeroUnico;
-                Swal.fire('', 'Datos del empleado actualizados correctamente.', 'success');
-                refrescarTabla();
-                limpiar();
+                if (data.exception !== null) {
+                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                    return;
+                }
+                if (data.error !== null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorperm !== null) {
+                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+                    return;
+                } else {
+                    document.getElementById("txtCodigoEmpleado").value = data.idEmpleado;
+                    document.getElementById("txtCodigoUsuario").value = data.usuario.idUsuario;
+                    document.getElementById("txtCodigoPersona").value = data.persona.idPersona;
+                    document.getElementById("txtNumUnicoEmp").value = data.numeroUnico;
+                    Swal.fire('', 'Datos del empleado actualizados correctamente.', 'success');
+                    refrescarTabla();
+                    limpiar();
+                }
             });
 }
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.creativespace.oq.controller;
 
 import com.creativespace.oq.db.ConexionMYSQL;
@@ -9,9 +5,11 @@ import com.creativespace.oq.model.Empleado;
 import com.creativespace.oq.model.Persona;
 import com.creativespace.oq.model.Usuario;
 import java.sql.CallableStatement;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -107,7 +105,7 @@ public class ControllerLogin {
         return e;
     }
 
-    public void generarToken(int id, String t) throws Exception {
+    public void generarToken(Empleado e) throws Exception {
         String sql = "CALL generarToken(?,?)";
 
         ConexionMYSQL connMySQL = new ConexionMYSQL();
@@ -118,11 +116,52 @@ public class ControllerLogin {
         //Con este objeto invocaremos al StoredProcedure:
         CallableStatement cstmt = conn.prepareCall(sql);
 
-        cstmt.setString(1, t);
-        cstmt.setInt(2, id);
+        cstmt.setString(1, e.getUsuario().getLastToken());
+        cstmt.setInt(2, e.getUsuario().getIdUsuario());
         cstmt.executeUpdate();
 
         cstmt.close();
         connMySQL.close();
+    }
+
+    public boolean eliminarToken(Empleado e) throws Exception {
+        boolean r = false;
+
+        String sql = "UPDATE usuario SET lastToken='' WHERE idUsuario = ?";
+
+        ConexionMYSQL conexionMYSQL = new ConexionMYSQL();
+
+        Connection connection = conexionMYSQL.open();
+
+        PreparedStatement ptm = connection.prepareCall(sql);
+
+        ptm.setInt(1, e.getUsuario().getIdUsuario());
+
+        ptm.execute();
+
+        r = true;
+
+        ptm.close();
+        connection.close();
+        conexionMYSQL.close();
+        return r;
+    }
+    
+    public boolean validarToken (String t) throws SQLException{
+        boolean r = false;
+        String sql = "SELECT * FROM v_empleado WHERE lastToken = '"+t+"'";
+        ConexionMYSQL conexionMYSQL = new ConexionMYSQL();
+        Connection connection = conexionMYSQL.open();
+        Statement stm = connection.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+        
+        if(rs.next())
+            r= true;
+        
+        stm.close();
+        connection.close();
+        conexionMYSQL.close();
+        
+        return r;
     }
 }

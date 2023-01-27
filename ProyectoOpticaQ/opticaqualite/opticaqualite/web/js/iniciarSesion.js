@@ -37,7 +37,14 @@ function iniciarSesion() {
                         })
                         .then(function (data)
                         {
-                            if (login === data.usuario.nombre && textoEncriptado === data.usuario.contrasenia) {
+                            if (data.exception != null) {
+                                Swal.fire('', 'Error interno de servidar. Intente nuevamente más tarde.', 'error')
+                                return;
+                            }
+                            if (data.error != null) {
+                                Swal.fire('', data.error, 'warning');
+                                return;
+                            } else {
                                 cargarMenu();
                                 Swal.fire('Sesion iniciada correctamente', '', 'success');
                                 document.getElementById("botonIniciarSesion").innerHTML = '<h2 class="text-white" style="display:flex; align-items: center; font-size: 22px;">' + data.persona.nombre + ' ' + data.persona.apellidoPaterno + ' ' + data.persona.apellidoMaterno + '<i class="logo fa fa-user-circle" aria-hidden="true"></i></h2>';
@@ -162,8 +169,7 @@ function iniciarSesion() {
                                 </ul>\n\
                             </nav>';
                                 document.getElementById("titulo").classList.add("Desactivado");
-                            } else {
-                                Swal.showValidationMessage(`Usuario o contraseña incorrectas.`);
+                                localStorage.setItem('currentUser', JSON.stringify(data));
                             }
                         });
             });
@@ -203,13 +209,36 @@ function cerrarSesion() {
         CancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            document.getElementById("botonIniciarSesion").innerHTML = '<button type="button" class="boton2" onclick="iniciarSesion()">Iniciar sesion</button>';
-            document.getElementById("menu").innerHTML = '';
-            Swal.fire('Sesion cerrada correctamente', '', 'success');
-            document.getElementById("contenedor").innerHTML = '<div class="imgBienvenida">\n\
+            let em = localStorage.getItem('currentUser');
+            let empleado = {"empleado": em};
+            let params = new URLSearchParams(empleado);
+
+            fetch("api/log/out",
+                    {method: "POST",
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                        body: params})
+                    .then(reaponse => {
+                        return reaponse.json();
+                    })
+                    .then(function (data) {
+                        if (data.exception != null) {
+                            Swal.fire('', 'Error interno de servidar. Intente nuevamente más tarde.', 'error')
+                            return;
+                        }
+                        if (data.error != null) {
+                            Swal.fire('', data.error, 'warning');
+                            return;
+                        } else {
+                            localStorage.removeItem('currentUser');
+                            document.getElementById("botonIniciarSesion").innerHTML = '<button type="button" class="boton2" onclick="iniciarSesion()">Iniciar sesion</button>';
+                            document.getElementById("menu").innerHTML = '';
+                            Swal.fire('Sesion cerrada correctamente', '', 'success');
+                            document.getElementById("contenedor").innerHTML = '<div class="imgBienvenida">\n\
                         <img alt="conenedor" src="src/bienvenida.jpg" width="auto" height="530"/>\n\
                     </div>';
-            document.getElementById("titulo").classList.remove("Desactivado");
+                            document.getElementById("titulo").classList.remove("Desactivado");
+                        }
+                    });
         }
     });
 }
