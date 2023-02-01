@@ -2,6 +2,10 @@
 
 let indexEmpleadoSeleccionado;
 let empleados = [];
+let currentUser = localStorage.getItem('currentUser');
+let user = JSON.parse(currentUser);
+let token = user.usuario.lastToken;
+
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaEmpleado'),
             document.getElementById('tablaEmp'));
@@ -24,9 +28,42 @@ export function inicializar() {
     refrescarTabla();
 }
 
-export function guardarEmpleado() {
+function normalizar(texto)
+{
+    texto = texto.toUpperCase();
+    for (var i = 0; i < texto.length; i++)
+    {
+        texto = texto.replace("Á", "A");
+        texto = texto.replace("É", "E");
+        texto = texto.replace("Í", "I");
+        texto = texto.replace("Ó", "O");
+        texto = texto.replace("Ú", "U");
+// texto = texto.replace("1","UNO");
+    }
+    return texto;
+}
 
-    let datos = null;
+function sanitizar(texto)
+{
+    for (var i = 0; i < texto.length; i++)
+    {
+        texto = texto.replace("(", "");
+        texto = texto.replace(")", "");
+        texto = texto.replace(";", "");
+        texto = texto.replace("'", "");
+        texto = texto.replace("\"", "");
+        texto = texto.replace("-", "");
+        texto = texto.replace("*", "");
+        texto = texto.replace("%", "");
+        texto = texto.replace("«", "");
+        texto = texto.replace("»", "");
+        texto = texto.replace('”', "");
+        texto = texto.replace('“', "");
+    }
+    return texto;
+}
+
+export function guardarEmpleado() {
     let params = null;
     let empleado = new Object();
 
@@ -42,7 +79,7 @@ export function guardarEmpleado() {
         empleado.persona.idPersona = parseInt(document.getElementById("txtCodigoPersona").value);
         empleado.usuario.idUsuario = parseInt(document.getElementById("txtCodigoUsuario").value);
     }
-
+    
     empleado.persona.nombre = document.getElementById("txtNombreEmp").value;
     empleado.persona.apellidoPaterno = document.getElementById("txtApePaternoEmp").value;
     empleado.persona.apellidoMaterno = document.getElementById("txtApeMaternoEmp").value;
@@ -63,13 +100,8 @@ export function guardarEmpleado() {
     empleado.usuario.rol = document.getElementById("txtRol").value;
     empleado.numeroUnico = document.getElementById("txtNumUnicoEmp").value;
 
-    //Comvierte un dato tipo Script a Cadena Json
-    datos = {
-        datosEmpleado: JSON.stringify(empleado)
-    };
-
-
-    params = new URLSearchParams(datos);
+    params = new URLSearchParams({datosEmpleado: JSON.stringify(empleado), token: token});
+    console.log(params);
 
     //header es la cabecera de la petición y en body se mandan los parametros
     fetch("api/empleado/save",
@@ -82,16 +114,15 @@ export function guardarEmpleado() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-                if (data.exception !== null) {
-                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno de servidar. Intente nuevamente más tarde.', 'error')
                     return;
                 }
-                if (data.error !== null) {
+                if (data.error != null) {
                     Swal.fire('', data.error, 'warning');
                     return;
                 }
-                if (data.errorperm !== null) {
+                if (data.errorperm != null) {
                     Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
                     return;
                 } else {
@@ -153,12 +184,7 @@ export function eliminarEmpleado() {
     empleado.usuario.rol = document.getElementById("txtRol").value;
     empleado.numeroUnico = document.getElementById("txtNumUnicoEmp").value;
 
-    datos = {
-        datosEmpleado: JSON.stringify(empleado)
-    };
-
-
-    params = new URLSearchParams(datos);
+    params = new URLSearchParams({datosEmpleado: JSON.stringify(empleado), token: token});
 
     //header es la cabecera de la petición y en body se mandan los parametros
     fetch("api/empleado/delete",
@@ -172,21 +198,21 @@ export function eliminarEmpleado() {
             })
             .then(function (data) {
                 console.log(data);
-//                console.log(data);
-//                if (data.exception !== null) {
-//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorperm !== null) {
-//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
-//                    return;
-//                }
-                limpiar();
-                refrescarTabla();
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno de servidar. Intente nuevamente más tarde.', 'error')
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorperm != null) {
+                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+                    return;
+                } else {
+                    limpiar();
+                    refrescarTabla();
+                }
             });
 }
 
@@ -211,28 +237,25 @@ export function refrescarTabla() {
     let url = "api/empleado/getAll";
     fetch(url)
             .then(response => {
-                return response.json()
+                return response.json();
             })
             .then(function (data)
             {
-                console.log(data.usuario);
-//                if (data.exception !== null) {
-//                    Swal.fire('',
-//                            'Error interno del servidor. Intente nuevamente más tarde',
-//                            'error'
-//                            );
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorsec !== null) {
-//                    Swal.fire('', data.errorsec, 'error');
-//                    window.location.replace('index.html');
-//                    return;
-//                }
-                cargarTabla(data);
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno de servidar. Intente nuevamente más tarde.', 'error')
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorsec != null) {
+                    Swal.fire('', data.errorsec, 'error');
+                    window.location.replace('index.html');
+                    return;
+                } else {
+                    cargarTabla(data);
+                }
             });
 }
 
@@ -245,7 +268,6 @@ export function cargarTabla(data) {
                 '<td>' + empleado.persona.nombre + '</td>' +
                 '<td>' + empleado.persona.apellidoPaterno + ' ' + empleado.persona.apellidoMaterno + '</td>' +
                 '<td>' + empleado.usuario.nombre + '</td>' +
-                '<td>' + empleado.usuario.contrasenia + '</td>' +
                 '<td>' + empleado.persona.genero + '</td>' +
                 '<td>' + empleado.persona.telMovil + '</td>' +
                 '<td>' + empleado.estatus + '</td></tr>';

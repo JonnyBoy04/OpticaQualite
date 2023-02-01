@@ -1,6 +1,7 @@
 package com.creativespace.oq.rest;
 
 import com.creativespace.oq.controller.ControllerEmpleado;
+import com.creativespace.oq.controller.ControllerLogin;
 import com.creativespace.oq.model.Empleado;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -37,7 +38,7 @@ public class RESTEmpleado {
 
         return Response.status(Response.Status.OK).entity(out).build();
     }
-    
+
     @GET
     @Path("buscar")
     @Produces(MediaType.APPLICATION_JSON)
@@ -57,37 +58,45 @@ public class RESTEmpleado {
 
         return Response.status(Response.Status.OK).entity(out).build();
     }
-    
+
     @POST
     @Path("save")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(@FormParam("datosEmpleado") @DefaultValue("") String datosEmpleado) {
+    public Response save(@FormParam("datosEmpleado") @DefaultValue("") String datosEmpleado,
+            @FormParam("token") @DefaultValue("") String token) {
         String out = null;
         Gson gson = new Gson();
         Empleado emp = null;
         ControllerEmpleado ce = new ControllerEmpleado();
-        
-        try{
-            emp = gson.fromJson(datosEmpleado, Empleado.class);
-            if (emp.getIdEmpleado() == 0) {
-                ce.insert(emp);
-            }else{
-                ce.update(emp);
+        ControllerLogin cl = new ControllerLogin();
+
+        try {
+            if (cl.validarToken(token)) {
+                emp = gson.fromJson(datosEmpleado, Empleado.class);
+                if (emp.getIdEmpleado() == 0) {
+                    ce.insert(emp);
+                } else {
+                    ce.update(emp);
+                }
+                out = gson.toJson(emp);
+            } else {
+                out = """
+                      {"error":"No tiene permisos para realizar esta operación."}
+                      """;
             }
-            out = gson.toJson(emp);
-        }catch(JsonParseException jpe){
+        } catch (JsonParseException jpe) {
             jpe.printStackTrace();
-            out="""
+            out = """
                 {"exception":"Formato JSON de datos incorrectos."}
                 """;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             out = """
                   {"exception":"%s"}
                   """;
             out = String.format(out, e.toString());
         }
-        
+
         return Response.status(Response.Status.OK).entity(out).build();
     }
 
@@ -95,20 +104,27 @@ public class RESTEmpleado {
 
         return null;
     }
-    
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("delete")
-    public Response delete(@FormParam("datosEmpleado") @DefaultValue("") String datosEmpleado) {
+    public Response delete(@FormParam("datosEmpleado") @DefaultValue("") String datosEmpleado,
+            @FormParam("token") @DefaultValue("") String token) {
         String out = null;
         Gson gson = new Gson();
         Empleado emp = null;
         ControllerEmpleado ce = new ControllerEmpleado();
-
+        ControllerLogin cl = new ControllerLogin();
         try {
-            emp = gson.fromJson(datosEmpleado, Empleado.class);
-            ce.delete(emp.getPersona().getIdPersona());
-            out = gson.toJson(emp);
+            if (cl.validarToken(token)) {
+                emp = gson.fromJson(datosEmpleado, Empleado.class);
+                ce.delete(emp.getPersona().getIdPersona());
+                out = gson.toJson(emp);
+            } else {
+                out = """
+                      {"error":"No tiene permisos para realizar esta operación."}
+                      """;
+            }
         } catch (JsonParseException jpe) {
             jpe.printStackTrace();
             out = """
@@ -123,5 +139,5 @@ public class RESTEmpleado {
         }
         return Response.status(Response.Status.OK).entity(out).build();
     }
-    
+
 }

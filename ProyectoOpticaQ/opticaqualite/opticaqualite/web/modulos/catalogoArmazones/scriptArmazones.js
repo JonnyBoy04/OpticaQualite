@@ -94,23 +94,24 @@ function cargarFotografia(objetoInputFile) {
                 return response.json();
             })
             .then(function (data) {
-//                if (data.exception !== null) {
-//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorperm !== null) {
-//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
-//                    return;
-//                }
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorperm != null) {
+                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+                    return;
+                } else {
 
-                document.getElementById("txtIdArmazon").value = data.idArmazon;
-                document.getElementById("txtIdProducto").value = data.producto.idProducto;
-                Swal.fire('', 'Datos del Armazon actualizados correctamente.', 'success');
-                refrescarTabla();
+                    document.getElementById("txtIdArmazon").value = data.idArmazon;
+                    document.getElementById("txtIdProducto").value = data.producto.idProducto;
+                    Swal.fire('', 'Datos del Armazon actualizados correctamente.', 'success');
+                    refrescarTabla();
+                }
             });
 }
 
@@ -123,23 +124,24 @@ export function refrescarTabla() {
             .then(function (data)
             {
                 console.log(data);
-//                if (data.exception !== null) {
-//                    Swal.fire('',
-//                            'Error interno del servidor. Intente nuevamente más tarde',
-//                            'error'
-//                            );
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorsec !== null) {
-//                    Swal.fire('', data.errorsec, 'error');
-//                    window.location.replace('index.html');
-//                    return;
-//                }
-                cargarTabla(data);
+                if (data.exception != null) {
+                    Swal.fire('',
+                            'Error interno del servidor. Intente nuevamente más tarde',
+                            'error'
+                            );
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorsec != null) {
+                    Swal.fire('', data.errorsec, 'error');
+                    window.location.replace('index.html');
+                    return;
+                } else {
+                    cargarTabla(data);
+                }
             });
 }
 
@@ -182,19 +184,20 @@ export function eliminar() {
                 return response.json();
             })
             .then(function (data) {
-//                if (data.exception !== null) {
-//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorperm !== null) {
-//                    Swal.fire('', 'No tiene permiso pproductoara realizar esta operación', 'error');
-//                    return;
-//                }
-                refrescarTabla();
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorperm != null) {
+                    Swal.fire('', 'No tiene permiso pproductoara realizar esta operación', 'error');
+                    return;
+                } else {
+                    refrescarTabla();
+                }
 
             });
 
@@ -307,7 +310,7 @@ export function limpiarFormulario() {
     document.getElementById("txtExisArm").value = "";
     document.getElementById("codigoBarraArm").value = "";
     document.getElementById("imgArm").value = null;
-    document.getElementById("txtACodigoImageArm").value ="";
+    document.getElementById("txtACodigoImageArm").value = "";
     document.getElementById("txtIdProducto").value = "";
     document.getElementById("txtIdArmazon").value = "";
     document.getElementById("txtDimenArm").value = "";

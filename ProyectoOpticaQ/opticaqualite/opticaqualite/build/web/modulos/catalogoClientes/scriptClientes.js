@@ -1,26 +1,26 @@
-    /* global fetch, Swal */
+/* global fetch, Swal */
 
 let indexClienteSeleccionado;
 let clientes = [];
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaCliente'),
-                         document.getElementById('tablaCli'));
-                         
-   $('#desplegar').on('click', function () {
+            document.getElementById('tablaCli'));
+
+    $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
         $('#desplegar').css('display', 'none');
-        $('#tablaCli').css('display','none');
-        $('#buscar').css('display','none');
-        
+        $('#tablaCli').css('display', 'none');
+        $('#buscar').css('display', 'none');
+
     });
 
     $('#listar').on('click', function () {
         $('#form').css('display', 'none');
         $('#listar').css('display', 'none');
         $('#desplegar').css('display', 'block');
-        $('#tablaCli').css('display','');
-        $('#buscar').css('display','flex');
+        $('#tablaCli').css('display', '');
+        $('#buscar').css('display', 'flex');
     });
     refrescarTabla();
 }
@@ -75,27 +75,25 @@ export function guardarCliente() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-//                console.log(data);
-//                if (data.exception !== null) {
-//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorperm !== null) {
-//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
-//                    return;
-//                }
-
-                document.getElementById("txtCodigoCliente").value = data.idCliente;
-                document.getElementById("txtCodigoPersona").value = data.persona.idPersona;
-                document.getElementById("txtNumUnico").value = data.numeroUnico;
-                Swal.fire('', 'Datos del cliente actualizados correctamente.', 'success');
-                refrescarTabla();
-                limpiarFormulario();
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorperm != null) {
+                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+                    return;
+                } else {
+                    document.getElementById("txtCodigoCliente").value = data.idCliente;
+                    document.getElementById("txtCodigoPersona").value = data.persona.idPersona;
+                    document.getElementById("txtNumUnico").value = data.numeroUnico;
+                    Swal.fire('', 'Datos del cliente actualizados correctamente.', 'success');
+                    refrescarTabla();
+                    limpiarFormulario();
+                }
             });
 }
 
@@ -123,24 +121,24 @@ export function refrescarTabla() {
             })
             .then(function (data)
             {
-                console.log(data);
-                //                if (data.exception !== null) {
-                //                    Swal.fire('',
-                //                            'Error interno del servidor. Intente nuevamente más tarde',
-                //                            'error'
-                //                            );
-                //                    return;
-                //                }
-                //                if (data.error !== null) {
-                //                    Swal.fire('', data.error, 'warning');
-                //                    return;
-                //                }
-                //                if (data.errorsec !== null) {
-                //                    Swal.fire('', data.errorsec, 'error');
-                //                    window.location.replace('index.html');
-                //                    return;
-                //                }
-                cargarTabla(data);
+                if (data.exception != null) {
+                    Swal.fire('',
+                            'Error interno del servidor. Intente nuevamente más tarde',
+                            'error'
+                            );
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorsec != null) {
+                    Swal.fire('', data.errorsec, 'error');
+                    window.location.replace('index.html');
+                    return;
+                } else {
+                    cargarTabla(data);
+                }
             });
 }
 
@@ -230,7 +228,7 @@ export function limpiarFormulario() {
     document.getElementById("txtCpCli").value = "";
     document.getElementById("txtCiudadCli").value = "";
     document.getElementById("txtEstadoCli").value = "";
-    document.getElementById("txtTelefono").value ="";
+    document.getElementById("txtTelefono").value = "";
     document.getElementById("txtMovil").value = "";
     document.getElementById("txtCorreo").value = "";
     document.getElementById("txtRfc").value = "";
@@ -299,21 +297,20 @@ export function eliminar() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-//                console.log(data);
-//                if (data.exception !== null) {
-//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorperm !== null) {
-//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
-//                    return;
-//                }
-                refrescarTabla();
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorperm != null) {
+                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+                    return;
+                } else {
+                    refrescarTabla();
+                }
             });
 }
 export function borrarCliente() {

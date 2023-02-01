@@ -62,25 +62,24 @@ export function guardarAccesorio() {
             })
             .then(function (data) {
                 console.log(data);
-//                console.log(data);
-//                if (data.exception !== null) {
-//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorperm !== null) {
-//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
-//                    return;
-//                }
-
-                document.getElementById("txtCodigoAccesorio").value = data.idAccesorio;
-                document.getElementById("txtCodigoProducto").value = data.producto.idProducto;
-                Swal.fire('', 'Datos del accesorio actualizados correctamente.', 'success');
-                refrescarTabla();
-                limpiarFormulario();
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorperm != null) {
+                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+                    return;
+                } else {
+                    document.getElementById("txtCodigoAccesorio").value = data.idAccesorio;
+                    document.getElementById("txtCodigoProducto").value = data.producto.idProducto;
+                    Swal.fire('', 'Datos del accesorio actualizados correctamente.', 'success');
+                    refrescarTabla();
+                    limpiarFormulario();
+                }
             });
 }
 
@@ -133,22 +132,22 @@ export function eliminarAccesorio() {
             })
             .then(function (data) {
                 console.log(data);
-//                console.log(data);
-//                if (data.exception !== null) {
-//                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorperm !== null) {
-//                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
-//                    return;
-//                }
-                Swal.fire('Guardado con exito!', '', 'success');
-                refrescarTabla();
-                limpiarFormulario();
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorperm != null) {
+                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+                    return;
+                } else {
+                    Swal.fire('Guardado con exito!', '', 'success');
+                    refrescarTabla();
+                    limpiarFormulario();
+                }
             });
 
 }
@@ -163,23 +162,24 @@ export function refrescarTabla() {
             .then(function (data)
             {
                 console.log(data);
-//                if (data.exception !== null) {
-//                    Swal.fire('',
-//                            'Error interno del servidor. Intente nuevamente más tarde',
-//                            'error'
-//                            );
-//                    return;
-//                }
-//                if (data.error !== null) {
-//                    Swal.fire('', data.error, 'warning');
-//                    return;
-//                }
-//                if (data.errorsec !== null) {
-//                    Swal.fire('', data.errorsec, 'error');
-//                    window.location.replace('index.html');
-//                    return;
-//                }
-                cargarTabla(data);
+                if (data.exception != null) {
+                    Swal.fire('',
+                            'Error interno del servidor. Intente nuevamente más tarde',
+                            'error'
+                            );
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorsec != null) {
+                    Swal.fire('', data.errorsec, 'error');
+                    window.location.replace('index.html');
+                    return;
+                } else {
+                    cargarTabla(data);
+                }
             });
 }
 

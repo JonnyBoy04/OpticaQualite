@@ -149,7 +149,7 @@ public class ControllerLogin {
     
     public boolean validarToken (String t) throws SQLException{
         boolean r = false;
-        String sql = "SELECT * FROM v_empleado WHERE lastToken = '"+t+"'";
+        String sql = "SELECT * FROM v_empleados WHERE lastToken = '"+t+"'";
         ConexionMYSQL conexionMYSQL = new ConexionMYSQL();
         Connection connection = conexionMYSQL.open();
         Statement stm = connection.createStatement();

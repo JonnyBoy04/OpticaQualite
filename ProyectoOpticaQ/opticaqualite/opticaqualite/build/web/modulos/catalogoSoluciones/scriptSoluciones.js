@@ -5,8 +5,8 @@ let soluciones = [];
 
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaSolucion'),
-                         document.getElementById('tablaSol'));
-                         
+            document.getElementById('tablaSol'));
+
     $('#desplegar').on('click', function () {
         $('#form').css('display', 'block');
         $('#listar').css('display', 'block');
@@ -61,11 +61,24 @@ export function guardarSolucion() {
     }).then(response => {
         return response.json();
     }).then(function (data) {
-        document.getElementById("txtIdProducto").value = data.producto.idProducto;
-        document.getElementById("txtIdSolucion").value = data.idSolucion;
-        Swal.fire('', 'Datos de solucion actualizados correctamente.', 'success');
-        refrescarTabla();
-        limpiarFormulario();
+        if (data.exception != null) {
+            Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+            return;
+        }
+        if (data.error != null) {
+            Swal.fire('', data.error, 'warning');
+            return;
+        }
+        if (data.errorperm != null) {
+            Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+            return;
+        } else {
+            document.getElementById("txtIdProducto").value = data.producto.idProducto;
+            document.getElementById("txtIdSolucion").value = data.idSolucion;
+            Swal.fire('', 'Datos de solucion actualizados correctamente.', 'success');
+            refrescarTabla();
+            limpiarFormulario();
+        }
     });
 }
 
@@ -90,7 +103,21 @@ export function refrescarTabla() {
     fetch(url).then(response => {
         return response.json();
     }).then(function (data) {
-        cargarTabla(data);
+        if (data.exception != null) {
+            Swal.fire('', 'Error interno de servidar. Intente nuevamente más tarde.', 'error')
+            return;
+        }
+        if (data.error != null) {
+            Swal.fire('', data.error, 'warning');
+            return;
+        }
+        if (data.errorsec != null) {
+            Swal.fire('', data.errorsec, 'error');
+            window.location.replace('index.html');
+            return;
+        } else {
+            cargarTabla(data);
+        }
     });
 }
 export function cargarTabla(data) {
@@ -144,12 +171,12 @@ export function limpiarFormulario() {
     document.getElementById("txtPrecioVentaSol").value = "";
     document.getElementById("txtExistenciasSol").value = "";
     JsBarcode("#codigoBarraSol", " ", {
-            format: "CODE128A",
-            lineColor: "#000",
-            width: 1.5,
-            height: 30,
-            displayValue: true
-        });
+        format: "CODE128A",
+        lineColor: "#000",
+        width: 1.5,
+        height: 30,
+        displayValue: true
+    });
     document.getElementById("btnDeleteSol").classList.add("disabled");
     document.getElementById("btnAddSol").classList.remove("disabled");
     indexSolucionSeleccionado = 0;
@@ -193,7 +220,6 @@ export function eliminarSolucion() {
         datosSolucion: JSON.stringify(solucion)
     };
 
-    console.log(datos);
     params = new URLSearchParams(datos);
 
     fetch("api/solucion/delete", {
@@ -205,8 +231,21 @@ export function eliminarSolucion() {
                 return response.json();
             })
             .then(function (data) {
-                refrescarTabla();
-                limpiarFormulario();
+                if (data.exception != null) {
+                    Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errorperm != null) {
+                    Swal.fire('', 'No tiene permiso para realizar esta operación', 'error');
+                    return;
+                } else {
+                    refrescarTabla();
+                    limpiarFormulario();
+                }
             });
 }
 

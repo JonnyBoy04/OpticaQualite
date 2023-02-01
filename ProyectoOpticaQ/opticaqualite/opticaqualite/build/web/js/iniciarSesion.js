@@ -178,28 +178,6 @@ function iniciarSesion() {
     });
 }
 
-function accesar() {
-    let login = document.getElementById('login').value;
-    let password = document.getElementById('password').value;
-    let datos = null;
-    let params = null;
-    datos = JSON.stringify({usuario: login, contrasenia: password});
-    params = new URLSearchParams(datos);
-    fetch("api/log/in",
-            {
-                method: "POST",
-                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
-                body: params
-            })
-            .then(response => {
-                return response.json();
-            })
-            .then(function (data)
-            {
-                alert("Bienvenido " + data.persona.nombre);
-            });
-}
-
 function cerrarSesion() {
     Swal.fire({
         title: '¿Cerrar sesion?',
