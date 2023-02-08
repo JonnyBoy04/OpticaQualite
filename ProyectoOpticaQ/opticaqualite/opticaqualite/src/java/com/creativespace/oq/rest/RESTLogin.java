@@ -68,7 +68,7 @@ public class RESTLogin extends Application {
                       """;
             } else {
                 out = """
-                      {"error":"Eliminación de token realizada"}
+                      {"error":"Eliminación de token no realizada"}
                       """;
             }
         } catch (JsonParseException jpe) {

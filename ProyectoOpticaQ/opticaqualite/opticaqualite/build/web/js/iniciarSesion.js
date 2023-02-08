@@ -1,3 +1,5 @@
+/* global Swal */
+
 async function encriptar(texto) {
     const encoder = new TextEncoder();//Invocamos la clase que convierte un String
     const data = encoder.encode(texto);
@@ -200,7 +202,7 @@ function cerrarSesion() {
                     })
                     .then(function (data) {
                         if (data.exception != null) {
-                            Swal.fire('', 'Error interno de servidar. Intente nuevamente más tarde.', 'error')
+                            Swal.fire('', 'Error interno de servidar. Intente nuevamente más tarde.', 'error');
                             return;
                         }
                         if (data.error != null) {

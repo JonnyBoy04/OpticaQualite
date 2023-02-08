@@ -1,6 +1,10 @@
 /* global fetch, Swal, CryptoJS */
 let indexAccesorioSeleccionado;
 let accesorios = [];
+let currentUser = localStorage.getItem('currentUser');
+let user = JSON.parse(currentUser);
+let token = user.usuario.lastToken;
+
 export function inicializar() {
     configureTableFilter(document.getElementById('txtBusquedaAccesorio'),
             document.getElementById('tablaAcc'));
@@ -49,7 +53,7 @@ export function guardarAccesorio() {
         datosAccesorio: JSON.stringify(accesorio)
     };
 
-    params = new URLSearchParams(datos);
+    params = new URLSearchParams({datosAccesorio: JSON.stringify(accesorio), token: token});
 
     fetch("api/accesorio/save",
             {
@@ -119,7 +123,7 @@ export function eliminarAccesorio() {
         datosAccesorio: JSON.stringify(accesorio)
     };
 
-    params = new URLSearchParams(datos);
+    params = new URLSearchParams({datosAccesorio: JSON.stringify(accesorio), token: token});
 
     fetch("api/accesorio/delete",
             {

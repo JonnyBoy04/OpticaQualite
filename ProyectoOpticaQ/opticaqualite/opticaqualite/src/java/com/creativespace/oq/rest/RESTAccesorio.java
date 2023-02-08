@@ -1,6 +1,7 @@
 package com.creativespace.oq.rest;
 
 import com.creativespace.oq.controller.ControllerAccesorio;
+import com.creativespace.oq.controller.ControllerLogin;
 import com.creativespace.oq.model.Accesorio;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -44,20 +45,28 @@ public class RESTAccesorio {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("save")
-    public Response save(@FormParam("datosAccesorio") @DefaultValue("") String datosAccesorio) {
+    public Response save(@FormParam("datosAccesorio") @DefaultValue("") String datosAccesorio,
+            @FormParam("token") @DefaultValue("") String token) {
         String out = null;
         Gson gson = new Gson();
         Accesorio acc = null;
         ControllerAccesorio ca = new ControllerAccesorio();
+        ControllerLogin cl = new ControllerLogin();
 
         try {
-            acc = gson.fromJson(datosAccesorio, Accesorio.class);
-            if (acc.getIdAccesorio() == 0) {
-                ca.insert(acc);
+            if (cl.validarToken(token)) {
+                acc = gson.fromJson(datosAccesorio, Accesorio.class);
+                if (acc.getIdAccesorio() == 0) {
+                    ca.insert(acc);
+                } else {
+                    ca.update(acc);
+                }
+                out = gson.toJson(acc);
             } else {
-                ca.update(acc);
+                out = """
+                      {"error":"No tiene permisos para realizar esta operación."}
+                      """;
             }
-            out = gson.toJson(acc);
         } catch (JsonParseException jpe) {
             jpe.printStackTrace();
             out = """
@@ -77,16 +86,24 @@ public class RESTAccesorio {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("delete")
-    public Response delete(@FormParam("datosAccesorio") @DefaultValue("") String datosAccesorio) {
+    public Response delete(@FormParam("datosAccesorio") @DefaultValue("") String datosAccesorio,
+            @FormParam("token") @DefaultValue("") String token) {
         String out = null;
         Gson gson = new Gson();
         Accesorio acc = null;
         ControllerAccesorio ca = new ControllerAccesorio();
+        ControllerLogin cl = new ControllerLogin();
 
         try {
-            acc = gson.fromJson(datosAccesorio, Accesorio.class);
-            ca.delete(acc.getProducto().getIdProducto());
-            out = gson.toJson(acc);
+            if (cl.validarToken(token)) {
+                acc = gson.fromJson(datosAccesorio, Accesorio.class);
+                ca.delete(acc.getProducto().getIdProducto());
+                out = gson.toJson(acc);
+            } else {
+                out = """
+                      {"error":"No tiene permisos para realizar esta operación."}
+                      """;
+            }
         } catch (JsonParseException jpe) {
             jpe.printStackTrace();
             out = """

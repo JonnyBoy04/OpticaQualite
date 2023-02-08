@@ -79,23 +79,23 @@ export function guardarEmpleado() {
         empleado.persona.idPersona = parseInt(document.getElementById("txtCodigoPersona").value);
         empleado.usuario.idUsuario = parseInt(document.getElementById("txtCodigoUsuario").value);
     }
-    
+
     empleado.persona.nombre = document.getElementById("txtNombreEmp").value;
     empleado.persona.apellidoPaterno = document.getElementById("txtApePaternoEmp").value;
     empleado.persona.apellidoMaterno = document.getElementById("txtApeMaternoEmp").value;
     empleado.persona.genero = document.getElementById("txtGeneroEmp").value;
     empleado.persona.fechaNacimiento = document.getElementById("txtFechaNacimiento").value;
     empleado.persona.calle = document.getElementById("txtCalle").value;
-    empleado.persona.numero = document.getElementById("txtNumero").value;
+    empleado.persona.numero = sanitizar(document.getElementById("txtNumero").value);
     empleado.persona.colonia = document.getElementById("txtColonia").value;
-    empleado.persona.cp = document.getElementById("txtCp").value;
+    empleado.persona.cp = sanitizar(document.getElementById("txtCp").value);
     empleado.persona.ciudad = document.getElementById("txtCiudad").value;
     empleado.persona.estado = document.getElementById("txtEstado").value;
-    empleado.persona.telCasa = document.getElementById("txtTelefonoEmp").value;
-    empleado.persona.telMovil = document.getElementById("txtMovilEmp").value;
-    empleado.persona.rfc = document.getElementById("txtRfcEmp").value;
+    empleado.persona.telCasa = sanitizar(document.getElementById("txtTelefonoEmp").value);
+    empleado.persona.telMovil = sanitizar(document.getElementById("txtMovilEmp").value);
+    empleado.persona.rfc = normalizar(document.getElementById("txtRfcEmp").value);
     empleado.persona.email = document.getElementById("txtCorreoEmp").value;
-    empleado.usuario.nombre = document.getElementById("txtUsuarioEmp").value;
+    empleado.usuario.nombre = sanitizar(document.getElementById("txtUsuarioEmp").value);
     empleado.usuario.contrasenia = document.getElementById("txtContraseniaEmp").value;
     empleado.usuario.rol = document.getElementById("txtRol").value;
     empleado.numeroUnico = document.getElementById("txtNumUnicoEmp").value;
@@ -170,16 +170,16 @@ export function eliminarEmpleado() {
     empleado.persona.genero = document.getElementById("txtGeneroEmp").value;
     empleado.persona.fechaNacimiento = document.getElementById("txtFechaNacimiento").value;
     empleado.persona.calle = document.getElementById("txtCalle").value;
-    empleado.persona.numero = document.getElementById("txtNumero").value;
+    empleado.persona.numero = sanitizar(document.getElementById("txtNumero").value);
     empleado.persona.colonia = document.getElementById("txtColonia").value;
-    empleado.persona.cp = document.getElementById("txtCp").value;
+    empleado.persona.cp = sanitizar(document.getElementById("txtCp").value);
     empleado.persona.ciudad = document.getElementById("txtCiudad").value;
     empleado.persona.estado = document.getElementById("txtEstado").value;
-    empleado.persona.telCasa = document.getElementById("txtTelefonoEmp").value;
-    empleado.persona.telMovil = document.getElementById("txtMovilEmp").value;
-    empleado.persona.rfc = document.getElementById("txtRfcEmp").value;
+    empleado.persona.telCasa = sanitizar(document.getElementById("txtTelefonoEmp").value);
+    empleado.persona.telMovil = sanitizar(document.getElementById("txtMovilEmp").value);
+    empleado.persona.rfc = normalizar(document.getElementById("txtRfcEmp").value);
     empleado.persona.email = document.getElementById("txtCorreoEmp").value;
-    empleado.usuario.nombre = document.getElementById("txtUsuarioEmp").value;
+    empleado.usuario.nombre = sanitizar(document.getElementById("txtUsuarioEmp").value);
     empleado.usuario.contrasenia = document.getElementById("txtContraseniaEmp").value;
     empleado.usuario.rol = document.getElementById("txtRol").value;
     empleado.numeroUnico = document.getElementById("txtNumUnicoEmp").value;
@@ -235,7 +235,12 @@ export function borrarEmpleado() {
 
 export function refrescarTabla() {
     let url = "api/empleado/getAll";
-    fetch(url)
+    let params = {filtro:'',token:token};
+    fetch(url, {
+        method: "POST",
+        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+        body: params
+    })
             .then(response => {
                 return response.json();
             })
@@ -404,6 +409,7 @@ const expresiones = {
     telefono: /^\d{7,10}$/, // 7 a 14 numeros.
     correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 };
+
 const campos = {
     usuario: false,
     password: false,
@@ -414,6 +420,7 @@ const campos = {
     telefonoM: false,
     correo: false
 };
+
 const validarFormulario = (e) => {
     switch (e.target.name) {
         case "usuario":
@@ -442,6 +449,7 @@ const validarFormulario = (e) => {
             break;
     }
 };
+
 const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input.value)) {
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');

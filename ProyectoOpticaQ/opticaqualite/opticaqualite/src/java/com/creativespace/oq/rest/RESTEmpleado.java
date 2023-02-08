@@ -19,18 +19,26 @@ import java.util.List;
 @Path("empleado")
 public class RESTEmpleado {
 
-    @GET
+    @POST
     @Path("getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll(@QueryParam("filtro") @DefaultValue("") String filtro) {
+    public Response getAll(@FormParam("filtro") @DefaultValue("") String filtro,
+            @FormParam("token") @DefaultValue("") String token) {
         String out = null;
         ControllerEmpleado ce = null;
         List<Empleado> empleados = null;
+        ControllerLogin cl = new ControllerLogin();
 
         try {
-            ce = new ControllerEmpleado();
-            empleados = ce.getAll(filtro);
-            out = new Gson().toJson(empleados);
+            if (cl.validarToken(token)) {
+                ce = new ControllerEmpleado();
+                empleados = ce.getAll(filtro);
+                out = new Gson().toJson(empleados);
+            }else{
+                out ="""
+                       {"error":"Token expirado"}
+                   """;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             out = "{\"exeption\":\"Error interno del servidor.\"}";
