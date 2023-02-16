@@ -7,7 +7,9 @@ let moduloAccesorio;
 let moduloTratamientos;
 let moduloCliente;
 let moduloMaterial;
+let moduloVenta;
 let index;
+
 
 function cargarMenu() {
     $(document).ready(function () {
@@ -207,12 +209,23 @@ function cargarModuloPresupuesto() {
 }
 
 function cargarModuloVentas() {
-    Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Modulo en construcción!',
-        footer: 'El modulo se terminara en el siguiente cuatrimestre'
-    });
+    fetch("modulos/catalogoVenta/moduloVentas.html")
+            .then(
+                    function (response) {
+                        return response.text();
+                    }
+            )
+            .then(
+                    function (html) {
+                        document.getElementById("contenedor").innerHTML = html;
+                        import("../modulos/catalogoVenta/scriptVentas.js").then(
+                                function (controller) {
+                                    moduloVenta = controller;
+                                    moduloVenta.inicializar();
+                                }
+                        );
+                    }
+            );
 }
 
 function cargarModuloPagos() {

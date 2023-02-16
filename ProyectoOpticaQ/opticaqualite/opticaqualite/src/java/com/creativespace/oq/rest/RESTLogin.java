@@ -26,7 +26,6 @@ public class RESTLogin extends Application {
         String out = null;
         ControllerLogin cl = new ControllerLogin();
         Empleado emp = null;
-        RESTEmpleado re = new RESTEmpleado();
 
         try {
             emp = cl.login(usuario.getNombre(), usuario.getContrasenia());

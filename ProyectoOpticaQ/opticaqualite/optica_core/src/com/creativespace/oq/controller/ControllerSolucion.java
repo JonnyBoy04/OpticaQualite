@@ -1,10 +1,8 @@
 package com.creativespace.oq.controller;
 
-import com.creativespace.oq.model.Usuario;
 import com.creativespace.oq.db.ConexionMYSQL;
 import com.creativespace.oq.model.Producto;
 import com.creativespace.oq.model.Solucion;
-import com.mysql.cj.MysqlType;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;

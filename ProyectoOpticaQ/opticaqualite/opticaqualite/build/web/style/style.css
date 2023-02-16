@@ -7,6 +7,17 @@
     margin: 0px;
     font-family: 'Roboto', sans-serif;
 }
+body::-webkit-scrollbar{
+    width: 10px;
+}
+
+body::-webkit-scrollbar-thumb{
+    background: #4c64a8;
+    border-radius: 50px; 
+}
+body::-webkit-scrollbar-thumb:hover{
+    background: #970BD6;
+}
 body {
     font-family: 'Roboto', sans-serif;
     background-image: linear-gradient(to right, #141e30 20%, #1c2a4a 40%, #243b55 60%, #2c3e70 80%, #3c5185 100%, #4c64a8, #5c7fcc, #6c99e6),url(../src/bg.jpg);
@@ -465,6 +476,44 @@ hr{
         background-color: #666666;
         color: white !important;
     }
+}
+.btnA {
+ padding: 15px 25px;
+ border: unset;
+ border-radius: 15px;
+ color: #212121;
+ z-index: 1;
+ background: #e8e8e8;
+ position: relative;
+ font-weight: 1000;
+ font-size: 17px;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms;
+ overflow: hidden;
+}
+
+.btnA::before {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ height: 100%;
+ width: 0;
+ border-radius: 15px;
+ background-color: #212121;
+ z-index: -1;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms
+}
+
+.btnA:hover {
+ color: #e8e8e8;
+}
+
+.btnA:hover::before {
+ width: 100%;
 }
 /*Autor: Carlos R. Andrade*/
 
