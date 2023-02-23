@@ -2,11 +2,21 @@
     <div class="text-white barraSup text-center ">
         <h2>Gestión de Ventas</h2> 
     </div>
-    <div id="buscar" style="width: 50%; padding: 20px 0 20px 30px">
-        <label for="txtBusquedaVenta" class="form-label mx-3">Buscar Producto</label><br>
-        <input type="text" class="input-buscar" id="txtBusquedaVenta" style="width: 100%;">
+    <div class="d-flex justify-content-between m-3 align-items-end">
+        <div id="buscar" style="width: 50%;">
+            <input type="text" class="input-buscar" id="txtBusquedaVenta" style="width: 100%;" placeholder="Buscar Producto">
+        </div>
+        <div>
+            <button id="desplegar">Ventas</button>
+            <button id="listar" style="display: none;" class="learn-more">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Productos</span>
+            </button>
+        </div>
     </div>
-    <table id="tablaVenta" class="tabla table table-striped table-bordered table-hover">
+    <table id="tablaVenta" class="tabla table table-striped table-bordered table-hover text-center">
         <thead class="table-dark">
             <tr>
                 <th>Codigo de Barras</th>
@@ -18,4 +28,23 @@
         <tbody id="tblVenta">
         </tbody>
     </table>
+    <div id="tablaProducto" style="display: none;">
+        <table class="tabla table table-striped table-bordered table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Codigo de Barras</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Descuento</th>
+                </tr>
+            </thead>
+            <tbody id="tblProducto">
+            </tbody>
+        </table>
+        <div class="p-2">
+            <button id="venta" onclick="moduloVenta.generarCompra();"> <span>Generar Venta</span>
+            </button>
+        </div>
+    </div>
 </main>
