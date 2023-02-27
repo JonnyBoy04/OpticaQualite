@@ -65,7 +65,6 @@ export function guardarAccesorio() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data.exception != null) {
                     Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
                     return;
@@ -135,7 +134,6 @@ export function eliminarAccesorio() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data.exception != null) {
                     Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
                     return;
@@ -165,7 +163,6 @@ export function refrescarTabla() {
             })
             .then(function (data)
             {
-                console.log(data);
                 if (data.exception != null) {
                     Swal.fire('',
                             'Error interno del servidor. Intente nuevamente más tarde',

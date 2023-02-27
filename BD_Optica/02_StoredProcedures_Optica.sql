@@ -557,5 +557,12 @@ WHERE idUsuario = var_idUsuario;
 $$
 DELIMITER ;
 
-
-
+DELIMITER //
+CREATE TRIGGER modificar_existencia
+AFTER INSERT ON venta_producto
+FOR EACH ROW
+BEGIN
+UPDATE producto SET existencias = existencias - NEW.cantidad
+WHERE idProducto = NEW.idProducto;
+END //
+DELIMITER ;

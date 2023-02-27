@@ -101,7 +101,6 @@ export function eliminarMaterial() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data.exception != null) {
                     Swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
                     return;

@@ -1,6 +1,6 @@
 /* global Swal */
 let productos;
-let indexVS;
+let indexVS = 0;
 let ventas = [];
 let ventaProducto = [];
 let currentUser = localStorage.getItem('currentUser');
@@ -95,20 +95,34 @@ export function agregar(index) {
             '<td>' + productos[index].codigoBarras + '</td>' +
             '<td>' + productos[index].nombre + '</td>' +
             '<td>$' + productos[index].precioVenta + '</td>' +
-            '<td><input type="number" name="text" value="1" class="input" id="txtCantidad' + indexVS + '" placeholder="Cantidad"></td>' +
-            '<td><input type="number" name="text" value="0" class="input" id="txtDescuento' + indexVS + '" placeholder="Descuento"></td>' +
+            '<td><input onchange="moduloVenta.calcularPrecioTotal();" type="number" name="text" value="1" class="input" id="txtCantidad' + indexVS + '" placeholder="Cantidad"></td>' +
+            '<td><input onchange="moduloVenta.calcularPrecioTotal();" type="number" name="text" value="0" class="input" id="txtDescuento' + indexVS + '" placeholder="Descuento"></td>' +
             '</tr>';
 
     document.getElementById("tblProducto").innerHTML += renglon;
     ventaProducto[indexVS] = {producto: productos[index], cantidad: 1,
         precioUnitario: productos[index].precioVenta, descuento: 0};
     indexVS++;
+    calcularPrecioTotal();
 }
 
-export function generarCompra() {
-    
+export function calcularPrecioTotal() {
+    let precio = 0;
+    let cantidadTotal = 0;
     ventaProducto.forEach(function (venta) {
-        venta.cantidad = cantidad = document.getElementById("txtCantidad" + ventaProducto.indexOf(venta)).value;
+        venta.cantidad = document.getElementById("txtCantidad" + ventaProducto.indexOf(venta)).value;
+        venta.descuento = document.getElementById("txtDescuento" + ventaProducto.indexOf(venta)).value;
+        precio = venta.precioUnitario * venta.cantidad;
+        cantidadTotal += precio;
+    });
+    document.getElementById("txtCantidadTotal").innerHTML = "Total: $" + cantidadTotal;
+}
+
+
+
+export function generarCompra() {
+    ventaProducto.forEach(function (venta) {
+        venta.cantidad = document.getElementById("txtCantidad" + ventaProducto.indexOf(venta)).value;
         venta.descuento = document.getElementById("txtDescuento" + ventaProducto.indexOf(venta)).value;
     });
 

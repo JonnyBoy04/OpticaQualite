@@ -51,7 +51,6 @@ export function guardarSolucion() {
         datosSolucion: JSON.stringify(solucion)
     };
 
-    console.log(datos);
     params = new URLSearchParams(datos);
 
     fetch("api/solucion/save", {
@@ -123,7 +122,6 @@ export function refrescarTabla() {
 export function cargarTabla(data) {
     let cuerpo = "";
     soluciones = data;
-    console.log(soluciones);
     soluciones.forEach(function (solucion) {
         let registro =
                 '<tr onclick="moduloSoluciones.seleccionarSolucion(' + soluciones.indexOf(solucion) + ');">' +

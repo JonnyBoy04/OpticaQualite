@@ -101,7 +101,6 @@ export function guardarEmpleado() {
     empleado.numeroUnico = document.getElementById("txtNumUnicoEmp").value;
 
     params = new URLSearchParams({datosEmpleado: JSON.stringify(empleado), token: token});
-    console.log(params);
 
     //header es la cabecera de la petición y en body se mandan los parametros
     fetch("api/empleado/save",
@@ -197,7 +196,6 @@ export function eliminarEmpleado() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
                 if (data.exception != null) {
                     Swal.fire('', 'Error interno de servidar. Intente nuevamente más tarde.', 'error')
                     return;

@@ -123,7 +123,6 @@ export function refrescarTabla() {
             })
             .then(function (data)
             {
-                console.log(data);
                 if (data.exception != null) {
                     Swal.fire('',
                             'Error interno del servidor. Intente nuevamente más tarde',
