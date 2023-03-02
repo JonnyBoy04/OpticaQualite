@@ -106,59 +106,91 @@ export function agregar(index) {
     calcularPrecioTotal();
 }
 
+
+
 export function calcularPrecioTotal() {
     let precio = 0;
+    let precioT = 0;
     let cantidadTotal = 0;
+    let descuento;
     ventaProducto.forEach(function (venta) {
         venta.cantidad = document.getElementById("txtCantidad" + ventaProducto.indexOf(venta)).value;
         venta.descuento = document.getElementById("txtDescuento" + ventaProducto.indexOf(venta)).value;
+        descuento = venta.descuento / 100;
         precio = venta.precioUnitario * venta.cantidad;
-        cantidadTotal += precio;
+        precioT = precio - (precio*descuento);
+        cantidadTotal += precioT;
     });
     document.getElementById("txtCantidadTotal").innerHTML = "Total: $" + cantidadTotal;
 }
 
+function validarExistencias() {
+    let cantidad;
+    let existencias;
+    for (var i = 0; i < ventaProducto.length; i++) {
+        cantidad = document.getElementById("txtCantidad" + i).value;
+        existencias = ventaProducto[i].producto.existencias;
+        console.log(cantidad);
+        console.log(existencias);
+        if (cantidad > existencias) {
+            return false;
+        }
+    }
+    return true;
+}
 
+function limpiarTabla() {
+    document.getElementById("tblProducto").innerHTML = "";
+    document.getElementById("txtCantidadTotal").innerHTML = "Total: $" + 0;
+    ventaProducto = [];
+    indexVS = 0;
+}
 
 export function generarCompra() {
-    ventaProducto.forEach(function (venta) {
-        venta.cantidad = document.getElementById("txtCantidad" + ventaProducto.indexOf(venta)).value;
-        venta.descuento = document.getElementById("txtDescuento" + ventaProducto.indexOf(venta)).value;
-    });
+    if (validarExistencias()) {
+        ventaProducto.forEach(function (venta) {
+            venta.cantidad = document.getElementById("txtCantidad" + ventaProducto.indexOf(venta)).value;
+            venta.descuento = document.getElementById("txtDescuento" + ventaProducto.indexOf(venta)).value;
+        });
 
-    let venta = {clave: Math.random() * 100000000, empleado: user};
-    let dvp = {venta: venta, listaVP: ventaProducto};
-    let datosVP = {datosVP: JSON.stringify(dvp)};
-    let params = new URLSearchParams(datosVP);
+        let venta = {clave: Math.random() * 100000000, empleado: user};
+        let dvp = {venta: venta, listaVP: ventaProducto};
+        let datosVP = {datosVP: JSON.stringify(dvp)};
+        let params = new URLSearchParams(datosVP);
 
-    fetch("api/venta/guardar",
-            {
-                method: "POST",
-                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
-                body: params
-            })
-            .then(response => {
-                return response.json();
-            })
-            .then(function (data)
-            {
-                if (data.exception != null) {
-                    Swal.fire('',
-                            'Error interno del servidor. Intente nuevamente más tarde',
-                            'error'
-                            );
-                    return;
-                }
-                if (data.error != null) {
-                    Swal.fire('', data.error, 'warning');
-                    return;
-                }
-                if (data.errorsec != null) {
-                    Swal.fire('', data.errorsec, 'error');
-                    window.location.replace('index.html');
-                    return;
-                } else {
-                    Swal.fire('', 'Venta realizada correctamente.', 'success');
-                }
-            });
+        fetch("api/venta/guardar",
+                {
+                    method: "POST",
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                    body: params
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(function (data)
+                {
+                    if (data.exception != null) {
+                        Swal.fire('',
+                                'Error interno del servidor. Intente nuevamente más tarde',
+                                'error'
+                                );
+                        return;
+                    }
+                    if (data.error != null) {
+                        Swal.fire('', data.error, 'warning');
+                        return;
+                    }
+                    if (data.errorsec != null) {
+                        Swal.fire('', data.errorsec, 'error');
+                        window.location.replace('index.html');
+                        return;
+                    } else {
+                        Swal.fire('', 'Venta realizada correctamente.', 'success');
+                    }
+                });
+        limpiarTabla();
+        refrescarTabla();
+    } else {
+        Swal.fire('', "Producto agotado", 'warning');
+    }
 }
