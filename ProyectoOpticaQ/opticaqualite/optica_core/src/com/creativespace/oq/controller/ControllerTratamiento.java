@@ -1,6 +1,6 @@
 package com.creativespace.oq.controller;
 
-import com.creativespace.oq.db.ConexionMYSQL;
+import com.creativespace.oq.db.ConexionMySQL;
 import com.creativespace.oq.model.Tratamiento;
 import java.sql.PreparedStatement;
 import java.sql.CallableStatement;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ControllerTratamiento {
     public void insertarTratamiento(Tratamiento t) throws SQLException{
         String sql = "INSERT INTO tratamiento (nombre, precioCompra, precioVenta) VALUES(?,?,?);";
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         CallableStatement ctm = conn.prepareCall(sql);
         ctm.setString(1, t.getNombre());
@@ -32,7 +32,7 @@ public class ControllerTratamiento {
     
     public void actualizarTratamiento(Tratamiento t) throws SQLException{
         String sql = "UPDATE tratamiento SET nombre = ?, precioCompra = ?, precioVenta = ? WHERE idTratamiento = ?;";
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         CallableStatement ctm = conn.prepareCall(sql);
         ctm.setString(1, t.getNombre());
@@ -49,7 +49,7 @@ public class ControllerTratamiento {
     public List<Tratamiento> obtenerTratamiento(String filtro) throws Exception {
         String sql = "SELECT * FROM tratamiento";
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         PreparedStatement ptm = conn.prepareStatement(sql);
         ResultSet rs = ptm.executeQuery();

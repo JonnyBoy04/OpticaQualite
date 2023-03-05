@@ -4,7 +4,7 @@ public class PruebaConexion {
 
     public static void main(String[] args) {
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         
         try{
             connMySQL.open();

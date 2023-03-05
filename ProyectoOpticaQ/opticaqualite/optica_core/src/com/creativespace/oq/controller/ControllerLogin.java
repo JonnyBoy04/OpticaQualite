@@ -1,6 +1,6 @@
 package com.creativespace.oq.controller;
 
-import com.creativespace.oq.db.ConexionMYSQL;
+import com.creativespace.oq.db.ConexionMySQL;
 import com.creativespace.oq.model.Empleado;
 import com.creativespace.oq.model.Persona;
 import com.creativespace.oq.model.Usuario;
@@ -31,7 +31,7 @@ public class ControllerLogin {
         String sql = "SELECT * FROM v_empleados VE WHERE VE.nombreUsuario = ? AND VE.contrasenia = ?";
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -108,7 +108,7 @@ public class ControllerLogin {
     public void generarToken(Empleado e) throws Exception {
         String sql = "CALL generarToken(?,?)";
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -129,7 +129,7 @@ public class ControllerLogin {
 
         String sql = "UPDATE usuario SET lastToken='' WHERE idUsuario = ?";
 
-        ConexionMYSQL conexionMYSQL = new ConexionMYSQL();
+        ConexionMySQL conexionMYSQL = new ConexionMySQL();
 
         Connection connection = conexionMYSQL.open();
 
@@ -150,7 +150,7 @@ public class ControllerLogin {
     public boolean validarToken (String t) throws SQLException{
         boolean r = false;
         String sql = "SELECT * FROM v_empleados WHERE lastToken = '"+t+"'";
-        ConexionMYSQL conexionMYSQL = new ConexionMYSQL();
+        ConexionMySQL conexionMYSQL = new ConexionMySQL();
         Connection connection = conexionMYSQL.open();
         Statement stm = connection.createStatement();
         ResultSet rs = stm.executeQuery(sql);

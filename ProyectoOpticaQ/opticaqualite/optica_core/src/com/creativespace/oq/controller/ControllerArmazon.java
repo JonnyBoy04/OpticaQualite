@@ -1,6 +1,6 @@
 package com.creativespace.oq.controller;
 
-import com.creativespace.oq.db.ConexionMYSQL;
+import com.creativespace.oq.db.ConexionMySQL;
 import com.creativespace.oq.model.Armazon;
 import com.creativespace.oq.model.Producto;
 import java.sql.CallableStatement;
@@ -29,7 +29,7 @@ public class ControllerArmazon {
         String codigoBarrasGenerado = "";
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -77,7 +77,7 @@ public class ControllerArmazon {
                 + "?,?,?) }"; // Datos de retorno 
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -110,7 +110,7 @@ public class ControllerArmazon {
         String sql = "UPDATE producto SET estatus = 0 where idProducto = " + id;
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -128,7 +128,7 @@ public class ControllerArmazon {
         String sql = "SELECT * FROM v_armazones";
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();

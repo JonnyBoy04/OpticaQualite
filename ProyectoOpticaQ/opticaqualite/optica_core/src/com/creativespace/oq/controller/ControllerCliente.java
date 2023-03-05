@@ -1,6 +1,6 @@
 package com.creativespace.oq.controller;
 
-import com.creativespace.oq.db.ConexionMYSQL;
+import com.creativespace.oq.db.ConexionMySQL;
 import com.creativespace.oq.model.Cliente;
 import com.creativespace.oq.model.Persona;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class ControllerCliente {
         int idClienteGenerado = -1;
         String numeroUnicoGenerado = "";
         //crear una objeto de conexion a mysql
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -76,7 +76,7 @@ public class ControllerCliente {
         String sql = "{call actualizarCliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}"; // IDs
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -112,7 +112,7 @@ public class ControllerCliente {
     public void delete(int id) throws Exception {
         String sql = "UPDATE cliente SET estatus = 0 WHERE idCliente = " + id;
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -129,7 +129,7 @@ public class ControllerCliente {
         String sql = "SELECT * FROM v_clientes";
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();

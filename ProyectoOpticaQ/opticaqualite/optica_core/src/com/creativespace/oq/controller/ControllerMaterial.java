@@ -1,6 +1,6 @@
 package com.creativespace.oq.controller;
 
-import com.creativespace.oq.db.ConexionMYSQL;
+import com.creativespace.oq.db.ConexionMySQL;
 import com.creativespace.oq.model.Material;
 import java.sql.PreparedStatement;
 import java.sql.CallableStatement;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ControllerMaterial {
     public void insertarMaterial(Material m) throws SQLException{
         String sql = "INSERT INTO material (nombre, precioCompra, precioVenta) VALUES(?,?,?);";
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         CallableStatement ctm = conn.prepareCall(sql);
         ctm.setString(1, m.getNombre());
@@ -33,7 +33,7 @@ public class ControllerMaterial {
     
     public void actualizarMaterial(Material m) throws SQLException{
         String sql = "UPDATE material SET nombre = ?, precioCompra = ?, precioVenta = ? WHERE idMaterial = ?;";
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         CallableStatement ctm = conn.prepareCall(sql);
         ctm.setString(1, m.getNombre());
@@ -50,7 +50,7 @@ public class ControllerMaterial {
     public void borrarMaterial(int id) throws Exception {
         String sql = "UPDATE material SET estatus = 0 WHERE idMaterial = "+id;
         
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         Statement stm = conn.createStatement();
         stm.executeUpdate(sql);
@@ -61,7 +61,7 @@ public class ControllerMaterial {
     public List<Material> obtenerMaterial(String filtro) throws Exception {
         String sql = "SELECT * FROM material";
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         PreparedStatement ptm = conn.prepareStatement(sql);
         ResultSet rs = ptm.executeQuery();

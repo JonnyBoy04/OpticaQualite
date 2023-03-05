@@ -1,6 +1,6 @@
 package com.creativespace.oq.controller;
 
-import com.creativespace.oq.db.ConexionMYSQL;
+import com.creativespace.oq.db.ConexionMySQL;
 import com.creativespace.oq.model.DetalleVP;
 import com.creativespace.oq.model.Producto;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class ControllerVenta {
     public List<Producto> getAll(String filtro) throws Exception {
         String sql = "SELECT * FROM optiqalumnos.producto WHERE nombre LIKE '%" + filtro + "%' OR codigoBarras = '" + filtro + "'";
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
@@ -56,7 +56,7 @@ public class ControllerVenta {
     }
 
     public boolean generarVenta(DetalleVP dvp) {
-        ConexionMYSQL connMYSQL = new ConexionMYSQL();
+        ConexionMySQL connMYSQL = new ConexionMySQL();
         Connection conn = connMYSQL.open();
         Statement stm = null;
         ResultSet rs = null;

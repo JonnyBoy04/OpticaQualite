@@ -1,7 +1,7 @@
 package com.creativespace.oq.controller;
 
 import com.creativespace.oq.model.Usuario;
-import com.creativespace.oq.db.ConexionMYSQL;
+import com.creativespace.oq.db.ConexionMySQL;
 import com.creativespace.oq.model.Empleado;
 import com.creativespace.oq.model.Persona;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class ControllerEmpleado {
         String numeroUnicoGenerado = "";
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -127,7 +127,7 @@ public class ControllerEmpleado {
         String sql = "CALL buscarEmpleado('" + filtro + "')";
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -169,7 +169,7 @@ public class ControllerEmpleado {
                 "?, ?, ?)}"; // IDs
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();
@@ -219,7 +219,7 @@ public class ControllerEmpleado {
     public void delete(int id) throws Exception {
         String sql = "UPDATE empleado SET estatus = 0 WHERE idEmpleado = " + id;
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         Statement stm = conn.createStatement();
         stm.executeUpdate(sql);
@@ -239,7 +239,7 @@ public class ControllerEmpleado {
         String sql = "SELECT * FROM v_empleados";
 
         //Con este objeto nos vamos a conectar a la Base de Datos:
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
 
         //Abrimos la conexión con la Base de Datos:
         Connection conn = connMySQL.open();

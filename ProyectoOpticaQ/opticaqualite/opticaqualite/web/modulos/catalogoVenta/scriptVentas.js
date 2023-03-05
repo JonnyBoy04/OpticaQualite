@@ -90,23 +90,39 @@ export function cargarTabla(data) {
 }
 
 export function agregar(index) {
-    let renglon =
-            '<tr>' +
-            '<td>' + productos[index].codigoBarras + '</td>' +
-            '<td>' + productos[index].nombre + '</td>' +
-            '<td>$' + productos[index].precioVenta + '</td>' +
-            '<td><input onchange="moduloVenta.calcularPrecioTotal();" type="number" name="text" value="1" class="input" id="txtCantidad' + indexVS + '" placeholder="Cantidad"></td>' +
-            '<td><input onchange="moduloVenta.calcularPrecioTotal();" type="number" name="text" value="0" class="input" id="txtDescuento' + indexVS + '" placeholder="Descuento"></td>' +
-            '</tr>';
+    if (productos[index].existencias > 0) {
+        let renglon =
+                '<tr>' +
+                '<td>' + productos[index].codigoBarras + '</td>' +
+                '<td>' + productos[index].nombre + '</td>' +
+                '<td>$' + productos[index].precioVenta + '</td>' +
+                '<td><input onchange="moduloVenta.calcularPrecioTotal();" type="number" name="text" value="1" class="input" id="txtCantidad' + indexVS + '" placeholder="Cantidad"></td>' +
+                '<td><input onchange="moduloVenta.calcularPrecioTotal();" type="number" name="text" value="0" class="input" id="txtDescuento' + indexVS + '" placeholder="Descuento"></td>' +
+                '</tr>';
 
-    document.getElementById("tblProducto").innerHTML += renglon;
-    ventaProducto[indexVS] = {producto: productos[index], cantidad: 1,
-        precioUnitario: productos[index].precioVenta, descuento: 0};
-    indexVS++;
-    calcularPrecioTotal();
+        document.getElementById("tblProducto").innerHTML += renglon;
+        ventaProducto[indexVS] = {producto: productos[index], cantidad: 1,
+            precioUnitario: productos[index].precioVenta, descuento: 0};
+        indexVS++;
+        calcularPrecioTotal();
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Producto agregado',
+            showConfirmButton: false,
+            timer: 800
+        });
+    } else {
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'El producto se ha agotado',
+            showConfirmButton: false,
+            timer: 800
+        });
+    }
+
 }
-
-
 
 export function calcularPrecioTotal() {
     let precio = 0;
@@ -118,7 +134,7 @@ export function calcularPrecioTotal() {
         venta.descuento = document.getElementById("txtDescuento" + ventaProducto.indexOf(venta)).value;
         descuento = venta.descuento / 100;
         precio = venta.precioUnitario * venta.cantidad;
-        precioT = precio - (precio*descuento);
+        precioT = precio - (precio * descuento);
         cantidadTotal += precioT;
     });
     document.getElementById("txtCantidadTotal").innerHTML = "Total: $" + cantidadTotal;
@@ -130,9 +146,8 @@ function validarExistencias() {
     for (var i = 0; i < ventaProducto.length; i++) {
         cantidad = document.getElementById("txtCantidad" + i).value;
         existencias = ventaProducto[i].producto.existencias;
-        console.log(cantidad);
-        console.log(existencias);
         if (cantidad > existencias) {
+            Swal.fire('', "El producto " + ventaProducto[i].producto.nombre + " esta agotado.", 'warning');
             return false;
         }
     }
@@ -190,7 +205,5 @@ export function generarCompra() {
                 });
         limpiarTabla();
         refrescarTabla();
-    } else {
-        Swal.fire('', "Producto agotado", 'warning');
     }
 }

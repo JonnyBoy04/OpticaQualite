@@ -1,6 +1,6 @@
 package com.creativespace.oq.controller;
 
-import com.creativespace.oq.db.ConexionMYSQL;
+import com.creativespace.oq.db.ConexionMySQL;
 import com.creativespace.oq.model.Accesorio;
 import com.creativespace.oq.model.Producto;
 import java.sql.PreparedStatement;
@@ -38,7 +38,7 @@ public class ControllerAccesorio {
         int idProductoGenerado = -1;
         String codigoBarrasGenerado = "";
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         CallableStatement ctm = conn.prepareCall(sql);
 
@@ -81,7 +81,7 @@ public class ControllerAccesorio {
                      {CALL actualizarAccesorio(?, ?, ?, ?, ?, ?, ?)}
                      """;
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         CallableStatement ctm = conn.prepareCall(sql);
 
@@ -110,7 +110,7 @@ public class ControllerAccesorio {
     public void delete(int id) throws Exception {
         String sql = "UPDATE producto SET estatus = 0 WHERE idProducto = " + id;
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         Statement stm = conn.createStatement();
         stm.executeUpdate(sql);
@@ -128,7 +128,7 @@ public class ControllerAccesorio {
     public List<Accesorio> getAll(String filtro) throws Exception {
         String sql = "SELECT * FROM v_accesorios";
 
-        ConexionMYSQL connMySQL = new ConexionMYSQL();
+        ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();
         PreparedStatement ptm = conn.prepareStatement(sql);
         ResultSet rs = ptm.executeQuery();

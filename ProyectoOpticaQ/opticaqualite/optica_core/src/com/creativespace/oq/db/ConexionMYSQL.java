@@ -7,7 +7,7 @@ import java.sql.DriverManager;
  * Clase de conexion a base de datos se inicializa la variable conn de tipo Connection
  * @author jonnyboy
  */
-public class ConexionMYSQL {
+public class ConexionMySQL {
 
     Connection conn;
 
