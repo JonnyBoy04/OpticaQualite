@@ -1,0 +1,84 @@
+<!-- Modulo de DVPL -->
+<main>
+    <div class="text-white barraSup text-center justify-content-center">
+        <h2>Gesti&oacute;n de Detalle venta presupuesto lentes </h2> 
+    </div>
+    <!-- Tabla de datos -->
+    <hr>
+    <div class="d-flex justify-content-between m-3 align-items-end">
+        <div id="buscar" style="width: 50%">
+            <label for="txtBusquedaCliente" class="form-label">Buscar Cliente</label><br>
+            <input type="text" class="formulario__input" id="txtBusquedaCliente" style="width: 100%">
+        </div>
+    </div>
+    <div id="formularioDvpl">
+        <form class="mx-3">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="altura">Altura de oblea:</label>
+                        <input type="number" value="0" class="form-control" id="altura" name="altura">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="cantidad">Cantidad:</label>
+                        <input onchange="moduloVL.calcularPrecioTotal();" type="number" value="1" class="form-control" id="cantidad" name="altura">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="descuento">Descuento:</label>
+                        <input onchange="moduloVL.calcularPrecioTotal();" type="number" value="0" class="form-control" id="descuento" name="altura">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="examen">Examen de vista:</label>
+                        <select class="form-control" id="examen" name="examen">
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="mica">Tipo de Mica:</label>
+                        <select class="form-control" id="mica" name="mica">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="material">Material:</label>
+                        <select class="form-control" id="material" name="material">
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="armazon">Armazón:</label>
+                        <select class="form-control" id="armazon" name="armazón">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group my-2">
+                    <h3>Tratamientos</h3>
+                    <div id="contenedor-tratamientos"></div>
+                </div>
+            </div>
+        </form>
+        <div class="p-2">
+            <button onclick="moduloVL.generarVentaLente();" id="venta"><span>Generar Venta</span></button>
+            <h1 id="txtCantidadTotalL">Total: $0</h1>
+        </div>
+    </div>
+</main>

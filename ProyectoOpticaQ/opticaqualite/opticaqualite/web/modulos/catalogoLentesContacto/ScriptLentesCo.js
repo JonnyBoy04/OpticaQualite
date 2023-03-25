@@ -3,40 +3,18 @@
 let indexLenteSeleccionado;
 let Lentes = [];
 
-$('#desplegar').on('click', function(){
-    $('#form').css('display','block');
-    $('#listar').css('display','block');
-    $('#desplegar').css('display','none');
-});
+export function inicializar() {
+    $('#desplegar').on('click', function () {
+        $('#form').css('display', 'block');
+        $('#listar').css('display', 'block');
+        $('#desplegar').css('display', 'none');
+    });
 
-$('#listar').on('click', function(){
-    $('#form').css('display','none');
-    $('#listar').css('display','none');
-    $('#desplegar').css('display','block');
-});
-
-export function addLente() {
-    let     nombreL,
-            marcaL,
-            colorL,
-            queraL;
-
-
-    nombreL = document.getElementById("txtnombreLDC").value;
-    marcaL = document.getElementById("txtmarcaL").value;
-    colorL = document.getElementById("txtcolorL").value;
-    queraL = document.getElementById("txtqueraL").value;
-
-
-    let empleado = {};
-    empleado.nombreL = nombreL;
-    empleado.marcaL = marcaL;
-    empleado.colorL = colorL;
-    empleado.queraL = queraL;
-    empleado.estatus = "Activo";
-    Lentes.push(empleado);
-    clean();
-    loadTabla();
+    $('#listar').on('click', function () {
+        $('#form').css('display', 'none');
+        $('#listar').css('display', 'none');
+        $('#desplegar').css('display', 'block');
+    });
 }
 
 export function loadTabla() {
@@ -80,7 +58,6 @@ export function selectLente(index) {
         document.getElementById("txtmarcaL").value = Lentes[index].marcaL;
         document.getElementById("txtcolorL").value = Lentes[index].colorL;
         document.getElementById("txtqueraL").value = Lentes[index].queraL;
-        document.getElementById("btnUpdateLente").classList.remove("disabled");
         document.getElementById("btnDeleteLente").classList.remove("disabled");
         document.getElementById("btnAddLente").classList.add("disabled");
         indexLenteSeleccionado = index;
@@ -116,27 +93,6 @@ export function deleteLente() {
         }
     });
 }
-export function updateLente() {
-    let     nombreL,
-            marcaL,
-            colorL,
-            queraL;
-
-    nombreL = document.getElementById("txtnombreLDC").value;
-    marcaL = document.getElementById("txtmarcaL").value;
-    colorL = document.getElementById("txtcolorL").value;
-    queraL = document.getElementById("txtqueraL").value;
-
-    let empleado = {};
-    empleado.nombreL = nombreL;
-    empleado.marcaL = marcaL;
-    empleado.colorL = colorL;
-    empleado.queraL = queraL;
-    empleado.estatus = "Activo";
-    Lentes[indexLenteSeleccionado] = empleado;
-    clean();
-    loadTabla();
-}
 
 export function modificarLente() {
     Swal.fire({
@@ -156,16 +112,6 @@ export function modificarLente() {
         }
     });
 }
-
-fetch("modulos/catalogoLentesContacto/datos_lentesContacto.json")
-        .then(response => {
-            return response.json();
-        })
-        .then(function (jsondata) {
-            Lentes = jsondata;
-            loadTabla();
-        }
-        );
 
 //-----------------------------------------------------VALIDACION DE CAMPOS---------------------------------------------------------- 
 const formulario = document.getElementById('formulario');

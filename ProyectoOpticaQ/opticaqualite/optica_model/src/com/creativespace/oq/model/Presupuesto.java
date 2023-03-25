@@ -4,7 +4,7 @@ public class Presupuesto {
 
     int idPresupuesto;
     String clave;
-    int examenDeVista;
+    ExamenDeVista examenDeVista;
 
     public int getIdPresupuesto() {
         return idPresupuesto;
@@ -22,11 +22,11 @@ public class Presupuesto {
         this.clave = clave;
     }
 
-    public int getExamenDeVista() {
+    public ExamenDeVista getExamenDeVista() {
         return examenDeVista;
     }
 
-    public void setExamenDeVista(int examenDeVista) {
+    public void setExamenDeVista(ExamenDeVista examenDeVista) {
         this.examenDeVista = examenDeVista;
     }
 

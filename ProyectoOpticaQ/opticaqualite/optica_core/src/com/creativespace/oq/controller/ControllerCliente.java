@@ -153,6 +153,35 @@ public class ControllerCliente {
         return clientes;
     }
 
+    public List<Cliente> buscarCliente(String filtro) throws Exception {
+        //La consulta SQL a ejecutar:
+        String sql = "SELECT * FROM v_clientes WHERE nombre LIKE '%" + filtro + "%'";
+
+        //Con este objeto nos vamos a conectar a la Base de Datos:
+        ConexionMySQL connMySQL = new ConexionMySQL();
+
+        //Abrimos la conexión con la Base de Datos:
+        Connection conn = connMySQL.open();
+
+        //Con este objeto ejecutaremos la consulta:
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        //Aquí guardaremos los resultados de la consulta:
+        ResultSet rs = pstmt.executeQuery();
+
+        List<Cliente> clientes = new ArrayList<>();
+
+        while (rs.next()) {
+            clientes.add(fill(rs));
+        }
+
+        rs.close();
+        pstmt.close();
+        connMySQL.close();
+
+        return clientes;
+    }
+    
     private Cliente fill(ResultSet rs) throws Exception {
         Cliente c = new Cliente();
         Persona p = new Persona();
@@ -175,7 +204,7 @@ public class ControllerCliente {
         p.setTelMovil(rs.getString("telmovil"));
         c.setIdCliente(rs.getInt("idCliente"));
         c.setNumeroUnico(rs.getString("numeroUnico"));
-        c.setStatus(rs.getInt("estatus"));
+        c.setEstatus(rs.getInt("estatus"));
         c.setPersona(p);
 
         return c;

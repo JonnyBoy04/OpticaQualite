@@ -82,7 +82,7 @@ export function cargarTabla(data) {
                 '<td>' + producto.codigoBarras + '</td>' +
                 '<td>' + producto.nombre + '</td>' +
                 '<td>$' + producto.precioVenta + '</td>' +
-                '<td><button class="btnA" onclick="moduloVenta.agregar(' + ventas.indexOf(producto) + ');">A</button></td>\n\
+                '<td><button class="btnA" onclick="moduloVenta.agregar(' + ventas.indexOf(producto) + ');"><i class="fa-solid fa-plus"></i></button></td>\n\
                 </tr>';
         cuerpo += registro;
     });
@@ -137,6 +137,7 @@ export function calcularPrecioTotal() {
         precioT = precio - (precio * descuento);
         cantidadTotal += precioT;
     });
+    console.log(descuento);
     document.getElementById("txtCantidadTotal").innerHTML = "Total: $" + cantidadTotal;
 }
 
@@ -200,7 +201,7 @@ export function generarCompra() {
                         window.location.replace('index.html');
                         return;
                     } else {
-                        Swal.fire('', 'Venta realizada correctamente.', 'success');
+                        Swal.fire('', data.response, 'success');
                     }
                 });
         limpiarTabla();

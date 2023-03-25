@@ -10,6 +10,7 @@ import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Application;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  * @author Jonathan
  */
 @Path("venta")
-public class RESTVenta {
+public class RESTVenta extends Application{
 
     @Path("obtener")
     @POST
@@ -54,11 +55,11 @@ public class RESTVenta {
             cv = new ControllerVenta();
             if (cv.generarVenta(dvp)) {
                 out = """
-                      {"respuesta":"Venta guardarda correctamente."}
+                      {"response":"Venta Exitosa."}
                       """;
             } else {
                 out = """
-                      {"Error":"Error al guardar la venta"}
+                      {"error":"Error al guardar la venta"}
                       """;
             }
         } catch (JsonParseException jpe) {

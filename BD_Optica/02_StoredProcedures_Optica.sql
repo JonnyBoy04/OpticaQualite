@@ -237,6 +237,53 @@ DELIMITER ;
 
 
 
+-- Stored Procedure para insertar nuevos Lentes de contacto
+DROP PROCEDURE IF EXISTS insertarLC;
+DELIMITER $$
+CREATE PROCEDURE insertarLc(	/*Datos del Producto*/
+								IN  var_codigoBarrasIn  VARCHAR(48),    --  1
+								IN	var_nombre          VARCHAR(64),    --  2
+								IN	var_marca           VARCHAR(64),    --  3
+								IN	var_precioCompra    DOUBLE,         --  4
+								IN  var_precioVenta     DOUBLE,         --  5
+								IN  var_existencias     INT,            --  6
+                                
+                                /*Datos del Lente de contacto*/
+                                IN var_keratometria		INT,			-- 7
+                                IN var_fotografia		LONGTEXT,		-- 8
+                                
+                                /* Valores de Retorno */
+								OUT	var_idProducto      INT,            --  9
+								OUT	var_idLenteContacto     INT,        --  10
+								OUT	var_codigoBarrasOut VARCHAR(48)     --  11
+								)
+BEGIN
+	-- Comenzamos insertando los datos del Producto:
+        INSERT INTO producto (nombre, marca, precioCompra, precioVenta, existencias, estatus)
+                    VALUES   (var_nombre, var_marca, var_precioCompra, var_precioVenta,
+                              var_existencias, 1);
+	-- Obtenemos el ID de Producto que se generó:
+        SET var_idProducto = LAST_INSERT_ID();
+        
+	-- Insertamos dentro de la tabla de lentes de contacto
+		INSERT INTO lente_contacto(idProducto, keratometria, fotografia) VALUES (var_idProducto, var_keratometria, var_fotografia);
+		SET var_idLenteContacto = LAST_INSERT_ID();
+        
+	-- Generamos su codigo de barras:
+        IF var_codigoBarrasIn IS NOT NULL AND var_codigoBarrasIn != '' THEN
+            SET var_codigoBarrasOut = var_codigoBarrasIn;
+        ELSE
+            SET var_codigoBarrasOut = CONCAT('OQ-P', var_idProducto, '-LC', var_idLenteContacto);
+        END IF;
+        
+	-- Actualizamos el registro:
+        UPDATE producto SET codigoBarras = var_codigoBarrasOut WHERE idProducto = var_idProducto;
+END
+$$
+DELIMITER ;
+
+
+
 -- Stored Procedure para insertar nuevas Soluciones.
 DROP PROCEDURE IF EXISTS insertarSolucion;
 DELIMITER $$
@@ -250,7 +297,7 @@ CREATE PROCEDURE insertarSolucion(	/* Datos del Producto */
                                     
                                     /* Valores de Retorno */
                                     OUT	var_idProducto      INT,            --  7
-                                    OUT	var_idSolucion      INT,            --  8
+                                    OUT	var_idSolucion     INT,            --  8
                                     OUT	var_codigoBarrasOut VARCHAR(48)     --  9
 				)                                    
     BEGIN        
@@ -557,12 +604,29 @@ WHERE idUsuario = var_idUsuario;
 $$
 DELIMITER ;
 
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER modificar_existencia
 AFTER INSERT ON venta_producto
 FOR EACH ROW
 BEGIN
 UPDATE producto SET existencias = existencias - NEW.cantidad
 WHERE idProducto = NEW.idProducto;
-END //
+END $$
 DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER modificar_existencia_lc
+AFTER INSERT ON venta_presupuesto
+FOR EACH ROW
+BEGIN
+DECLARE id INT;
+
+SET id = (SELECT idProducto FROM optiqalumnos.armazon WHERE idArmazon = (
+SELECT idArmazon FROM optiqalumnos.presupuesto_lentes WHERE idPresupuesto = NEW.idPresupuestoLentes));
+UPDATE producto SET existencias = existencias - NEW.cantidad
+WHERE idProducto = NEW.idProducto;
+END $$
+DELIMITER ;
+
+SELECT idMaterial FROM optiqalumnos.presupuesto_lentes WHERE idPresupuesto = 1;
+SELECT idArmazon FROM optiqalumnos.presupuesto_lentes WHERE idPresupuesto = 1;

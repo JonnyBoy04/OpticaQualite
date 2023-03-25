@@ -56,23 +56,23 @@ function iniciarSesion() {
                                 <ul>\n\
                                     <li class="has-subnav">\n\
                                         <a  onclick="cargarModuloClientes()">\n\
-                                            <i class="fa fa-users fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                            <i class="icono fa fa-users fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 Clientes\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
                                     <li class="has-subnav">\n\
                                         <a onclick="cargarModuloEmpleados()">\n\
-                                            <i class="fa fa-user fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                            <i class="icono fa fa-user fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 Empleado\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
                                     <li class="has-subnav">\n\
                                         <a  onclick="cargarModuloMateriales()">\n\
-                                           <i class="fa fa-list fa-2x"></i>\n\
+                                           <i class="icono fa fa-list fa-2x"></i>\n\
                                             <span class="nav-text">\n\
                                                 Materiales\n\
                                             </span>\n\
@@ -80,32 +80,32 @@ function iniciarSesion() {
                                     </li>\n\
                                     <li class="has-subnav">\n\
                                         <a  onclick="cargarModuloTratamientos()">\n\
-                                           <i class="fa fa-folder-open fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                           <i class="icono fa fa-folder-open fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 Tratamientos\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
                                     <li>\n\
                                         <a  onclick="cargarModuloArmazon()">\n\
-                                           <i class="fa-solid fa-glasses fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                           <i class="icono fa-solid fa-glasses fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 -Armazones\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
                                     \n\<li>\n\
                                         <a  onclick="cargarModuloAccesorios()">\n\
-                                           <i class="fa-solid fa-basket-shopping fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                           <i class="icono fa-solid fa-basket-shopping fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 -Accesorios\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
                                     <li>\n\
                                        <a  onclick="cargarModuloSoluciones()">\n\
-                                            <i class="fa-solid fa-bottle-droplet fa-2x"></i></i>\n\
-                                            <span class="nav-text">\n\
+                                            <i class="icono fa-solid fa-spray-can-sparkles fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 -Soluciones\n\
                                             </span>\n\
                                         </a>\n\
@@ -113,47 +113,63 @@ function iniciarSesion() {
                                     <li>\n\
                                         <a  onclick="cargarmoduloLDC()">\n\
                                            <i class="fa-solid fa-eye fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 -Lente de contacto\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
-\n\                                 <li>\n\
+                                    <li>\n\
                                         <a  onclick="cargarModuloExamenVista()">\n\
-                                            <i class="fa-solid fa-file-lines fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                            <i class="icono fa-solid fa-file-lines fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 Examen de la vista\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
                                     <li>\n\
                                         <a  onclick="cargarModuloPresupuesto()">\n\
-                                           <i class="fa-solid fa-coins fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                           <i class="icono fa-solid fa-coins fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 Presupuesto\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
                                      <li>\n\
                                         <a  onclick="cargarModuloVentas()">\n\
-                                            <i class="fa-solid fa-bag-shopping fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                            <i class="icono fa-solid fa-bag-shopping fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 Ventas\n\
+                                            </span>\n\
+                                        </a>\n\
+                                    </li>\n\
+                                    <li>\n\
+                                        <a  onclick="cargarmoduloVLDC()">\n\
+                                            <i class="icono fa-brands fa-shopify fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
+                                                VentasLC\n\
+                                            </span>\n\
+                                        </a>\n\
+                                    </li>\n\
+                                   <li>\n\
+                                        <a  onclick="cargarmoduloVL()">\n\
+                                           <i class="icono fa-solid fa-magnifying-glass-dollar fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
+                                                -Venta Lentes\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
                                   <li>\n\
                                         <a  onclick="cargarModuloPagos()">\n\
-                                            <i class="fa-solid fa-money-bill fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                            <i class="icono fa-solid fa-money-bill fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 Pagos\n\
                                             </span>\n\
                                         </a>\n\
                                     </li>\n\
                                      <li>\n\
                                         <a  onclick="cargarModuloCompra()">\n\
-                                            <i class="fa-solid fa-cart-shopping fa-2x"></i>\n\
-                                            <span class="nav-text">\n\
+                                            <i class="icono fa-solid fa-cart-shopping fa-2x"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 Bitacora de copra\n\
                                             </span>\n\
                                         </a>\n\
@@ -162,8 +178,8 @@ function iniciarSesion() {
                                 <ul class="logout">\n\
                                     <li>\n\
                                        <a onclick="cerrarSesion()">\n\
-                                             <i class="gg-log-off"></i>\n\
-                                            <span class="nav-text">\n\
+                                             <i class="icono gg-log-off"></i>\n\
+                                            <span class="txtSpan nav-text">\n\
                                                 Cerrar sesión\n\
                                             </span>\n\
                                         </a>\n\

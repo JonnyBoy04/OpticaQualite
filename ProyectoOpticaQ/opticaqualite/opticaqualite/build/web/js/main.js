@@ -8,6 +8,8 @@ let moduloTratamientos;
 let moduloCliente;
 let moduloMaterial;
 let moduloVenta;
+let moduloVLDC;
+let moduloVL;
 let index;
 
 
@@ -104,6 +106,47 @@ function cargarmoduloLDC() {
                         import("../modulos/catalogoLentesContacto/ScriptLentesCo.js").then(
                                 function (controller) {
                                     moduloLDC = controller;
+                                    moduloLDC.inicializar();
+                                }
+                        );
+                    }
+            );
+}
+
+function cargarmoduloVLDC() {
+    fetch("modulos/catalogoVentaLC/modulo_ventaLC.html")
+            .then(
+                    function (response) {
+                        return response.text();
+                    }
+            )
+            .then(
+                    function (html) {
+                        document.getElementById("contenedor").innerHTML = html;
+                        import("../modulos/catalogoVentaLC/scriptVentaLC.js").then(
+                                function (controller) {
+                                    moduloVLDC = controller;
+                                    moduloVLDC.inicializar();
+                                }
+                        );
+                    }
+            );
+}
+
+function cargarmoduloVL() {
+    fetch("modulos/catalogoVentaL/moduloVentaL.html")
+            .then(
+                    function (response) {
+                        return response.text();
+                    }
+            )
+            .then(
+                    function (html) {
+                        document.getElementById("contenedor").innerHTML = html;
+                        import("../modulos/catalogoVentaL/scriptVentaL.js").then(
+                                function (controller) {
+                                    moduloVL = controller;
+                                    moduloVL.inicializar();
                                 }
                         );
                     }

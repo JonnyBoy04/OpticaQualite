@@ -5,7 +5,7 @@ public class Cliente {
     
     int idCliente;
     String numeroUnico;
-    int status;
+    int estatus;
     Persona persona;
 
     public Persona getPersona() {
@@ -33,12 +33,12 @@ public class Cliente {
         this.numeroUnico = numeroUnico;
     }
 
-    public int getStatus() {
-        return status;
+    public int getEstatus() {
+        return estatus;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setEstatus(int status) {
+        this.estatus = status;
     }
     
     

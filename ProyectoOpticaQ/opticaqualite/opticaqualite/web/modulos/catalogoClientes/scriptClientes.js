@@ -154,7 +154,7 @@ export function cargarTabla(data) {
                 '<td>' + cliente.persona.apellidoPaterno + ' ' + cliente.persona.apellidoMaterno + '</td>' +
                 '<td>' + cliente.persona.genero + '</td>' +
                 '<td>' + cliente.persona.telMovil + '</td>' +
-                '<td>' + cliente.status + '</td></tr>';
+                '<td>' + cliente.estatus + '</td></tr>';
         cuerpo += registro;
     });
     document.getElementById("tblClientes").innerHTML = cuerpo;

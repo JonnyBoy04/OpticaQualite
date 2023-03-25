@@ -6,8 +6,7 @@ package com.creativespace.oq.model;
  */
 public class VentaPresupuesto {
 
-    Venta venta;
-    Presupuesto presupuesto;
+    PresupuestoLentesContacto presupuestoLentesContacto;
     int cantidad;
     double precioUnitario;
     double descuento;
@@ -15,28 +14,19 @@ public class VentaPresupuesto {
     public VentaPresupuesto() {
     }
 
-    public VentaPresupuesto(Venta venta, Presupuesto presupuesto, int cantidad, double precioUnitario, double descuento) {
-        this.venta = venta;
-        this.presupuesto = presupuesto;
+    public VentaPresupuesto(PresupuestoLentesContacto presupuestoLentesContacto, int cantidad, double precioUnitario, double descuento) {
+        this.presupuestoLentesContacto = presupuestoLentesContacto;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.descuento = descuento;
     }
 
-    public Venta getVenta() {
-        return venta;
+    public PresupuestoLentesContacto getPresupuestoLentesContacto() {
+        return presupuestoLentesContacto;
     }
 
-    public void setVenta(Venta venta) {
-        this.venta = venta;
-    }
-
-    public Presupuesto getPresupuesto() {
-        return presupuesto;
-    }
-
-    public void setPresupuesto(Presupuesto presupuesto) {
-        this.presupuesto = presupuesto;
+    public void setPresupuestoLentesContacto(PresupuestoLentesContacto presupuestoLentesContacto) {
+        this.presupuestoLentesContacto = presupuestoLentesContacto;
     }
 
     public int getCantidad() {

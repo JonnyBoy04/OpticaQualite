@@ -37,6 +37,26 @@ public class RESTCliente {
 
         return Response.status(Response.Status.OK).entity(out).build();
     }
+    
+    @POST
+    @Path("buscar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscar(@FormParam("filtro") @DefaultValue("") String filtro) {
+        String out = null;
+        ControllerCliente ce = null;
+        List<Cliente> clientes = null;
+
+        try {
+            ce = new ControllerCliente();
+            clientes = ce.buscarCliente(filtro);
+            out = new Gson().toJson(clientes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            out = "{\"exeption\":\"Error interno del servidor.\"}";
+        }
+
+        return Response.status(Response.Status.OK).entity(out).build();
+    }
 
     @POST
     @Path("save")

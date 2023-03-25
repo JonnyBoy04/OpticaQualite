@@ -1,0 +1,60 @@
+<main>
+    <div class="text-white barraSup text-center ">
+        <h2>Gestión de Ventas</h2> 
+    </div>
+    <div class="d-flex justify-content-between m-3 align-items-end">
+        <div id="buscar" style="width: 50%;">
+            <input type="text" class="input-buscar" id="txtBuscarClienteV" style="width: 100%;" placeholder="Buscar Cliente">
+        </div>
+        <div>
+            <button id="desplegar">Ventas</button>
+            <button id="listar" style="display: none;" class="learn-more">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Productos</span>
+            </button>
+        </div>
+    </div>
+    <div id="tablaBuscarCliente">
+        <h3 class="text-white barraSup text-center">Tabla Cliente</h3>
+        <table class="tabla table table-striped table-bordered table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Examen de vista</th>
+                    <th>Lente de Contacto</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tblBuscarClientesV">
+            </tbody>
+        </table>
+    </div>
+    <div id="tablaVentaPre" style="display: none;">
+        <h3 class="text-white barraSup text-center">Tabla Venta</h3>
+        <table class="tabla table table-striped table-bordered table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Examen de vista</th>
+                    <th>Lente de Contacto</th>
+                    <th>Cantidad</th>
+                    <th>Descuento</th>
+                </tr>
+            </thead>
+            <tbody id="tblVPre">
+            </tbody>
+        </table>
+        <div class="p-2">
+            <button id="venta" onclick="moduloVLDC.generarVenta();"> <span>Generar Venta</span>
+            </button>
+
+            <h1 id="txtCantidadTotal">Total: $0</h1>
+        </div>
+    </div>
+</main>
+
