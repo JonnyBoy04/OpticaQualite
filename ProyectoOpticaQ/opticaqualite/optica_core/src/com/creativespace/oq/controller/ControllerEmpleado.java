@@ -49,7 +49,7 @@ public class ControllerEmpleado {
      */
     public int insert(Empleado e) throws Exception {
         //Definimos la consulta SQL que invoca al Stored Procedure:
-        String sql = "{call insertarEmpleado(?, ?, ?, ?, ?, ?, ?, ?,"
+        String sql = "{CALL insertarEmpleado(?, ?, ?, ?, ?, ?, ?, ?,"
                 + // Datos Personales
                 "?, ?, ?, ?, ?, ?, ?, "
                 + "?, ?, ?, "
@@ -161,7 +161,7 @@ public class ControllerEmpleado {
      */
     public void update(Empleado e) throws Exception {
         //Definimos la consulta SQL que invoca al Stored Procedure:
-        String sql = "{call actualizarEmpleado(  ?, ?, ?, ?, ?, ?, ?, "
+        String sql = "{CALL actualizarEmpleado(  ?, ?, ?, ?, ?, ?, ?, "
                 + //Datos Personales
                 "?, ?, ?, ?, ?, ?, ?, ?,"
                 + "?, ?, ?, "

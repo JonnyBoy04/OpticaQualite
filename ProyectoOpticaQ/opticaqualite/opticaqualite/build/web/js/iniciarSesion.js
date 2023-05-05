@@ -28,6 +28,7 @@ function iniciarSesion() {
             encriptar(password).then((textoEncriptado) => {
                 datos = JSON.stringify({nombre: login, contrasenia: textoEncriptado});
                 params = new URLSearchParams({datos: datos});
+                console.log(params);
                 fetch(url,
                         {
                             method: "POST",

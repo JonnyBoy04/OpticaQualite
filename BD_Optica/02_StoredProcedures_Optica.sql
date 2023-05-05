@@ -627,6 +627,3 @@ UPDATE producto SET existencias = existencias - NEW.cantidad
 WHERE idProducto = NEW.idProducto;
 END $$
 DELIMITER ;
-
-SELECT idMaterial FROM optiqalumnos.presupuesto_lentes WHERE idPresupuesto = 1;
-SELECT idArmazon FROM optiqalumnos.presupuesto_lentes WHERE idPresupuesto = 1;
